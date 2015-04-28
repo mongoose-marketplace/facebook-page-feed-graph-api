@@ -19,7 +19,9 @@ This plugin is shortcode based, unlike many other Facebook social plugins that a
 - Click `Add New` from the plugins page in your wordpress site
 - Search for `Facebook Page Plugin`
 - Click on install
+
 Alternatively
+
 - Upload the entire `facebook-page-feed-graph-api` folder to the `/wp-content/plugins/` directory.
 
 - Activate the plugin through the 'Plugins' menu in WordPress.
