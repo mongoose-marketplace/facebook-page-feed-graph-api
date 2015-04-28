@@ -51,7 +51,7 @@ This will display a Facebook page feed that loads in the page `facebook.com/face
 English.
 
 = My Facebook page isn't loading =
-If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: [facebook-page-plugin href="ABC123"]
+If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: `[facebook-page-plugin href="ABC123"]`
 Also, if your page has only just been created it may take some time for the API to load the page. Just be patient
 
 = What versions of WordPress will this plugin work on? =
