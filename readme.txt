@@ -3,8 +3,8 @@ Contributors: cameronjonesweb
 Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
-Tested up to: 4.2.1
-Stable tag: 1.0.3
+Tested up to: 4.2.2
+Stable tag: 1.1.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -16,15 +16,20 @@ Facebook are depreciating many of their old social plugins on June 23rd 2015, in
 This plugin is shortcode based, unlike many other Facebook social plugins that are available. Simply call the [facebook-page-plugin] shortcode and set your settings within the shortcode. Place it wherever you like, as often as you like.
 
 == Installation ==
-- Click `Add New` from the plugins page in your wordpress site
-- Search for `Facebook Page Plugin`
-- Click on install
 
-Alternatively
+= From your WordPress dashboard =
 
-- Upload the entire `facebook-page-feed-graph-api` folder to the `/wp-content/plugins/` directory.
+1. Click `Add New` from the plugins page in your wordpress site
+2. Search for `Facebook Page Plugin`
+3. Click on install
 
-- Activate the plugin through the 'Plugins' menu in WordPress.
+= Alternatively from wordpress.org =
+
+1. Download the latest version of Facebook Page Plugin
+2. Extract the files
+3. Upload the entire `facebook-page-feed-graph-api` folder to the `/wp-content/plugins/` directory.
+
+4. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
 = How do I use the plugin? =
@@ -61,6 +66,8 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 1. Installation example
 
 == Changelog ==
+= 1.1 =
+* Added filter to allow calling of shortcodes in the text widget
 = 1.0.3 =
 * Fixing screenshot issue
 = 1.0.1 =
@@ -69,5 +76,7 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 * Initial release
 
 == Upgrade Notice ==
+= 1.1 =
+Added filter to allow calling of shortcodes in the text widget
 = 1.0 =
 Initial release
