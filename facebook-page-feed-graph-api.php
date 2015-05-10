@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Feed (Graph API)
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: Display the Facebook Page Plugin from the Graph API. 
- * Version: 1.0.3
+ * Version: 1.1.0
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -63,3 +63,4 @@ function facebook_page_plugin($filter) {
 	return $return;
 }
 add_shortcode( 'facebook-page-plugin', 'facebook_page_plugin' );
+add_filter( 'widget_text', 'do_shortcode' );
