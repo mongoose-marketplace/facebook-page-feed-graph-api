@@ -4,7 +4,7 @@ Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
 Tested up to: 4.2.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -39,9 +39,9 @@ Available settings:
 
 `href` (URL path that comes after facebook.com/)
 
-`width` (number, in pixels, default 340)
+`width` (number, in pixels, between 280 and 500, default 340)
 
-`height` (number, in pixels, default 500)
+`height` (number, in pixels, minimum 130, default 500)
 
 `cover` (true/false, show page cover photo, default true)
 
@@ -53,7 +53,7 @@ Example: `[facebook-page-plugin href="facebook" width="300" height="500" cover="
 This will display a Facebook page feed that loads in the page `facebook.com/facebook` that is 300px wide, 500px high, displaying the page's cover photo, facepile and recent posts. See the screenshots tab for a demonstration of how it will appear
 
 = What languages are available? =
-English.
+English. Multi language support is coming shortly in version 1.2.0
 
 = My Facebook page isn't loading =
 If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: `[facebook-page-plugin href="ABC123"]`
@@ -66,7 +66,9 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 1. Installation example
 
 == Changelog ==
-= 1.1 =
+= 1.1.1 =
+* Fixed height bug
+= 1.1.0 =
 * Added filter to allow calling of shortcodes in the text widget
 = 1.0.3 =
 * Fixing screenshot issue
@@ -76,7 +78,9 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 * Initial release
 
 == Upgrade Notice ==
-= 1.1 =
+= 1.1.1 =
+Fixed height bug
+= 1.1.0 =
 Added filter to allow calling of shortcodes in the text widget
-= 1.0 =
+= 1.0.0 =
 Initial release
