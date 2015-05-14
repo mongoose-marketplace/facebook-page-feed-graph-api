@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Feed (Graph API)
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: Display the Facebook Page Plugin from the Graph API. 
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -22,12 +22,16 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
+//Hooks
+add_shortcode( 'facebook-page-plugin', 'facebook_page_plugin' );
+add_filter( 'widget_text', 'do_shortcode' );
+
 function facebook_page_plugin($filter) {
 	$return = NULL;
 	$a = shortcode_atts( array(
         'href' => NULL,
-        'width' => NULL,
-		'height' => NULL,
+        'width' => 280,
+		'height' => 130,
 		'cover' => NULL,
 		'facepile' => NULL,
 		'posts' => NULL
@@ -39,7 +43,7 @@ function facebook_page_plugin($filter) {
 			$return .= ' data-width="' . $a['width'] . '"';
 		}
 		if(isset($a['height']) && !empty($a['height'])){
-			$return .= ' data-width="' . $a['height'] . '"';
+			$return .= ' data-height="' . $a['height'] . '"';
 		}
 		if(isset($a['cover']) && !empty($a['cover'])){
 			switch($a['cover']){
@@ -62,5 +66,3 @@ function facebook_page_plugin($filter) {
 	}
 	return $return;
 }
-add_shortcode( 'facebook-page-plugin', 'facebook_page_plugin' );
-add_filter( 'widget_text', 'do_shortcode' );
