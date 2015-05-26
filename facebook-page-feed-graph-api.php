@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Feed (Graph API)
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: Display the Facebook Page Plugin from the Graph API. 
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -25,8 +25,11 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //Hooks
 add_shortcode( 'facebook-page-plugin', 'facebook_page_plugin' );
 add_filter( 'widget_text', 'do_shortcode' );
+add_action( 'wp_dashboard_setup', 'facebook_page_plugin_dashboard_widget' );
+add_action( 'admin_enqueue_scripts', 'facebook_page_plugin_admin_resources' );
+add_action( 'widgets_init', 'facebook_page_plugin_load_widget' );
 
-function facebook_page_plugin($filter) {
+function facebook_page_plugin( $filter ) {
 	$return = NULL;
 	$a = shortcode_atts( array(
         'href' => NULL,
@@ -34,11 +37,13 @@ function facebook_page_plugin($filter) {
 		'height' => 130,
 		'cover' => NULL,
 		'facepile' => NULL,
-		'posts' => NULL
+		'posts' => NULL,
+		'language' => get_bloginfo('language')
     ), $filter );
 	if(isset($a['href']) && !empty($a['href'])){
-		$return .= '<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=191521884244670&version=v2.3";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-		$return .= '<div class="fb-page" data-href="http://facebook.com/' . $a["href"] . '" ';
+		$a['language'] = str_replace("-", "_", $a['language']);
+		$return .= '<div id="fb-root" data-version="1.2.0"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&appId=191521884244670&version=v2.3";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+		$return .= '<div class="fb-page" data-version="1.2.0" data-href="https://facebook.com/' . $a["href"] . '" ';
 		if(isset($a['width']) && !empty($a['width'])){
 			$return .= ' data-width="' . $a['width'] . '"';
 		}
@@ -65,4 +70,226 @@ function facebook_page_plugin($filter) {
 		$return .= '></div>';
 	}
 	return $return;
+}
+
+function facebook_page_plugin_dashboard_widget() {
+	wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', 'Facebook Page Plugin Shortcode Generator', 'facebook_page_plugin_dashboard_widget_callback' );
+}
+
+function facebook_page_plugin_dashboard_widget_callback() {
+    $lang_xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
+    $langs = new SimpleXMLElement($lang_xml);
+	echo '<form>';
+		echo '<p><label>Facebook Page URL: <input type="url" id="fbpp-href" /></label></p>';
+		echo '<p><label>Width (pixels): <input type="number" max="500" min="280" id="fbpp-width" /></label></p>';
+		echo '<p><label>Height (pixels): <input type="number" min="130" id="fbpp-height" /></label></p>';
+		echo '<p><label>Show Cover Photo: <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
+		echo '<p><label>Show Facepile: <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
+		echo '<p><label>Show Posts Feed: <input type="checkbox" value="true" id="fbpp-posts" /></label></p>';
+		echo '<p><label>Language: <select id="fbpp-lang" /><option value="">Site Language</option>';
+		foreach($langs as $lang){
+			echo '<option value="' . $lang->codes->code->standard->representation . '">' . $lang->englishName . '</option>';
+		}
+		echo '</label></p>';
+		echo '<input type="text" readonly="readonly" id="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
+	echo '</form>';
+}
+
+function facebook_page_plugin_admin_resources() {
+	wp_enqueue_script( 'Facebook Page Plugin Admin Scripts', plugin_dir_url( __FILE__ ) . '/js/facebook-page-plugin-admin.js' );
+	wp_enqueue_style( 'Facebook Page Plugin Admin Styles', plugin_dir_url( __FILE__ ) . '/css/facebook-page-plugin-admin.css' );
+}
+
+class facebook_page_plugin_widget extends WP_Widget {
+	
+	private $facebookURLs = array('https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/');
+	
+	function __construct() {
+		parent::__construct( 'facebook_page_plugin_widget', __('Facebook Page Plugin', 'facebook_page_plugin'), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook_page_plugin' ), ) 	);
+	}
+	public function widget( $args, $instance ) {
+		$title = apply_filters( 'widget_title', $instance['title'] );
+		if(isset($instance['href']) && !empty($instance['href'])){
+			$href = $instance['href'];
+			foreach($this->facebookURLs as $url){
+				$href = str_replace($url, '', $href);
+			}
+		} else {
+			$href = NULL;
+		}
+		if(isset($instance['width']) && !empty($instance['width'])){
+			$width = $instance['width'];
+		} else {
+			$width = NULL;
+		}
+		if(isset($instance['height']) && !empty($instance['height'])){
+			$height = $instance['height'];
+		} else {
+			$height = NULL;
+		}
+		if(isset($instance['cover']) && !empty($instance['cover'])){
+			$cover = $instance['cover'];
+		} else {
+			$cover = NULL;
+		}
+		if(isset($instance['facepile']) && !empty($instance['facepile'])){
+			$facepile = $instance['facepile'];
+		} else {
+			$facepile = NULL;
+		}
+		if(isset($instance['posts']) && !empty($instance['posts'])){
+			$posts = $instance['posts'];
+		} else {
+			$posts = NULL;
+		}
+		if(isset($instance['language']) && !empty($instance['language'])){
+			$language = $instance['language'];
+		} else {
+			$language = NULL;
+		}
+		echo $args['before_widget'];
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		}
+		if( !empty($href )){
+			$shortcode = '[facebook-page-plugin href="' . $href . '"';
+			if(isset($width) && !empty($width)){
+				$shortcode .= ' width="' . $width . '"';
+			}
+			if(isset($height) && !empty($height)){
+				$shortcode .= ' height="' . $height . '"';
+			}
+			if(isset($cover) && !empty($cover)){
+				$shortcode .= ' cover="' . $cover . '"';
+			}
+			if(isset($facepile) && !empty($facepile)){
+				$shortcode .= ' facepile="' . $facepile . '"';
+			}
+			if(isset($posts) && !empty($posts)){
+				$shortcode .= ' posts="' . $posts . '"';
+			}
+			if(isset($language) && !empty($language)){
+				$shortcode .= ' language="' . $language . '"';
+			}
+			$shortcode .= ']';
+			echo do_shortcode( $shortcode );
+		}
+		echo $args['after_widget'];
+	} 
+	public function form( $instance ) {
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		} else {
+			$title = __( 'New title', 'facebook_page_plugin' );
+		}
+		if ( isset( $instance[ 'href' ] ) ) {
+			$href = $instance[ 'href' ];
+		} else {
+			$href = '';
+		}
+		if ( isset( $instance[ 'width' ] ) ) {
+			$width = $instance[ 'width' ];
+		} else {
+			$width = '';
+		}
+		if ( isset( $instance[ 'height' ] ) ) {
+			$height = $instance[ 'height' ];
+		} else {
+			$height = '';
+		}
+		if ( isset( $instance[ 'cover' ] ) ) {
+			$cover = $instance[ 'cover' ];
+		} else {
+			$cover = 'false';
+		}
+		if ( isset( $instance[ 'facepile' ] ) ) {
+			$facepile = $instance[ 'facepile' ];
+		} else {
+			$facepile = 'false';
+		}
+		if ( isset( $instance[ 'posts' ] ) ) {
+			$posts = $instance[ 'posts' ];
+		} else {
+			$posts = 'false';
+		}
+		if ( isset( $instance[ 'language' ] ) ) {
+			$language = $instance[ 'language' ];
+		} else {
+			$language = '';
+		}
+		$lang_xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
+    	$langs = new SimpleXMLElement($lang_xml);
+		echo '<p>';
+			echo '<label for="' . $this->get_field_id( 'title' ) . '">';
+				echo _e( 'Title:' );
+			echo '</label>';
+			echo '<input class="widefat" id="<?php' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" type="text" value="' . esc_attr( $title ) . '" />';
+		echo '</p>';
+        echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'href' ) . '">';
+            	echo _e( 'Page URL:' );
+             echo '</label>';
+             echo '<input class="widefat" id="' . $this->get_field_id( 'href' ) . '" name="' . $this->get_field_name( 'href' ) . '" type="url" value="' . esc_attr( $href ) . '" required />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'width' ) . '">';
+            	echo _e( 'Width:' );
+             echo '</label>';
+             echo '<input class="widefat" id="' . $this->get_field_id( 'width' ) . '" name="' . $this->get_field_name( 'width' ) . '" type="number" min="280" max="500" value="' . esc_attr( $width ) . '" />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'height' ) . '">';
+            	echo _e( 'Height:' );
+             echo '</label>';
+             echo '<input class="widefat" id="' . $this->get_field_id( 'height' ) . '" name="' . $this->get_field_name( 'height' ) . '" type="number" min="130" value="' . esc_attr( $height ) . '" />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'cover' ) . '">';
+            	echo _e( 'Cover Photo:' );
+             echo '</label>';
+             echo ' <input class="widefat" id="' . $this->get_field_id( 'cover' ) . '" name="' . $this->get_field_name( 'cover' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $cover ), 'true', false ) . ' />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'facepile' ) . '">';
+            	echo _e( 'Show Facepile:' );
+             echo '</label>';
+             echo ' <input class="widefat" id="' . $this->get_field_id( 'facepile' ) . '" name="' . $this->get_field_name( 'facepile' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $facepile ), 'true', false ) . ' />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'posts' ) . '">';
+            	echo _e( 'Show Posts:' );
+             echo '</label>';
+             echo ' <input class="widefat" id="' . $this->get_field_id( 'posts' ) . '" name="' . $this->get_field_name( 'facepile' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $posts ), 'true', false ) . ' />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'language' ) . '">';
+            	echo _e( 'Language:' );
+             echo '</label>';
+             echo '<select class="widefat" id="' . $this->get_field_id( 'language' ) . '" name="' . $this->get_field_name( 'language' ) . '">';
+			 	echo '<option value="">Site Lanugage (default)</option>';
+				foreach($langs as $lang){
+					echo '<option value="' . $lang->codes->code->standard->representation . '"' . selected( esc_attr( $language ), $lang->codes->code->standard->representation, false ) . '>' . $lang->englishName . '</option>';
+				}
+			 echo '</select>';
+         echo '</p>';
+	}
+		
+	// Updating widget replacing old instances with new
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['href'] = ( ! empty( $new_instance['href'] ) ) ? strip_tags( $new_instance['href'] ) : '';
+		$instance['width'] = ( ! empty( $new_instance['width'] ) ) ? strip_tags( $new_instance['width'] ) : '';
+		$instance['height'] = ( ! empty( $new_instance['height'] ) ) ? strip_tags( $new_instance['height'] ) : '';
+		$instance['cover'] = ( ! empty( $new_instance['cover'] ) ) ? strip_tags( $new_instance['cover'] ) : '';
+		$instance['facepile'] = ( ! empty( $new_instance['facepile'] ) ) ? strip_tags( $new_instance['facepile'] ) : '';
+		$instance['posts'] = ( ! empty( $new_instance['posts'] ) ) ? strip_tags( $new_instance['posts'] ) : '';
+		$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? strip_tags( $new_instance['language'] ) : '';
+	return $instance;
+	}
+} // Class wpb_widget ends here
+
+// Register and load the widget
+function facebook_page_plugin_load_widget() {
+	register_widget( 'facebook_page_plugin_widget' );
 }
