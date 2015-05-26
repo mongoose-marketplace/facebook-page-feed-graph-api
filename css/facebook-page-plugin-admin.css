@@ -1,0 +1,4 @@
+#facebook-page-plugin-shortcode-generator p:after{clear:both;display:table;content:" ";}
+#facebook-page-plugin-shortcode-generator input:not([type="checkbox"]),#facebook-page-plugin-shortcode-generator select{width:50%;}
+#facebook-page-plugin-shortcode-generator input,#facebook-page-plugin-shortcode-generator select{float:right;}
+#facebook-page-plugin-shortcode-generator #facebook-page-plugin-shortcode-generator-output{width:100%;float:none;}
