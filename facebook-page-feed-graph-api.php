@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Facebook Page Feed (Graph API)
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
- * Description: Display the Facebook Page Plugin from the Graph API. 
- * Version: 1.2.1
+ * Description: Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 136 different languages
+ * Version: 1.2.2
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -42,8 +42,8 @@ function facebook_page_plugin( $filter ) {
     ), $filter );
 	if(isset($a['href']) && !empty($a['href'])){
 		$a['language'] = str_replace("-", "_", $a['language']);
-		$return .= '<div id="fb-root" data-version="1.2.0"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&appId=191521884244670&version=v2.3";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-		$return .= '<div class="fb-page" data-version="1.2.0" data-href="https://facebook.com/' . $a["href"] . '" ';
+		$return .= '<div id="fb-root" data-version="1.2.2"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&appId=191521884244670&version=v2.3";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+		$return .= '<div class="fb-page" data-version="1.2.2" data-href="https://facebook.com/' . $a["href"] . '" ';
 		if(isset($a['width']) && !empty($a['width'])){
 			$return .= ' data-width="' . $a['width'] . '"';
 		}
@@ -259,7 +259,7 @@ class facebook_page_plugin_widget extends WP_Widget {
         	 echo '<label for="<?php' . $this->get_field_id( 'posts' ) . '">';
             	echo _e( 'Show Posts:' );
              echo '</label>';
-             echo ' <input class="widefat" id="' . $this->get_field_id( 'posts' ) . '" name="' . $this->get_field_name( 'facepile' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $posts ), 'true', false ) . ' />';
+             echo ' <input class="widefat" id="' . $this->get_field_id( 'posts' ) . '" name="' . $this->get_field_name( 'posts' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $posts ), 'true', false ) . ' />';
          echo '</p>';
 		 echo '<p>';
         	 echo '<label for="<?php' . $this->get_field_id( 'language' ) . '">';

@@ -1,14 +1,14 @@
 === Facebook Page Plugin ===
 Contributors: cameronjonesweb
-Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widget,shortcode generator,plugin,admin,sidebar,facebook page
+Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widget,shortcode generator,plugin,admin,sidebar,facebook page,multilingual
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
 Tested up to: 4.2.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-Display the Facebook Page Plugin from the Graph API.
+Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 136 different languages
 
 == Description ==
 Facebook are depreciating many of their old social plugins on June 23rd 2015, including Activity Feed, Facepile, Like Box and Recommendations. As such, many WordPress plugins that utilise these social plugins will soon stop working. This plugin instead uses the Graph API v2.3 to guarantee your WordPress site continues to have full Facebook support.
@@ -76,6 +76,8 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 3. The new shortcode generator dashboard widget
 
 == Changelog ==
+= 1.2.2 =
+* Fixed posts option for widget
 = 1.2.1 =
 * Fixed readme bug
 = 1.2.0 =
@@ -94,6 +96,8 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 * Initial release
 
 == Upgrade Notice ==
+= 1.2.2 =
+This version addresses a fix for the posts option not working in the widget. Please update immediately.
 = 1.2.0 =
 This version includes multilingual support, a custom widget and a shortcode generator on the admin dashboard. It is highly recommeded that you update.
 = 1.1.1 =
