@@ -4,7 +4,7 @@ Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
 Tested up to: 4.2.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -37,7 +37,7 @@ If you like the plugin, please take the time to leave a review.
 = How do I use the plugin? =
 As of version 1.2.0, a custom widget has been included. If you wish to display your Facebook Page Plugin in a widget area it is recommended that you use the widget. Simply drag and drop the widget into the widget area and fill out the form.
 
-If you require a shortcode, it is recommended that you use the shortcode generator on your site dashboard. Simply fill in the relevant information and then copy the 
+If you require a shortcode, it is recommended that you use the shortcode generator on your site dashboard. Simply fill in the relevant information and then copy the generated shortcode and paste in the post or widget area where you want the plugin to appear.
 
 The Facebook Page Plugin uses a shortcode to insert the page feed. You set your settings within the shortcode.
 `[facebook-page-plugin setting="value"]` 
@@ -76,6 +76,8 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 3. The new shortcode generator dashboard widget
 
 == Changelog ==
+= 1.2.1 =
+* Fixed readme bug
 = 1.2.0 =
 * Added multilingual support. Language can be specified in the shortcode, otherwise it is retrievd from the site settings.
 * Added a shortcode generator dashboard widget to allow easier creation of the shortcode
