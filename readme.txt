@@ -1,19 +1,25 @@
 === Facebook Page Plugin ===
 Contributors: cameronjonesweb
-Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widget,shortcode generator,plugin,admin,sidebar,facebook page,multilingual
+Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widget,shortcode generator,plugin,admin,sidebar,facebook page,multilingual,like box,facebook like box
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
 Tested up to: 4.2.2
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 136 different languages
+It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 136 different languages
 
 == Description ==
 Facebook are depreciating many of their old social plugins on June 23rd 2015, including Activity Feed, Facepile, Like Box and Recommendations. As such, many WordPress plugins that utilise these social plugins will soon stop working. This plugin instead uses the Graph API v2.3 to guarantee your WordPress site continues to have full Facebook support.
 
 This plugin can be used by added the widget to a widget area and filling out the form, or by using the `[facebook-page-plugin]` shortcode to display the plugin wherever you like, as often as you like.
+
+Features:
+* Add your Facebook page to any widget area with the custom Facebook Page Plugin widget
+* Add your Facebook page to any page content or text widget area using the shortcode
+* Includes a shortcode generator on the admin dashboard for easy generating of the shortcode
+* Uses your site language by default, but you can display your Facebook page in all 136 languages that Facebook supports
 
 If you like the plugin, please take the time to leave a review.
 
@@ -76,6 +82,8 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 3. The new shortcode generator dashboard widget
 
 == Changelog ==
+= 1.2.3 =
+* Fixed bug where the admin dashboard and widgets pages would break if the WordPress installation is running on localhost and there is no internet connection
 = 1.2.2 =
 * Fixed posts option for widget
 = 1.2.1 =
@@ -96,6 +104,8 @@ Shortcodes were introduced in WordPress 2.5, so theorectially it should work on 
 * Initial release
 
 == Upgrade Notice ==
+= 1.2.3 =
+This version fixes a bug where the admin dashboard and widgets pages would break if the WordPress installation is running on localhost and there is no internet connection. While not imperative to most sites it is recommeded that you update if you work on a localhost or virtual machine
 = 1.2.2 =
 This version addresses a fix for the posts option not working in the widget. Please update immediately.
 = 1.2.0 =
