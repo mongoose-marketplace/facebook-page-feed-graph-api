@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 136 different languages
- * Version: 1.2.4
+ * Version: 1.2.5
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -44,8 +44,8 @@ function facebook_page_plugin( $filter ) {
     ), $filter );
 	if(isset($a['href']) && !empty($a['href'])){
 		$a['language'] = str_replace("-", "_", $a['language']);
-		$return .= '<div id="fb-root" data-version="1.2.3"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&appId=191521884244670&version=v2.3";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-		$return .= '<div class="fb-page" data-version="1.2.3" data-href="https://facebook.com/' . $a["href"] . '" ';
+		$return .= '<div id="fb-root" data-version="1.2.5"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&appId=191521884244670&version=v2.3";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+		$return .= '<div class="fb-page" data-version="1.2.5" data-href="https://facebook.com/' . $a["href"] . '" ';
 		if(isset($a['width']) && !empty($a['width'])){
 			$return .= ' data-width="' . $a['width'] . '"';
 		}
@@ -323,7 +323,7 @@ function facebook_page_plugin_admin_notice() {
 		global $current_user ;
 		$user_id = $current_user->ID;
 		if ( !get_user_meta( $user_id, 'facebook_page_plugin_admin_notice_ignore' ) || get_user_meta( $user_id, 'facebook_page_plugin_admin_notice_ignore' ) === false ) {
-			echo '<div class="updated notice is-dismissible"><p>Thank you for using the Facebook Page Plugin. If you enjoy using it, please take the time to <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api?rate=5#postform" target="_blank">leave a review</a>. Thanks. <a href="?facebook_page_plugin_admin_notice_ignore=0" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></a></p></div>';
+			echo '<div class="updated" id="facebook-page-plugin-review"><p>Thank you for using the Facebook Page Plugin. If you enjoy using it, please take the time to <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api?rate=5#postform" target="_blank">leave a review</a>. Thanks. <a href="?facebook_page_plugin_admin_notice_ignore=0" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></a></p></div>';
 		}
 	}
 }
