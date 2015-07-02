@@ -27,11 +27,17 @@
                 $shortcode += 'facepile="' + $facepile + '" ';
                 var $posts = $('#fbpp-posts').prop("checked");
                 $shortcode += 'posts="' + $posts + '" ';
+				var $cta = $('#fbpp-cta').prop("checked");
+                $shortcode += 'cta="' + $cta + '" ';
+				var $small = $('#fbpp-small').prop("checked");
+                $shortcode += 'small="' + $small + '" ';
+				var $adapt = $('#fbpp-adapt').prop("checked");
+                $shortcode += 'adapt="' + $adapt + '" ';
 				var $lang = $('#fbpp-lang').val();
 				if($lang.length > 0){
                     $shortcode += 'lang="' + $lang + '" ';
                 }
-                $shortcode += ' ]';
+                $shortcode += ']';
                 $('#facebook-page-plugin-shortcode-generator-output').val($shortcode);
             }
         });
