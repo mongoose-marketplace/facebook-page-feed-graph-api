@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 136 different languages
- * Version: 1.2.5
+ * Version: 1.3.0
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -35,17 +35,20 @@ function facebook_page_plugin( $filter ) {
 	$return = NULL;
 	$a = shortcode_atts( array(
         'href' => NULL,
-        'width' => 280,
+        'width' => 340,
 		'height' => 130,
 		'cover' => NULL,
 		'facepile' => NULL,
 		'posts' => NULL,
-		'language' => get_bloginfo('language')
+		'language' => get_bloginfo('language'),
+		'cta' => NULL,
+		'small' => NULL,
+		'adapt' => NULL,
     ), $filter );
 	if(isset($a['href']) && !empty($a['href'])){
 		$a['language'] = str_replace("-", "_", $a['language']);
-		$return .= '<div id="fb-root" data-version="1.2.5"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&appId=191521884244670&version=v2.3";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-		$return .= '<div class="fb-page" data-version="1.2.5" data-href="https://facebook.com/' . $a["href"] . '" ';
+		$return .= '<div id="fb-root" data-version="1.2.6"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&appId=191521884244670&version=v2.3";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+		$return .= '<div class="fb-page" data-version="1.2.6" data-href="https://facebook.com/' . $a["href"] . '" ';
 		if(isset($a['width']) && !empty($a['width'])){
 			$return .= ' data-width="' . $a['width'] . '"';
 		}
@@ -53,21 +56,28 @@ function facebook_page_plugin( $filter ) {
 			$return .= ' data-height="' . $a['height'] . '"';
 		}
 		if(isset($a['cover']) && !empty($a['cover'])){
-			switch($a['cover']){
-				case "true":
-				$a['cover'] = false;
-				break;
-				case "false":
-				$a['cover'] = true;
-				break;
-			}
-			$return .= ' data-hide-cover="' . $a['cover'] . '"';
+			if($a['cover'] == "false"){
+				$return .= ' data-hide-cover="true"';
+			} else if($a['cover'] == "true"){
+				$return .= ' data-hide-cover="false"';
+			}	
 		}
 		if(isset($a['facepile']) && !empty($a['facepile'])){
 			$return .= ' data-show-facepile="' . $a['facepile'] . '"';
 		}
 		if(isset($a['posts']) && !empty($a['posts'])){
-			$return .= ' data-show-posts="true"';
+			$return .= ' data-show-posts="' . $a['posts'] . '"';
+		}
+		if(isset($a['cta']) && !empty($a['cta'])){
+			$return .= ' data-hide-cta="' . $a['cta'] . '"';
+		}
+		if(isset($a['small']) && !empty($a['small'])){
+			$return .= ' data-small-header="' . $a['small'] . '"';
+		}
+		if(isset($a['adapt']) && !empty($a['adapt'])){
+			$return .= ' data-adapt-container-width="' . $a['adapt'] . '"';
+		} else {
+			$return .= ' data-adapt-container-width="false"';
 		}
 		$return .= '></div>';
 	}
@@ -91,11 +101,14 @@ function facebook_page_plugin_dashboard_widget_callback() {
 	}
 	echo '<form>';
 		echo '<p><label>Facebook Page URL: <input type="url" id="fbpp-href" /></label></p>';
-		echo '<p><label>Width (pixels): <input type="number" max="500" min="280" id="fbpp-width" /></label></p>';
-		echo '<p><label>Height (pixels): <input type="number" min="130" id="fbpp-height" /></label></p>';
+		echo '<p><label>Width (pixels): <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
+		echo '<p><label>Height (pixels): <input type="number" min="70" id="fbpp-height" /></label></p>';
 		echo '<p><label>Show Cover Photo: <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
 		echo '<p><label>Show Facepile: <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
 		echo '<p><label>Show Posts Feed: <input type="checkbox" value="true" id="fbpp-posts" /></label></p>';
+		echo '<p><label>Hide Call To Action: <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
+		echo '<p><label>Small Header: <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
+		echo '<p><label>Adaptive Width: <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
 		echo '<p><label>Language: <select id="fbpp-lang" /><option value="">Site Language</option>';
 		if(isset($langs) && !empty($langs)){
 			foreach($langs as $lang){
@@ -154,6 +167,21 @@ class facebook_page_plugin_widget extends WP_Widget {
 		} else {
 			$posts = NULL;
 		}
+		if(isset($instance['cta']) && !empty($instance['cta'])){
+			$cta = $instance['cta'];
+		} else {
+			$cta = NULL;
+		}
+		if(isset($instance['small']) && !empty($instance['small'])){
+			$small = $instance['small'];
+		} else {
+			$small = NULL;
+		}
+		if(isset($instance['adapt']) && !empty($instance['adapt'])){
+			$adapt = $instance['adapt'];
+		} else {
+			$adapt = NULL;
+		}
 		if(isset($instance['language']) && !empty($instance['language'])){
 			$language = $instance['language'];
 		} else {
@@ -182,6 +210,15 @@ class facebook_page_plugin_widget extends WP_Widget {
 			}
 			if(isset($language) && !empty($language)){
 				$shortcode .= ' language="' . $language . '"';
+			}
+			if(isset($cta) && !empty($cta)){
+				$shortcode .= ' cta="' . $cta . '"';
+			}
+			if(isset($small) && !empty($small)){
+				$shortcode .= ' small="' . $small . '"';
+			}
+			if(isset($adapt) && !empty($adapt)){
+				$shortcode .= ' adapt="' . $adapt . '"';
 			}
 			$shortcode .= ']';
 			echo do_shortcode( $shortcode );
@@ -224,6 +261,21 @@ class facebook_page_plugin_widget extends WP_Widget {
 		} else {
 			$posts = 'false';
 		}
+		if ( isset( $instance[ 'cta' ] ) ) {
+			$cta = $instance[ 'cta' ];
+		} else {
+			$cta = 'false';
+		}
+		if ( isset( $instance[ 'small' ] ) ) {
+			$small = $instance[ 'small' ];
+		} else {
+			$small = 'false';
+		}
+		if ( isset( $instance[ 'adapt' ] ) ) {
+			$adapt = $instance[ 'adapt' ];
+		} else {
+			$adapt = 'true';
+		}
 		if ( isset( $instance[ 'language' ] ) ) {
 			$language = $instance[ 'language' ];
 		} else {
@@ -255,13 +307,13 @@ class facebook_page_plugin_widget extends WP_Widget {
         	 echo '<label for="<?php' . $this->get_field_id( 'width' ) . '">';
             	echo _e( 'Width:' );
              echo '</label>';
-             echo '<input class="widefat" id="' . $this->get_field_id( 'width' ) . '" name="' . $this->get_field_name( 'width' ) . '" type="number" min="280" max="500" value="' . esc_attr( $width ) . '" />';
+             echo '<input class="widefat" id="' . $this->get_field_id( 'width' ) . '" name="' . $this->get_field_name( 'width' ) . '" type="number" min="180" max="500" value="' . esc_attr( $width ) . '" />';
          echo '</p>';
 		 echo '<p>';
         	 echo '<label for="<?php' . $this->get_field_id( 'height' ) . '">';
             	echo _e( 'Height:' );
              echo '</label>';
-             echo '<input class="widefat" id="' . $this->get_field_id( 'height' ) . '" name="' . $this->get_field_name( 'height' ) . '" type="number" min="130" value="' . esc_attr( $height ) . '" />';
+             echo '<input class="widefat" id="' . $this->get_field_id( 'height' ) . '" name="' . $this->get_field_name( 'height' ) . '" type="number" min="70" value="' . esc_attr( $height ) . '" />';
          echo '</p>';
 		 echo '<p>';
         	 echo '<label for="<?php' . $this->get_field_id( 'cover' ) . '">';
@@ -280,6 +332,24 @@ class facebook_page_plugin_widget extends WP_Widget {
             	echo _e( 'Show Posts:' );
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'posts' ) . '" name="' . $this->get_field_name( 'posts' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $posts ), 'true', false ) . ' />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'cta' ) . '">';
+            	echo _e( 'Hide Call To Action:' );
+             echo '</label>';
+             echo ' <input class="widefat" id="' . $this->get_field_id( 'cta' ) . '" name="' . $this->get_field_name( 'cta' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $cta ), 'true', false ) . ' />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'small' ) . '">';
+            	echo _e( 'Small Header:' );
+             echo '</label>';
+             echo ' <input class="widefat" id="' . $this->get_field_id( 'small' ) . '" name="' . $this->get_field_name( 'small' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $small ), 'true', false ) . ' />';
+         echo '</p>';
+		 echo '<p>';
+        	 echo '<label for="<?php' . $this->get_field_id( 'adapt' ) . '">';
+            	echo _e( 'Adaptive Width:' );
+             echo '</label>';
+             echo ' <input class="widefat" id="' . $this->get_field_id( 'adapt' ) . '" name="' . $this->get_field_name( 'adapt' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $adapt ), 'true', false ) . ' />';
          echo '</p>';
 		 echo '<p>';
         	 echo '<label for="<?php' . $this->get_field_id( 'language' ) . '">';
@@ -306,6 +376,9 @@ class facebook_page_plugin_widget extends WP_Widget {
 		$instance['cover'] = ( ! empty( $new_instance['cover'] ) ) ? strip_tags( $new_instance['cover'] ) : '';
 		$instance['facepile'] = ( ! empty( $new_instance['facepile'] ) ) ? strip_tags( $new_instance['facepile'] ) : '';
 		$instance['posts'] = ( ! empty( $new_instance['posts'] ) ) ? strip_tags( $new_instance['posts'] ) : '';
+		$instance['cta'] = ( ! empty( $new_instance['cta'] ) ) ? strip_tags( $new_instance['cta'] ) : '';
+		$instance['small'] = ( ! empty( $new_instance['small'] ) ) ? strip_tags( $new_instance['small'] ) : '';
+		$instance['adapt'] = ( ! empty( $new_instance['adapt'] ) ) ? strip_tags( $new_instance['adapt'] ) : '';
 		$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? strip_tags( $new_instance['language'] ) : '';
 	return $instance;
 	}
