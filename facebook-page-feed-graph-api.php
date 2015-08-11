@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 136 different languages
- * Version: 1.3.2
+ * Version: 1.3.3
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -20,7 +20,7 @@
     GNU General Public License for more details.
  */
 
-defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+defined( 'ABSPATH' ) or die();
 
 //Hooks
 add_shortcode( 'facebook-page-plugin', 'facebook_page_plugin' );
@@ -47,8 +47,8 @@ function facebook_page_plugin( $filter ) {
     ), $filter );
 	if(isset($a['href']) && !empty($a['href'])){
 		$a['language'] = str_replace("-", "_", $a['language']);
-		$return .= '<div id="fb-root" data-version="1.3.2"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4&appId=191521884244670";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-		$return .= '<div class="fb-page" data-version="1.3.2" data-href="https://facebook.com/' . $a["href"] . '" ';
+		$return .= '<div id="fb-root" data-version="1.3.3"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+		$return .= '<div class="fb-page" data-version="1.3.3" data-href="https://facebook.com/' . $a["href"] . '" ';
 		if(isset($a['width']) && !empty($a['width'])){
 			$return .= ' data-width="' . $a['width'] . '"';
 		}
@@ -153,34 +153,34 @@ class facebook_page_plugin_widget extends WP_Widget {
 			$height = NULL;
 		}
 		if(isset($instance['cover']) && !empty($instance['cover'])){
-			$cover = $instance['cover'];
+			$cover = 'true';
 		} else {
-			$cover = NULL;
+			$cover = 'false';
 		}
 		if(isset($instance['facepile']) && !empty($instance['facepile'])){
-			$facepile = $instance['facepile'];
+			$facepile = 'true';
 		} else {
-			$facepile = NULL;
+			$facepile = 'false';
 		}
 		if(isset($instance['posts']) && !empty($instance['posts'])){
-			$posts = $instance['posts'];
+			$posts = 'true';
 		} else {
-			$posts = NULL;
+			$posts = 'false';
 		}
 		if(isset($instance['cta']) && !empty($instance['cta'])){
-			$cta = $instance['cta'];
+			$cta = 'true';
 		} else {
-			$cta = NULL;
+			$cta = 'false';
 		}
 		if(isset($instance['small']) && !empty($instance['small'])){
-			$small = $instance['small'];
+			$small = 'true';
 		} else {
-			$small = NULL;
+			$small = 'false';
 		}
 		if(isset($instance['adapt']) && !empty($instance['adapt'])){
-			$adapt = $instance['adapt'];
+			$adapt = 'true';
 		} else {
-			$adapt = NULL;
+			$adapt = 'false';
 		}
 		if(isset($instance['language']) && !empty($instance['language'])){
 			$language = $instance['language'];
