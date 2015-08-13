@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
- * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 136 different languages
- * Version: 1.3.3
+ * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
+ * Version: 1.3.4
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -47,8 +47,8 @@ function facebook_page_plugin( $filter ) {
     ), $filter );
 	if(isset($a['href']) && !empty($a['href'])){
 		$a['language'] = str_replace("-", "_", $a['language']);
-		$return .= '<div id="fb-root" data-version="1.3.3"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-		$return .= '<div class="fb-page" data-version="1.3.3" data-href="https://facebook.com/' . $a["href"] . '" ';
+		$return .= '<div id="fb-root" data-version="1.3.4"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4&appId=191521884244670";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+		$return .= '<div class="fb-page" data-version="1.3.4" data-href="https://facebook.com/' . $a["href"] . '" ';
 		if(isset($a['width']) && !empty($a['width'])){
 			$return .= ' data-width="' . $a['width'] . '"';
 		}
@@ -90,7 +90,8 @@ function facebook_page_plugin_dashboard_widget() {
 
 function facebook_page_plugin_dashboard_widget_callback() {
 	try {
-    	$lang_xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
+    	//$lang_xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
+		$lang_xml = file_get_contents( plugin_dir_url( __FILE__ ) . 'lang.xml');
 	}catch(Exception $ex){
 		$lang_xml = NULL;
 	}
@@ -112,7 +113,8 @@ function facebook_page_plugin_dashboard_widget_callback() {
 		echo '<p><label>Language: <select id="fbpp-lang" /><option value="">Site Language</option>';
 		if(isset($langs) && !empty($langs)){
 			foreach($langs as $lang){
-				echo '<option value="' . $lang->codes->code->standard->representation . '">' . $lang->englishName . '</option>';
+				echo '<option value="' . $lang->codes->code->standard->representation . '">' . $lang->englishName . '</option>'; // This is for Facebook loaded only
+				echo '<option value="' . $lang->standard->representation . '">' . $lang->englishName . '</option>';
 			}
 		}
 		echo '</label></p>';
@@ -130,7 +132,7 @@ class facebook_page_plugin_widget extends WP_Widget {
 	private $facebookURLs = array('https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/');
 	
 	function __construct() {
-		parent::__construct( 'facebook_page_plugin_widget', __('Facebook Page Plugin', 'facebook_page_plugin'), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook_page_plugin' ), ) 	);
+		parent::__construct( 'facebook_page_plugin_widget', __('Facebook Page Plugin', 'facebook-page-feed-graph-api'), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), ) 	);
 	}
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
@@ -229,7 +231,7 @@ class facebook_page_plugin_widget extends WP_Widget {
 		if ( isset( $instance[ 'title' ] ) ) {
 			$title = $instance[ 'title' ];
 		} else {
-			$title = __( 'New title', 'facebook_page_plugin' );
+			$title = __( 'New title', 'facebook-page-feed-graph-api' );
 		}
 		if ( isset( $instance[ 'href' ] ) ) {
 			$href = $instance[ 'href' ];
@@ -282,7 +284,8 @@ class facebook_page_plugin_widget extends WP_Widget {
 			$language = '';
 		}
 		try {
-			$lang_xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
+			//$lang_xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
+			$lang_xml = file_get_contents( plugin_dir_url( __FILE__ ) . 'lang.xml');
 		}catch(Exception $ex){
 			$lang_xml = NULL;
 		}
@@ -295,71 +298,72 @@ class facebook_page_plugin_widget extends WP_Widget {
 			echo '<label for="' . $this->get_field_id( 'title' ) . '">';
 				echo _e( 'Title:' );
 			echo '</label>';
-			echo '<input class="widefat" id="<?php' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" type="text" value="' . esc_attr( $title ) . '" />';
+			echo '<input class="widefat" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" type="text" value="' . esc_attr( $title ) . '" />';
 		echo '</p>';
         echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'href' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'href' ) . '">';
             	echo _e( 'Page URL:' );
              echo '</label>';
              echo '<input class="widefat" id="' . $this->get_field_id( 'href' ) . '" name="' . $this->get_field_name( 'href' ) . '" type="url" value="' . esc_attr( $href ) . '" required />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'width' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'width' ) . '">';
             	echo _e( 'Width:' );
              echo '</label>';
              echo '<input class="widefat" id="' . $this->get_field_id( 'width' ) . '" name="' . $this->get_field_name( 'width' ) . '" type="number" min="180" max="500" value="' . esc_attr( $width ) . '" />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'height' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'height' ) . '">';
             	echo _e( 'Height:' );
              echo '</label>';
              echo '<input class="widefat" id="' . $this->get_field_id( 'height' ) . '" name="' . $this->get_field_name( 'height' ) . '" type="number" min="70" value="' . esc_attr( $height ) . '" />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'cover' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'cover' ) . '">';
             	echo _e( 'Cover Photo:' );
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'cover' ) . '" name="' . $this->get_field_name( 'cover' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $cover ), 'true', false ) . ' />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'facepile' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'facepile' ) . '">';
             	echo _e( 'Show Facepile:' );
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'facepile' ) . '" name="' . $this->get_field_name( 'facepile' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $facepile ), 'true', false ) . ' />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'posts' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'posts' ) . '">';
             	echo _e( 'Show Posts:' );
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'posts' ) . '" name="' . $this->get_field_name( 'posts' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $posts ), 'true', false ) . ' />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'cta' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'cta' ) . '">';
             	echo _e( 'Hide Call To Action:' );
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'cta' ) . '" name="' . $this->get_field_name( 'cta' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $cta ), 'true', false ) . ' />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'small' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'small' ) . '">';
             	echo _e( 'Small Header:' );
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'small' ) . '" name="' . $this->get_field_name( 'small' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $small ), 'true', false ) . ' />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'adapt' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'adapt' ) . '">';
             	echo _e( 'Adaptive Width:' );
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'adapt' ) . '" name="' . $this->get_field_name( 'adapt' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $adapt ), 'true', false ) . ' />';
          echo '</p>';
 		 echo '<p>';
-        	 echo '<label for="<?php' . $this->get_field_id( 'language' ) . '">';
+        	 echo '<label for="' . $this->get_field_id( 'language' ) . '">';
             	echo _e( 'Language:' );
              echo '</label>';
              echo '<select class="widefat" id="' . $this->get_field_id( 'language' ) . '" name="' . $this->get_field_name( 'language' ) . '">';
-			 	echo '<option value="">Site Lanugage (default)</option>';
+			 	echo '<option value="">Site Language (default)</option>';
 				if(isset($langs) && !empty($langs)){
 					foreach($langs as $lang){
-						echo '<option value="' . $lang->codes->code->standard->representation . '"' . selected( esc_attr( $language ), $lang->codes->code->standard->representation, false ) . '>' . $lang->englishName . '</option>';
+						//echo '<option value="' . $lang->codes->code->standard->representation . '"' . selected( esc_attr( $language ), $lang->codes->code->standard->representation, false ) . '>' . $lang->englishName . '</option>'; // Facebook only
+						echo '<option value="' . $lang->standard->representation . '"' . selected( esc_attr( $language ), $lang->standard->representation, false ) . '>' . $lang->englishName . '</option>';
 					}
 				}
 			 echo '</select>';
