@@ -4,7 +4,7 @@ Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
 Tested up to: 4.3
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ Features:
 
 * Includes a shortcode generator on the admin dashboard for easy generating of the shortcode
 
-* Uses your site language by default, but you can display your Facebook page in all 136 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
+* Uses your site language by default, but you can display your Facebook page in all 95 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
 
 If you like the plugin, please take the time to leave a review.
 
@@ -86,12 +86,22 @@ Also, if your page has only just been created it may take some time for the API 
 = What versions of WordPress will this plugin work on? =
 Shortcodes were introduced in WordPress 2.5, so theorectially it should work on all sites that are at least 2.5, however it has only been tested on versions 4.0 and up, and no guarantee will be made concerning earlier versions
 
+= I can only see a link, the plugin won't load =
+By default the plugin will display a link to your page while the page plugin loads. If the page plugin doesn't load, this could happen for a number of reasons. Your connection could be very slow, you could have JavaScript disabled, you could have an ad blocker or similar browser extension blocking the plugin or there could be an error in the information you have provided in the widget or shortcode. 
+
+* This problem seems to mainly affect 1.3.3, if you are running this version and you are encountering this issue, please update and see if the issue persists.
+
 == Screenshots ==
 1. Installation example
 2. Example of the new widget introduced in version 1.2.0
 3. The new shortcode generator dashboard widget
 
 == Changelog ==
+= 1.3.4 =
+* Fixed typo in widget
+* Fixed labels in widget
+* Changed languages to load from a local file instead of Facebook's Locales XML file. This fixes the issue where approximately 40 languages were supported by Facebook but not for the page plugin, and also users working locally without internet access are now able to change the language from default.
+* Re-introduced App ID, while it should not be needed it appears that removing it has affected some sites.
 = 1.3.3 =
 * Direct access security update
 * Verifying compatibility with WP 4.2.4 and WP 4.3
