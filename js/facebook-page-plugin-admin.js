@@ -33,6 +33,10 @@
                 $shortcode += 'small="' + $small + '" ';
 				var $adapt = $('#fbpp-adapt').prop("checked");
                 $shortcode += 'adapt="' + $adapt + '" ';
+				var $link = $('#fbpp-link').prop("checked");
+                $shortcode += 'link="' + $link + '" ';
+				var $linktext = $('#fbpp-linktext').val();
+                $shortcode += 'linktext="' + $linktext + '" ';
 				var $lang = $('#fbpp-lang').val();
 				if($lang.length > 0){
                     $shortcode += 'lang="' + $lang + '" ';
