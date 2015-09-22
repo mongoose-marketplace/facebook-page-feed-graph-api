@@ -25,8 +25,8 @@
                 $shortcode += 'cover="' + $cover + '" ';
                 var $facepile = $('#fbpp-facepile').prop("checked");
                 $shortcode += 'facepile="' + $facepile + '" ';
-                var $posts = $('#fbpp-posts').prop("checked");
-                $shortcode += 'posts="' + $posts + '" ';
+                var $tabs = $('#fbpp-tabs').val();
+                $shortcode += 'tabs="' + $tabs + '" ';
 				var $cta = $('#fbpp-cta').prop("checked");
                 $shortcode += 'cta="' + $cta + '" ';
 				var $small = $('#fbpp-small').prop("checked");
