@@ -4,7 +4,12 @@
             e.preventDefault();
         });
         var $facebookURLs = ['https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/'];
-        $('#facebook-page-plugin-shortcode-generator input').change(function(){
+        $('#facebook-page-plugin-shortcode-generator input, #facebook-page-plugin-shortcode-generator select').change(function(){
+            if( $('#fbpp-link').prop("checked") == false ) {
+                $('#linktext-label').hide();
+            } else {
+                $('#linktext-label').show();
+            }
             var $shortcode = '';
             $shortcode += '[facebook-page-plugin ';
             var $href = $('#fbpp-href').val();
@@ -35,8 +40,10 @@
                 $shortcode += 'adapt="' + $adapt + '" ';
 				var $link = $('#fbpp-link').prop("checked");
                 $shortcode += 'link="' + $link + '" ';
-				var $linktext = $('#fbpp-linktext').val();
-                $shortcode += 'linktext="' + $linktext + '" ';
+                if( $link == true ) {
+    				var $linktext = $('#fbpp-linktext').val();
+                    $shortcode += 'linktext="' + $linktext + '" ';
+                }
 				var $lang = $('#fbpp-lang').val();
 				if($lang.length > 0){
                     $shortcode += 'lang="' + $lang + '" ';
