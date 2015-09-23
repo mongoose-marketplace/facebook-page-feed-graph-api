@@ -4,7 +4,7 @@ Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
 Tested up to: 4.3.1
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -106,8 +106,13 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 == Changelog ==
 
+= 1.4.2 =
+* Fixing shortcode not being updated when tabs change in the shortcode generator
+* Removing link text parameter and option when `Show Link` is false
+
 = 1.4.1 =
 * Fixing shortcode generator using posts instead of tabs
+* Verifying compatibility with 4.3.1
 
 = 1.4.0 =
 * Options to remove and customise the page link that displays while the plugin loads

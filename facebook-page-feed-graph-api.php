@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.4.1
+ * Version: 1.4.2
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -51,8 +51,8 @@ function facebook_page_plugin( $filter ) {
     ), $filter );
 	if(isset($a['href']) && !empty($a['href'])){
 		$a['language'] = str_replace("-", "_", $a['language']);
-		$return .= '<div id="fb-root" data-version="1.4.1"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-		$return .= '<div class="fb-page" data-version="1.4.1" data-href="https://facebook.com/' . $a["href"] . '" ';
+		$return .= '<div id="fb-root" data-version="1.4.2"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+		$return .= '<div class="fb-page" data-version="1.4.2" data-href="https://facebook.com/' . $a["href"] . '" ';
 		if(isset($a['width']) && !empty($a['width'])){
 			$return .= ' data-width="' . $a['width'] . '"';
 		}
@@ -128,12 +128,12 @@ function facebook_page_plugin_dashboard_widget_callback() {
 		echo '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
 		echo '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
 		echo '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
-		echo '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-posts"><option value="">None</option><option value="timeline">Timeline</option><option value="messages">Messages</option><option value="timeline,messages">Timeline, Messages</option><option value="messages,timeline">Messages, Timeline</option></select></label></p>';
+		echo '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-tabs"><option value="">None</option><option value="timeline">Timeline</option><option value="messages">Messages</option><option value="timeline,messages">Timeline, Messages</option><option value="messages,timeline">Messages, Timeline</option></select></label></p>';
 		echo '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
 		echo '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
 		echo '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
 		echo '<p><label>' . __( 'Display link while loading', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
-		echo '<p><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
+		echo '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
 		echo '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang" /><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
 		if(isset($langs) && !empty($langs)){
 			foreach($langs as $lang){
