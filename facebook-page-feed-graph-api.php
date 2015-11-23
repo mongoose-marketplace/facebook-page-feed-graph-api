@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.4.2
+ * Version: 1.5.0
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -22,136 +22,178 @@
 
 defined( 'ABSPATH' ) or die();
 
-//Hooks
-add_shortcode( 'facebook-page-plugin', 'facebook_page_plugin' );
-add_filter( 'widget_text', 'do_shortcode' );
-add_action( 'wp_dashboard_setup', 'facebook_page_plugin_dashboard_widget' );
-add_action( 'admin_enqueue_scripts', 'facebook_page_plugin_admin_resources' );
-add_action( 'widgets_init', 'facebook_page_plugin_load_widget' );
-add_action( 'admin_notices', 'facebook_page_plugin_admin_notice' );
-add_action( 'admin_init', 'facebook_page_plugin_admin_notice_ignore' );
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'facebook_page_plugin_action_links' );
+class cameronjonesweb_facebook_page_plugin {
 
-function facebook_page_plugin( $filter ) {
-	$return = NULL;
-	$a = shortcode_atts( array(
-        'href' => NULL,
-        'width' => 340,
-		'height' => 130,
-		'cover' => NULL,
-		'facepile' => NULL,
-		'posts' => NULL,
-		'tabs' => array(),
-		'language' => get_bloginfo('language'),
-		'cta' => NULL,
-		'small' => NULL,
-		'adapt' => NULL,
-		'link' => true,
-		'linktext' => NULL,
-    ), $filter );
-	if(isset($a['href']) && !empty($a['href'])){
-		$a['language'] = str_replace("-", "_", $a['language']);
-		$return .= '<div id="fb-root" data-version="1.4.2"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-		$return .= '<div class="fb-page" data-version="1.4.2" data-href="https://facebook.com/' . $a["href"] . '" ';
-		if(isset($a['width']) && !empty($a['width'])){
-			$return .= ' data-width="' . $a['width'] . '"';
+	public function __construct() {
+
+		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.5.0' );
+
+		//Add all the hooks and actions
+		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
+		add_filter( 'widget_text', 'do_shortcode' );
+		add_action( 'wp_dashboard_setup', array( $this, 'facebook_page_plugin_dashboard_widget' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'facebook_page_plugin_admin_resources' ) );
+		add_action( 'admin_notices', array( $this, 'facebook_page_plugin_admin_notice' ) );
+		add_action( 'admin_init', array( $this, 'facebook_page_plugin_admin_notice_ignore' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'facebook_page_plugin_action_links' ) );
+	}
+
+
+	//Admin functions
+	//Display review notice
+	public function facebook_page_plugin_admin_notice() {
+		$screen = get_current_screen();
+		//Only display on the dashboard, widgets and plugins pages
+		if( $screen->base === 'widgets' || $screen->base === 'dashboard' || $screen->base === 'plugins' ){
+			global $current_user ;
+			$user_id = $current_user->ID;
+			//Don't show if they have hidden it
+			if ( !get_user_meta( $user_id, 'facebook_page_plugin_admin_notice_ignore' ) || get_user_meta( $user_id, 'facebook_page_plugin_admin_notice_ignore' ) === false ) {
+				echo '<div class="updated" id="facebook-page-plugin-review"><p>';
+				echo __( 'Thank you for using the Facebook Page Plugin. If you enjoy using it, please take the time to', 'facebook-page-feed-graph-api' ) . ' <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api?rate=5#postform" target="_blank">' . __( 'leave a review', 'facebook-page-feed-graph-api' ) . '</a>. ' . __( 'Thanks', 'facebook-page-feed-graph-api' );
+				echo '<a href="?facebook_page_plugin_admin_notice_ignore=0" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a></p></div>';
+			}
 		}
-		if(isset($a['height']) && !empty($a['height'])){
-			$return .= ' data-height="' . $a['height'] . '"';
+	}
+
+	//Handler function for when review notice is hidden
+	public function facebook_page_plugin_admin_notice_ignore() {
+		global $current_user;
+	    $user_id = $current_user->ID;
+	    if ( isset($_GET['facebook_page_plugin_admin_notice_ignore']) && '0' == $_GET['facebook_page_plugin_admin_notice_ignore'] ) {
+	         update_user_meta($user_id, 'facebook_page_plugin_admin_notice_ignore', 'true', true);
 		}
-		if(isset($a['cover']) && !empty($a['cover'])){
-			if($a['cover'] == "false"){
-				$return .= ' data-hide-cover="true"';
-			} else if($a['cover'] == "true"){
-				$return .= ' data-hide-cover="false"';
-			}	
-		}
-		if(isset($a['facepile']) && !empty($a['facepile'])){
-			$return .= ' data-show-facepile="' . $a['facepile'] . '"';
-		}
-		if(isset($a['tabs']) && !empty($a['tabs'])){
-			$return .= ' data-tabs="' . $a['tabs'] . '"';
-		} else if(isset($a['posts']) && !empty($a['posts'])){
-			if($a['posts'] == 'true'){
-				$return .= ' data-tabs="timeline"';
+	}
+
+	//Add link on plugins page to my plugins directory
+	public function facebook_page_plugin_action_links( $links ) {
+		$links[] = '<a href="https://profiles.wordpress.org/cameronjonesweb/#content-plugins" target="_blank">More plugins by cameronjonesweb</a>';	
+		return $links;
+	}
+
+	//Enqueue CSS and JS for admin
+	public function facebook_page_plugin_admin_resources() {
+		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/facebook-page-plugin-admin.js' );
+		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/facebook-page-plugin-admin.css' );
+	}
+
+	//Register the dashboard widget
+	public function facebook_page_plugin_dashboard_widget() {
+		wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Facebook Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
+	}
+
+	//Load the dashboard widget
+	function facebook_page_plugin_dashboard_widget_callback() {
+
+		$langs = get_locale_xml();
+
+		echo '<form>';
+			echo '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';
+			echo '<p><label>' . __( 'Width (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
+			echo '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
+			echo '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
+			echo '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
+			echo '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-tabs"><option value="">None</option><option value="timeline">Timeline</option><option value="messages">Messages</option><option value="timeline,messages">Timeline, Messages</option><option value="messages,timeline">Messages, Timeline</option></select></label></p>';
+			echo '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
+			echo '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
+			echo '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
+			echo '<p><label>' . __( 'Display link while loading', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
+			echo '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
+			echo '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang"><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
+			if(isset($langs) && !empty($langs)){
+				foreach($langs as $lang){
+					//echo '<option value="' . $lang->codes->code->standard->representation . '">' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>'; // This is for Facebook loaded only
+					echo '<option value="' . $lang->standard->representation . '">' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>';
+				}
+			}
+			echo '</select></label></p>';
+			echo '<input type="text" readonly="readonly" id="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
+		echo '</form>';
+	}
+
+	//Client side stuff
+	//Parse shortcode
+	function facebook_page_plugin( $filter ) {
+		wp_enqueue_script( 'facebook-page-plugin-responsive-script', CJW_FBPP_PLUGIN_URL . 'js/responsive.js', 'jquery', NULL, true );
+		$return = NULL;
+		$a = shortcode_atts( array(
+	        'href' => NULL,
+	        'width' => 340,
+			'height' => 130,
+			'cover' => NULL,
+			'facepile' => NULL,
+			'posts' => NULL,
+			'tabs' => array(),
+			'language' => get_bloginfo('language'),
+			'cta' => NULL,
+			'small' => NULL,
+			'adapt' => NULL,
+			'link' => true,
+			'linktext' => NULL,
+			'standard' => 'html5',
+	    ), $filter );
+		if(isset($a['href']) && !empty($a['href'])){
+			$a['language'] = str_replace("-", "_", $a['language']);
+			$return .= '<div id="fb-root" data-version="' . CJW_FBPP_PLUGIN_VER . '"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+			$return .= '<div id="fb-page" class="fb-page" data-version="' . CJW_FBPP_PLUGIN_VER . '" data-href="https://facebook.com/' . $a["href"] . '" ';
+			if(isset($a['width']) && !empty($a['width'])){
+				$return .= ' data-width="' . $a['width'] . '"';
+			}
+			if(isset($a['height']) && !empty($a['height'])){
+				$return .= ' data-height="' . $a['height'] . '"';
+			}
+			if(isset($a['cover']) && !empty($a['cover'])){
+				if($a['cover'] == "false"){
+					$return .= ' data-hide-cover="true"';
+				} else if($a['cover'] == "true"){
+					$return .= ' data-hide-cover="false"';
+				}	
+			}
+			if(isset($a['facepile']) && !empty($a['facepile'])){
+				$return .= ' data-show-facepile="' . $a['facepile'] . '"';
+			}
+			if(isset($a['tabs']) && !empty($a['tabs'])){
+				$return .= ' data-tabs="' . $a['tabs'] . '"';
+			} else if(isset($a['posts']) && !empty($a['posts'])){
+				if($a['posts'] == 'true'){
+					$return .= ' data-tabs="timeline"';
+				} else {
+					$return .= ' data-tabs="false"';
+				}
+			}
+			if(isset($a['cta']) && !empty($a['cta'])){
+				$return .= ' data-hide-cta="' . $a['cta'] . '"';
+			}
+			if(isset($a['small']) && !empty($a['small'])){
+				$return .= ' data-small-header="' . $a['small'] . '"';
+			}
+			if(isset($a['adapt']) && !empty($a['adapt'])){
+				$return .= ' data-adapt-container-width="' . $a['adapt'] . '"';
 			} else {
-				$return .= ' data-tabs="false"';
+				$return .= ' data-adapt-container-width="false"';
 			}
-		}
-		if(isset($a['cta']) && !empty($a['cta'])){
-			$return .= ' data-hide-cta="' . $a['cta'] . '"';
-		}
-		if(isset($a['small']) && !empty($a['small'])){
-			$return .= ' data-small-header="' . $a['small'] . '"';
-		}
-		if(isset($a['adapt']) && !empty($a['adapt'])){
-			$return .= ' data-adapt-container-width="' . $a['adapt'] . '"';
-		} else {
-			$return .= ' data-adapt-container-width="false"';
-		}
-		$return .= '><div class="fb-xfbml-parse-ignore">';
-		if( $a['link'] == 'true' ){
-			$return .= '<blockquote cite="https://www.facebook.com/' . $a['href'] . '">';
-			$return .= '<a href="https://www.facebook.com/' . $a['href'] . '">';
-			if( empty( $a['linktext'] ) ) {
-				$return .= 'https://www.facebook.com/' . $a['href'];
-			} else {
-				$return .= $a['linktext'];
+			$return .= '><div class="fb-xfbml-parse-ignore">';
+			if( $a['link'] == 'true' ){
+				$return .= '<blockquote cite="https://www.facebook.com/' . $a['href'] . '">';
+				$return .= '<a href="https://www.facebook.com/' . $a['href'] . '">';
+				if( empty( $a['linktext'] ) ) {
+					$return .= 'https://www.facebook.com/' . $a['href'];
+				} else {
+					$return .= $a['linktext'];
+				}
+				$return .= '</a>';
+				$return .= '</blockquote>';
 			}
-			$return .= '</a>';
-			$return .= '</blockquote>';
+			$return .= '</div></div>';
 		}
-		$return .= '</div></div>';
+		return $return;
 	}
-	return $return;
+
 }
 
-function facebook_page_plugin_dashboard_widget() {
-	wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Facebook Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), 'facebook_page_plugin_dashboard_widget_callback' );
-}
-
-function facebook_page_plugin_dashboard_widget_callback() {
-	try {
-    	//$lang_xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
-		$lang_xml = file_get_contents( plugin_dir_url( __FILE__ ) . 'lang.xml');
-	}catch(Exception $ex){
-		$lang_xml = NULL;
-	}
-	if(isset($lang_xml) && !empty($lang_xml)){
-    	$langs = new SimpleXMLElement($lang_xml);
-	} else {
-		$langs = NULL;
-	}
-	echo '<form>';
-		echo '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';
-		echo '<p><label>' . __( 'Width (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
-		echo '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
-		echo '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
-		echo '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
-		echo '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-tabs"><option value="">None</option><option value="timeline">Timeline</option><option value="messages">Messages</option><option value="timeline,messages">Timeline, Messages</option><option value="messages,timeline">Messages, Timeline</option></select></label></p>';
-		echo '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
-		echo '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
-		echo '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
-		echo '<p><label>' . __( 'Display link while loading', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
-		echo '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
-		echo '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang" /><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
-		if(isset($langs) && !empty($langs)){
-			foreach($langs as $lang){
-				//echo '<option value="' . $lang->codes->code->standard->representation . '">' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>'; // This is for Facebook loaded only
-				echo '<option value="' . $lang->standard->representation . '">' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>';
-			}
-		}
-		echo '</label></p>';
-		echo '<input type="text" readonly="readonly" id="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
-	echo '</form>';
-}
-
-function facebook_page_plugin_admin_resources() {
-	wp_enqueue_script( 'Facebook Page Plugin Admin Scripts', plugin_dir_url( __FILE__ ) . '/js/facebook-page-plugin-admin.js' );
-	wp_enqueue_style( 'Facebook Page Plugin Admin Styles', plugin_dir_url( __FILE__ ) . '/css/facebook-page-plugin-admin.css' );
-}
-
-class facebook_page_plugin_widget extends WP_Widget {
+class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	
 	private $facebookURLs = array('https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/');
 	
@@ -337,17 +379,9 @@ class facebook_page_plugin_widget extends WP_Widget {
 		} else {
 			$language = '';
 		}
-		try {
-			//$lang_xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
-			$lang_xml = file_get_contents( plugin_dir_url( __FILE__ ) . 'lang.xml');
-		} catch( Exception $ex ) {
-			$lang_xml = NULL;
-		}
-		if(isset($lang_xml) && !empty($lang_xml)){
-			$langs = new SimpleXMLElement($lang_xml);
-		} else {
-			$langs = NULL;
-		}
+
+		$langs = get_locale_xml();
+
 		echo '<p>';
 			echo '<label for="' . $this->get_field_id( 'title' ) . '">';
 				_e( 'Title:', 'facebook-page-feed-graph-api' );
@@ -456,34 +490,33 @@ class facebook_page_plugin_widget extends WP_Widget {
 	}
 } // Class wpb_widget ends here
 
-// Register and load the widget
+//Register the widget
 function facebook_page_plugin_load_widget() {
-	register_widget( 'facebook_page_plugin_widget' );
+	register_widget( 'cameronjonesweb_facebook_page_plugin_widget' );
 }
+add_action( 'widgets_init', 'facebook_page_plugin_load_widget' );
 
-function facebook_page_plugin_admin_notice() {
-	$screen = get_current_screen();
-	//Only display on the dashboard, widgets and plugins pages
-	if( $screen->base === 'widgets' || $screen->base === 'dashboard' || $screen->base === 'plugins' ){
-		global $current_user ;
-		$user_id = $current_user->ID;
-		if ( !get_user_meta( $user_id, 'facebook_page_plugin_admin_notice_ignore' ) || get_user_meta( $user_id, 'facebook_page_plugin_admin_notice_ignore' ) === false ) {
-			echo '<div class="updated" id="facebook-page-plugin-review"><p>';
-			echo __( 'Thank you for using the Facebook Page Plugin. If you enjoy using it, please take the time to', 'facebook-page-feed-graph-api' ) . ' <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api?rate=5#postform" target="_blank">' . __( 'leave a review', 'facebook-page-feed-graph-api' ) . '</a>. ' . __( 'Thanks', 'facebook-page-feed-graph-api' );
-			echo '<a href="?facebook_page_plugin_admin_notice_ignore=0" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a></p></div>';
-		}
+function get_locale_xml() {
+
+	include_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+	include_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
+	$wp_filesystem = new WP_Filesystem_Direct( null );
+
+	try {
+    	//$xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
+		//$xml = file_get_contents( CJW_FBPP_PLUGIN_URL ) . 'lang.xml');
+		$lang_xml = $wp_filesystem->get_contents( CJW_FBPP_PLUGIN_DIR . '/lang.xml');
+	} catch( Exception $ex ){
+		$lang_xml = NULL;
 	}
-}
 
-function facebook_page_plugin_admin_notice_ignore() {
-	global $current_user;
-    $user_id = $current_user->ID;
-    if ( isset($_GET['facebook_page_plugin_admin_notice_ignore']) && '0' == $_GET['facebook_page_plugin_admin_notice_ignore'] ) {
-         update_user_meta($user_id, 'facebook_page_plugin_admin_notice_ignore', 'true', true);
+	if(isset($lang_xml) && !empty($lang_xml)){
+    	$langs = new SimpleXMLElement($lang_xml);
+	} else {
+		$langs = NULL;
 	}
+
+	return $langs;
 }
 
-function facebook_page_plugin_action_links( $links ) {
-	$links[] = '<a href="https://profiles.wordpress.org/cameronjonesweb/#content-plugins" target="_blank">More plugins by cameronjonesweb</a>';	
-	return $links;
-}
+$cameronjonesweb_facebook_page_plugin = new cameronjonesweb_facebook_page_plugin;
