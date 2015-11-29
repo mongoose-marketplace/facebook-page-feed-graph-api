@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.5.0
+ * Version: 1.5.1
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -87,36 +87,15 @@ class cameronjonesweb_facebook_page_plugin {
 	//Load the dashboard widget
 	function facebook_page_plugin_dashboard_widget_callback() {
 
-		$langs = get_locale_xml();
-
-		echo '<form>';
-			echo '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';
-			echo '<p><label>' . __( 'Width (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
-			echo '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
-			echo '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
-			echo '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
-			echo '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-tabs"><option value="">None</option><option value="timeline">Timeline</option><option value="messages">Messages</option><option value="timeline,messages">Timeline, Messages</option><option value="messages,timeline">Messages, Timeline</option></select></label></p>';
-			echo '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
-			echo '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
-			echo '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
-			echo '<p><label>' . __( 'Display link while loading', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
-			echo '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
-			echo '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang"><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
-			if(isset($langs) && !empty($langs)){
-				foreach($langs as $lang){
-					//echo '<option value="' . $lang->codes->code->standard->representation . '">' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>'; // This is for Facebook loaded only
-					echo '<option value="' . $lang->standard->representation . '">' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>';
-				}
-			}
-			echo '</select></label></p>';
-			echo '<input type="text" readonly="readonly" id="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
-		echo '</form>';
+		$generator = new cameronjonesweb_facebook_page_plugin_shortcode_generator;
+		$generator->generate();
+		
 	}
 
 	//Client side stuff
 	//Parse shortcode
 	function facebook_page_plugin( $filter ) {
-		wp_enqueue_script( 'facebook-page-plugin-responsive-script', CJW_FBPP_PLUGIN_URL . 'js/responsive.js', 'jquery', NULL, true );
+		wp_enqueue_script( 'facebook-page-plugin-responsive-script', CJW_FBPP_PLUGIN_URL . 'js/responsive.min.js', 'jquery', NULL, true );
 		$return = NULL;
 		$a = shortcode_atts( array(
 	        'href' => NULL,
@@ -136,10 +115,12 @@ class cameronjonesweb_facebook_page_plugin {
 	    ), $filter );
 		if(isset($a['href']) && !empty($a['href'])){
 			$a['language'] = str_replace("-", "_", $a['language']);
-			$return .= '<div id="fb-root" data-version="' . CJW_FBPP_PLUGIN_VER . '"></div><script async>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
-			$return .= '<div id="fb-page" class="fb-page" data-version="' . CJW_FBPP_PLUGIN_VER . '" data-href="https://facebook.com/' . $a["href"] . '" ';
+			$return .= '<div class="cameronjonesweb_facebook_page_plugin" data-version="' . CJW_FBPP_PLUGIN_VER . '" id="' . preg_replace("/[^a-zA-Z]+/", "",substr(md5(rand()), 0, 15)) . '">';
+			$return .= '<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+			$return .= '<div class="fb-page" data-href="https://facebook.com/' . $a["href"] . '" ';
 			if(isset($a['width']) && !empty($a['width'])){
 				$return .= ' data-width="' . $a['width'] . '"';
+				$return .= ' data-max-width="' . $a['width'] . '"';
 			}
 			if(isset($a['height']) && !empty($a['height'])){
 				$return .= ' data-height="' . $a['height'] . '"';
@@ -186,7 +167,7 @@ class cameronjonesweb_facebook_page_plugin {
 				$return .= '</a>';
 				$return .= '</blockquote>';
 			}
-			$return .= '</div></div>';
+			$return .= '</div></div></div>';
 		}
 		return $return;
 	}
@@ -490,6 +471,45 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	}
 } // Class wpb_widget ends here
 
+class cameronjonesweb_facebook_page_plugin_shortcode_generator {
+
+	private $langs;
+	
+	function __construct() {
+
+		$this->langs = get_locale_xml();
+	}
+
+	function generate() {
+		
+		$return = NULL;
+
+		$return .= '<form>';
+			$return .= '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';
+			$return .= '<p><label>' . __( 'Width (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
+			$return .= '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
+			$return .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
+			$return .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
+			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-tabs"><option value="">None</option><option value="timeline">Timeline</option><option value="messages">Messages</option><option value="timeline,messages">Timeline, Messages</option><option value="messages,timeline">Messages, Timeline</option></select></label></p>';
+			$return .= '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
+			$return .= '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
+			$return .= '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
+			$return .= '<p><label>' . __( 'Display link while loading', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
+			$return .= '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
+			$return .= '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang"><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
+			if(isset($this->langs) && !empty($this->langs)){
+				foreach($this->langs as $lang){
+					$return .= '<option value="' . $lang->standard->representation . '">' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>';
+				}
+			}
+			$return .= '</select></label></p>';
+			$return .= '<input type="text" readonly="readonly" id="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
+		$return .= '</form>';
+
+		echo $return;
+	}
+}
+
 //Register the widget
 function facebook_page_plugin_load_widget() {
 	register_widget( 'cameronjonesweb_facebook_page_plugin_widget' );
@@ -498,8 +518,10 @@ add_action( 'widgets_init', 'facebook_page_plugin_load_widget' );
 
 function get_locale_xml() {
 
-	include_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
-	include_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
+	$admin_abspath = str_replace( site_url(), ABSPATH, admin_url() );
+
+	include_once( $admin_abspath . '/includes/class-wp-filesystem-base.php' );
+	include_once( $admin_abspath . '/includes/class-wp-filesystem-direct.php' );
 	$wp_filesystem = new WP_Filesystem_Direct( null );
 
 	try {
