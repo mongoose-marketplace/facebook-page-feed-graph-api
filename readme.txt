@@ -4,7 +4,7 @@ Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
 Tested up to: 4.3.1
-Stable tag: 1.5
+Stable tag: 1.5.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -84,7 +84,7 @@ Example: `[facebook-page-plugin href="facebook" width="300" height="500" cover="
 This will display a Facebook page feed that loads in the page `facebook.com/facebook` that is 300px wide but adapts to it's container, 500px high, displaying the page's cover photo, facepile and recent posts in the same language as the site. See the screenshots tab for a demonstration of how it will appear
 
 = What languages are available? =
-As of version 1.2.0, the plugin is available in all languages provided by Facebook ( full list availabe [here](https://www.facebook.com/translations/FacebookLocales.xml) ). By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is only available in English.
+As of version 1.2.0, the plugin is available in all languages provided by Facebook ( full list availabe [here](https://www.facebook.com/translations/FacebookLocales.xml) ). By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is currently only available in English but is multilingual ready.
 
 = My Facebook page isn't loading =
 If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: `[facebook-page-plugin href="ABC123"]`
@@ -105,6 +105,10 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 3. The new shortcode generator dashboard widget
 
 == Changelog ==
+
+= 1.5.1 =
+* Fixed bug where plugin wouldn't rerender
+* Fixed bug with languages XML file not loading on installs where the admin is not wp-admin
 
 = 1.5.0 =
 * Migrated to object oriented
