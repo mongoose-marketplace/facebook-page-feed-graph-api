@@ -1,10 +1,10 @@
 === Facebook Page Plugin ===
 Contributors: cameronjonesweb
 Tags: facebook,social,like,facepile,activity feed,recommendations,shortcode,widget,shortcode generator,plugin,admin,sidebar,facebook page,multilingual,like box,facebook like box,facebook page plugin, facebook feed, facebook plugin
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=Cameron%20Jones%20Web%20Development¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=cameronjonesweb%20-%20Facebook%20Page%20Plugin&¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.0
 Tested up to: 4.3.1
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -105,6 +105,9 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 3. The new shortcode generator dashboard widget
 
 == Changelog ==
+
+= 1.5.2 =
+* Fixed bug where plugin would rerender during scroll on mobile devices
 
 = 1.5.1 =
 * Fixed bug where plugin wouldn't rerender

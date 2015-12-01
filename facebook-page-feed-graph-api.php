@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.5.1
+ * Version: 1.5.2
  * Author: Cameron Jones
  * Author URI: http://cameronjones.x10.mx
  * License: GPLv2
@@ -28,7 +28,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.5.0' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.5.2' );
 
 		//Add all the hooks and actions
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );

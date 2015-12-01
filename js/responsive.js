@@ -1,11 +1,15 @@
+var $width = jQuery(window).width();
 jQuery(window).resize(function() {
    if(this.resizeTO) clearTimeout(this.resizeTO);
-   this.resizeTO = setTimeout(function() {
-      jQuery(this).trigger('resizeEnd');
-   }, 500);
+   if($width != jQuery(window).width()){
+      this.resizeTO = setTimeout(function() {
+         jQuery(this).trigger('resizeEnd');
+      }, 500);
+   }
 });
 
 jQuery(window).bind('resizeEnd', function() {
+   $width = jQuery(window).width();
    rerenderFB();
 });
 
