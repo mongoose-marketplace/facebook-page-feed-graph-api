@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Facebook Page Plugin
- * Plugin URI: https://cameronjones.x10.mx/projects/facebook-page-plugin
+ * Plugin URI: https://cameronjonesweb.com.au/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.5.2
+ * Version: 1.5.3.a
  * Author: Cameron Jones
- * Author URI: http://cameronjones.x10.mx
+ * Author URI: http://cameronjonesweb.com.au
  * License: GPLv2
  
  * Copyright 2015  Cameron Jones  (email : cameronjonesweb@gmail.com)
@@ -28,7 +28,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.5.2' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
 
 		//Add all the hooks and actions
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
@@ -116,7 +116,7 @@ class cameronjonesweb_facebook_page_plugin {
 		if(isset($a['href']) && !empty($a['href'])){
 			$a['language'] = str_replace("-", "_", $a['language']);
 			$return .= '<div class="cameronjonesweb_facebook_page_plugin" data-version="' . CJW_FBPP_PLUGIN_VER . '" id="' . preg_replace("/[^a-zA-Z]+/", "",substr(md5(rand()), 0, 15)) . '">';
-			$return .= '<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+			$return .= '<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.5&appId=846690882110183";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
 			$return .= '<div class="fb-page" data-href="https://facebook.com/' . $a["href"] . '" ';
 			if(isset($a['width']) && !empty($a['width'])){
 				$return .= ' data-width="' . $a['width'] . '"';
