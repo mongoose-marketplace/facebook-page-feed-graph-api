@@ -179,7 +179,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	private $facebookURLs = array('https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/');
 	
 	function __construct() {
-		parent::__construct( 'facebook_page_plugin_widget', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), ) 	);
+		parent::__construct( 'facebook_page_plugin_widget', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), 'customize_selective_refresh' => true, ) 	);
 	}
 	public function widget( $args, $instance ) {
 		if( isset( $instance['title'] ) && !empty( $instance['title'] ) ) {
