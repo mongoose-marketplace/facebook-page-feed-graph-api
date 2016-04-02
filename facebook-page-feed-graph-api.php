@@ -92,6 +92,10 @@ class cameronjonesweb_facebook_page_plugin {
 		
 	}
 
+	function facebook_page_plugin_generate_wrapper_id() {
+		return substr( str_shuffle( str_repeat( implode( '', array_merge( range( 'A', 'Z' ), range( 'a', 'z' ) ) ), 5 ) ), 0, 15 );
+	}
+
 	//Client side stuff
 	//Parse shortcode
 	function facebook_page_plugin( $filter ) {
@@ -115,7 +119,7 @@ class cameronjonesweb_facebook_page_plugin {
 	    ), $filter );
 		if(isset($a['href']) && !empty($a['href'])){
 			$a['language'] = str_replace("-", "_", $a['language']);
-			$return .= '<div class="cameronjonesweb_facebook_page_plugin" data-version="' . CJW_FBPP_PLUGIN_VER . '" id="' . preg_replace("/[^a-zA-Z]+/", "",substr(md5(rand()), 0, 15)) . '">';
+			$return .= '<div class="cameronjonesweb_facebook_page_plugin" data-version="' . CJW_FBPP_PLUGIN_VER . '" id="' . $this->facebook_page_plugin_generate_wrapper_id() . '">';
 			$return .= '<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.5&appId=846690882110183";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
 			$return .= '<div class="fb-page" data-href="https://facebook.com/' . $a["href"] . '" ';
 			if(isset($a['width']) && !empty($a['width'])){
