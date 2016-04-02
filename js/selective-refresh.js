@@ -13,11 +13,7 @@ jQuery( function() {
                 var container = wrapper.children('.fb-page');
                 var url = container.data('href');
                 container.load( url, function() {
-                    FB.XFBML.parse(document.getElementById( containerId ),
-                        function() {
-                            container.fadeIn( "slow" );
-                        }
-                    );
+                    FB.XFBML.parse(document.getElementById( containerId ));
                 });
             }
         }
