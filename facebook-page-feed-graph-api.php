@@ -179,8 +179,21 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	private $facebookURLs = array('https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/');
 	
 	function __construct() {
+
 		parent::__construct( 'facebook_page_plugin_widget', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), 'customize_selective_refresh' => true, ) 	);
+
+		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
+            add_action( 'wp_enqueue_scripts', array( $this, 'selective_refresh_scripts' ) );
+        }
+
 	}
+
+	public function selective_refresh_scripts() {
+
+		wp_enqueue_script( 'facebook-page-plugin-selective-refresh', CJW_FBPP_PLUGIN_URL . 'js/selective-refresh.js', 'jquery', NULL, true );
+
+	}
+
 	public function widget( $args, $instance ) {
 		if( isset( $instance['title'] ) && !empty( $instance['title'] ) ) {
 			$title = apply_filters( 'widget_title', $instance['title'] );
