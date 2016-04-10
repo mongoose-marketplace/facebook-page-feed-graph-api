@@ -13,7 +13,7 @@ It's time to upgrade from your old like box! Display the Facebook Page Plugin fr
 == Description ==
 As of June 23rd 2015, Facebook **has now deprecated many of their old social plugins**, including Activity Feed, Facepile, Like Box and Recommendations. As such, many WordPress plugins that utilise these social plugins will soon stop working. This plugin instead uses the Graph API v2.3 to guarantee your WordPress site continues to have full Facebook support.
 
-This plugin can be used by added the widget to a widget area and filling out the form, or by using the `[facebook-page-plugin]` shortcode to display the plugin wherever you like, as often as you like.
+This plugin can be used by adding the widget to a widget area and filling out the form, or by using the `[facebook-page-plugin]` shortcode to display the plugin wherever you like, as often as you like.
 
 Features:
 
