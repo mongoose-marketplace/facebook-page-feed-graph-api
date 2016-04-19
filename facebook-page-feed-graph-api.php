@@ -99,6 +99,7 @@ class cameronjonesweb_facebook_page_plugin {
 	//Client side stuff
 	//Parse shortcode
 	function facebook_page_plugin( $filter ) {
+		wp_enqueue_script( 'facebook-page-plugin-sdk', CJW_FBPP_PLUGIN_URL . 'js/sdk.js', array(), NULL, true );
 		wp_enqueue_script( 'facebook-page-plugin-responsive-script', CJW_FBPP_PLUGIN_URL . 'js/responsive.min.js', 'jquery', NULL, true );
 		$return = NULL;
 		$a = shortcode_atts( array(
