@@ -29,6 +29,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
+		define( 'CJW_FBPP_TABS', array( 'timeline', 'events', 'messages' ) );
 
 		//Add all the hooks and actions
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
@@ -408,12 +409,21 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'facepile' ) . '" name="' . $this->get_field_name( 'facepile' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $facepile ), 'true', false ) . ' />';
          echo '</p>';
-		 echo '<p>';
-        	 echo '<label for="' . $this->get_field_id( 'tabs' ) . '">';
-            	_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
-             echo '</label>';
-             echo ' <select class="widefat" id="' . $this->get_field_id( 'tabs' ) . '" name="' . $this->get_field_name( 'tabs' ) . ' "><option value="" ' . selected( esc_attr( $tabs ), "", false ) . '>None</option><option value="timeline"' . selected( esc_attr( $tabs ), "timeline", false ) . '>Timeline</option><option value="messages"' . selected( esc_attr( $tabs ), "messages", false ) . '>Messages</option><option value="timeline,messages"' . selected( esc_attr( $tabs ), "timeline,messages", false ) . '>Timeline, Messages</option><option value="messages,timeline"' . selected( esc_attr( $tabs ), "messages,timeline", false ) . '>Messages, Timeline</option></select>';
-         echo '</p>';
+        echo '<p>';
+        	_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
+            if( !empty( CJW_FBPP_TABS ) ) {
+             	// First we should convert the string to an array as that's how it will be stored moving forward.
+             	$oldtabs = esc_attr( $tabs );
+             	$newtabs = explode( ',', $tabs );
+             	$tabs = $newtabs;
+             	foreach( CJW_FBPP_TABS as $tab ) {
+             		echo '<br/><label for="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']">';
+             			echo '<input type="checkbox" name="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']" ' . ( in_array( $tab, $tabs ) ? 'checked' : '' ) . ' /> ';
+             			echo ucfirst( $tab );
+             		echo '</label>';
+             	}
+        	}
+        echo '</p>';
 		 echo '<p>';
         	 echo '<label for="' . $this->get_field_id( 'cta' ) . '">';
             	_e( 'Hide Call To Action:', 'facebook-page-feed-graph-api' );
