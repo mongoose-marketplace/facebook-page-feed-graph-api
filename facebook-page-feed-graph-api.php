@@ -146,16 +146,7 @@ class cameronjonesweb_facebook_page_plugin {
 				$return .= ' data-show-facepile="' . $a['facepile'] . '"';
 			}
 			if(isset($a['tabs']) && !empty($a['tabs'])){
-				if( is_array( $a['tabs'] ) ) {
-					$return .= ' data-tabs="';
-					for( $i = 0; $i < count( $a['tabs'] ); $i++ ) {
-						$return .= $a['tabs'][$i];
-						$return .= ( $i = count( $a['tabs'] ) - 1 ? ',' : '' );
-					}
-					$return .= '"';
-				} else {
-					$return .= ' data-tabs="' . $a['tabs'] . '"';
-				}
+				$return .= ' data-tabs="' . $a['tabs'] . '"';
 			} else if(isset($a['posts']) && !empty($a['posts'])){
 				if($a['posts'] == 'true'){
 					$return .= ' data-tabs="timeline"';
@@ -288,7 +279,16 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 				$shortcode .= ' facepile="' . $facepile . '"';
 			}
 			if( isset( $tabs ) && !empty( $tabs ) ){
-				$shortcode .= ' tabs="' . $tabs . '"';
+				if( is_array( $tabs ) ) {
+					$shortcode .= ' tabs="';
+					for( $i = 0; $i < count( $tabs ); $i++ ) {
+						$shortcode .= $tabs[$i];
+						$shortcode .= ( $i != count( $tabs ) - 1 ? ',' : '' );
+					}
+					$shortcode .= '"';
+				} else {
+					$shortcode .= ' tabs="' . $tabs . '"';
+				}
 			}
 			if( isset( $language ) && !empty( $language ) ){
 				$shortcode .= ' language="' . $language . '"';
