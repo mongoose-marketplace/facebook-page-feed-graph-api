@@ -30,8 +30,22 @@
                 $shortcode += 'cover="' + $cover + '" ';
                 var $facepile = $('#fbpp-facepile').prop("checked");
                 $shortcode += 'facepile="' + $facepile + '" ';
-                var $tabs = $('#fbpp-tabs').val();
-                $shortcode += 'tabs="' + $tabs + '" ';
+                var $tabs = [];
+                $('.fbpp-tabs').each(function(){
+                    if( $(this).prop('checked') == true ) {
+                        $tabs.push( $(this).attr('name' ) );
+                    }
+                });
+                if($tabs.length > 0){
+                    var $tabstring = '';
+                    for( $i = 0; $i < $tabs.length; $i++ ) {
+                        $tabstring += $tabs[$i];
+                        if( $i != $tabs.length - 1 ) {
+                            $tabstring += ','
+                        }
+                    }
+                    $shortcode += 'tabs="' + $tabstring + '" ';
+                }
 				var $cta = $('#fbpp-cta').prop("checked");
                 $shortcode += 'cta="' + $cta + '" ';
 				var $small = $('#fbpp-small').prop("checked");

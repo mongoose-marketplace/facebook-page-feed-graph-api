@@ -29,6 +29,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
+		define( 'CJW_FBPP_TABS', array( 'timeline', 'events', 'messages' ) );
 
 		//Add all the hooks and actions
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
@@ -278,7 +279,16 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 				$shortcode .= ' facepile="' . $facepile . '"';
 			}
 			if( isset( $tabs ) && !empty( $tabs ) ){
-				$shortcode .= ' tabs="' . $tabs . '"';
+				if( is_array( $tabs ) ) {
+					$shortcode .= ' tabs="';
+					for( $i = 0; $i < count( $tabs ); $i++ ) {
+						$shortcode .= $tabs[$i];
+						$shortcode .= ( $i != count( $tabs ) - 1 ? ',' : '' );
+					}
+					$shortcode .= '"';
+				} else {
+					$shortcode .= ' tabs="' . $tabs . '"';
+				}
 			}
 			if( isset( $language ) && !empty( $language ) ){
 				$shortcode .= ' language="' . $language . '"';
@@ -408,12 +418,23 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'facepile' ) . '" name="' . $this->get_field_name( 'facepile' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $facepile ), 'true', false ) . ' />';
          echo '</p>';
-		 echo '<p>';
-        	 echo '<label for="' . $this->get_field_id( 'tabs' ) . '">';
-            	_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
-             echo '</label>';
-             echo ' <select class="widefat" id="' . $this->get_field_id( 'tabs' ) . '" name="' . $this->get_field_name( 'tabs' ) . ' "><option value="" ' . selected( esc_attr( $tabs ), "", false ) . '>None</option><option value="timeline"' . selected( esc_attr( $tabs ), "timeline", false ) . '>Timeline</option><option value="messages"' . selected( esc_attr( $tabs ), "messages", false ) . '>Messages</option><option value="timeline,messages"' . selected( esc_attr( $tabs ), "timeline,messages", false ) . '>Timeline, Messages</option><option value="messages,timeline"' . selected( esc_attr( $tabs ), "messages,timeline", false ) . '>Messages, Timeline</option></select>';
-         echo '</p>';
+        echo '<p>';        
+        	_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
+            if( !empty( CJW_FBPP_TABS ) ) {
+             	// First we should convert the string to an array as that's how it will be stored moving forward.
+             	if( !is_array( $tabs ) ) {
+	             	$oldtabs = esc_attr( $tabs );
+	             	$newtabs = explode( ',', $tabs );
+	             	$tabs = $newtabs;
+	             }
+             	foreach( CJW_FBPP_TABS as $tab ) {
+             		echo '<br/><label>';
+             			echo '<input type="checkbox" name="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']" ' . ( in_array( $tab, $tabs ) ? 'checked' : '' ) . ' /> ';
+             			echo ucfirst( $tab );
+             		echo '</label>';
+             	}
+        	}
+        echo '</p>';
 		 echo '<p>';
         	 echo '<label for="' . $this->get_field_id( 'cta' ) . '">';
             	_e( 'Hide Call To Action:', 'facebook-page-feed-graph-api' );
@@ -469,7 +490,16 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		$instance['height'] = ( ! empty( $new_instance['height'] ) ) ? strip_tags( $new_instance['height'] ) : '';
 		$instance['cover'] = ( ! empty( $new_instance['cover'] ) ) ? strip_tags( $new_instance['cover'] ) : '';
 		$instance['facepile'] = ( ! empty( $new_instance['facepile'] ) ) ? strip_tags( $new_instance['facepile'] ) : '';
-		$instance['tabs'] = ( ! empty( $new_instance['tabs'] ) ) ? strip_tags( $new_instance['tabs'] ) : '';
+		//$instance['tabs'] = ( ! empty( $new_instance['tabs'] ) ) ? $new_instance['tabs'] : '';
+		if( !empty( $new_instance['tabs'] ) ) {
+			if( is_array( $new_instance['tabs'] ) ) {
+				foreach( $new_instance['tabs'] as $key => $var ) {
+					$instance['tabs'][] = $key;
+				}
+			}
+		} else {
+			$instance['tabs'] = '';
+		}
 		$instance['cta'] = ( ! empty( $new_instance['cta'] ) ) ? strip_tags( $new_instance['cta'] ) : '';
 		$instance['small'] = ( ! empty( $new_instance['small'] ) ) ? strip_tags( $new_instance['small'] ) : '';
 		$instance['adapt'] = ( ! empty( $new_instance['adapt'] ) ) ? strip_tags( $new_instance['adapt'] ) : '';
@@ -499,7 +529,15 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 			$return .= '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
 			$return .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
 			$return .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
-			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-tabs"><option value="">None</option><option value="timeline">Timeline</option><option value="messages">Messages</option><option value="timeline,messages">Timeline, Messages</option><option value="messages,timeline">Messages, Timeline</option></select></label></p>';
+			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ':';
+			if( !empty( CJW_FBPP_TABS ) ) {
+				foreach( CJW_FBPP_TABS as $tab ) {
+	         		$return .= '<br/><label>';
+	         			$return .= '<input type="checkbox" class="fbpp-tabs" name="' . $tab . '" /> ';
+	         			$return .= ucfirst( $tab );
+	         		$return .= '</label>';
+	         	}
+	         }
 			$return .= '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
 			$return .= '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
 			$return .= '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
