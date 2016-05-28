@@ -529,7 +529,15 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 			$return .= '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
 			$return .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
 			$return .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
-			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-tabs"><option value="">None</option><option value="timeline">Timeline</option><option value="messages">Messages</option><option value="timeline,messages">Timeline, Messages</option><option value="messages,timeline">Messages, Timeline</option></select></label></p>';
+			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ':';
+			if( !empty( CJW_FBPP_TABS ) ) {
+				foreach( CJW_FBPP_TABS as $tab ) {
+	         		$return .= '<br/><label>';
+	         			$return .= '<input type="checkbox" class="fbpp-tabs" name="' . $tab . '" /> ';
+	         			$return .= ucfirst( $tab );
+	         		$return .= '</label>';
+	         	}
+	         }
 			$return .= '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
 			$return .= '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
 			$return .= '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
