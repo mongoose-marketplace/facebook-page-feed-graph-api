@@ -418,15 +418,17 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
              echo '</label>';
              echo ' <input class="widefat" id="' . $this->get_field_id( 'facepile' ) . '" name="' . $this->get_field_name( 'facepile' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $facepile ), 'true', false ) . ' />';
          echo '</p>';
-        echo '<p>';
+        echo '<p>';        
         	_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
             if( !empty( CJW_FBPP_TABS ) ) {
              	// First we should convert the string to an array as that's how it will be stored moving forward.
-             	$oldtabs = esc_attr( $tabs );
-             	$newtabs = explode( ',', $tabs );
-             	$tabs = $newtabs;
+             	if( !is_array( $tabs ) ) {
+	             	$oldtabs = esc_attr( $tabs );
+	             	$newtabs = explode( ',', $tabs );
+	             	$tabs = $newtabs;
+	             }
              	foreach( CJW_FBPP_TABS as $tab ) {
-             		echo '<br/><label for="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']">';
+             		echo '<br/><label>';
              			echo '<input type="checkbox" name="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']" ' . ( in_array( $tab, $tabs ) ? 'checked' : '' ) . ' /> ';
              			echo ucfirst( $tab );
              		echo '</label>';
@@ -488,7 +490,16 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		$instance['height'] = ( ! empty( $new_instance['height'] ) ) ? strip_tags( $new_instance['height'] ) : '';
 		$instance['cover'] = ( ! empty( $new_instance['cover'] ) ) ? strip_tags( $new_instance['cover'] ) : '';
 		$instance['facepile'] = ( ! empty( $new_instance['facepile'] ) ) ? strip_tags( $new_instance['facepile'] ) : '';
-		$instance['tabs'] = ( ! empty( $new_instance['tabs'] ) ) ? strip_tags( $new_instance['tabs'] ) : '';
+		//$instance['tabs'] = ( ! empty( $new_instance['tabs'] ) ) ? $new_instance['tabs'] : '';
+		if( !empty( $new_instance['tabs'] ) ) {
+			if( is_array( $new_instance['tabs'] ) ) {
+				foreach( $new_instance['tabs'] as $key => $var ) {
+					$instance['tabs'][] = $key;
+				}
+			}
+		} else {
+			$instance['tabs'] = '';
+		}
 		$instance['cta'] = ( ! empty( $new_instance['cta'] ) ) ? strip_tags( $new_instance['cta'] ) : '';
 		$instance['small'] = ( ! empty( $new_instance['small'] ) ) ? strip_tags( $new_instance['small'] ) : '';
 		$instance['adapt'] = ( ! empty( $new_instance['adapt'] ) ) ? strip_tags( $new_instance['adapt'] ) : '';
