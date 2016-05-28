@@ -430,7 +430,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
              	foreach( CJW_FBPP_TABS as $tab ) {
              		echo '<br/><label>';
              			echo '<input type="checkbox" name="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']" ' . ( in_array( $tab, $tabs ) ? 'checked' : '' ) . ' /> ';
-             			echo ucfirst( $tab );
+             			_e( ucfirst( $tab ), 'facebook-page-feed-graph-api' );
              		echo '</label>';
              	}
         	}
@@ -534,7 +534,7 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 				foreach( CJW_FBPP_TABS as $tab ) {
 	         		$return .= '<br/><label>';
 	         			$return .= '<input type="checkbox" class="fbpp-tabs" name="' . $tab . '" /> ';
-	         			$return .= ucfirst( $tab );
+	         			$return .= __( ucfirst( $tab ), 'facebook-page-feed-graph-api' );
 	         		$return .= '</label>';
 	         	}
 	         }
