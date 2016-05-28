@@ -146,7 +146,16 @@ class cameronjonesweb_facebook_page_plugin {
 				$return .= ' data-show-facepile="' . $a['facepile'] . '"';
 			}
 			if(isset($a['tabs']) && !empty($a['tabs'])){
-				$return .= ' data-tabs="' . $a['tabs'] . '"';
+				if( is_array( $a['tabs'] ) ) {
+					$return .= ' data-tabs="';
+					for( $i = 0; $i < count( $a['tabs'] ); $i++ ) {
+						$return .= $a['tabs'][$i];
+						$return .= ( $i = count( $a['tabs'] ) - 1 ? ',' : '' );
+					}
+					$return .= '"';
+				} else {
+					$return .= ' data-tabs="' . $a['tabs'] . '"';
+				}
 			} else if(isset($a['posts']) && !empty($a['posts'])){
 				if($a['posts'] == 'true'){
 					$return .= ' data-tabs="timeline"';
