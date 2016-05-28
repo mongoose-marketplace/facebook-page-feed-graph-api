@@ -490,11 +490,10 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		$instance['height'] = ( ! empty( $new_instance['height'] ) ) ? strip_tags( $new_instance['height'] ) : '';
 		$instance['cover'] = ( ! empty( $new_instance['cover'] ) ) ? strip_tags( $new_instance['cover'] ) : '';
 		$instance['facepile'] = ( ! empty( $new_instance['facepile'] ) ) ? strip_tags( $new_instance['facepile'] ) : '';
-		//$instance['tabs'] = ( ! empty( $new_instance['tabs'] ) ) ? $new_instance['tabs'] : '';
 		if( !empty( $new_instance['tabs'] ) ) {
 			if( is_array( $new_instance['tabs'] ) ) {
 				foreach( $new_instance['tabs'] as $key => $var ) {
-					$instance['tabs'][] = $key;
+					$instance['tabs'][] = sanitize_text_field( $key );
 				}
 			}
 		} else {
