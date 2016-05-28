@@ -38,6 +38,7 @@ class cameronjonesweb_facebook_page_plugin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'facebook_page_plugin_admin_resources' ) );
 		add_action( 'admin_notices', array( $this, 'facebook_page_plugin_admin_notice' ) );
 		add_action( 'admin_init', array( $this, 'facebook_page_plugin_admin_notice_ignore' ) );
+		add_action( 'admin_menu', array( $this, 'facebook_page_plugin_landing_page_menu' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'facebook_page_plugin_action_links' ) );
 	}
 
@@ -180,6 +181,14 @@ class cameronjonesweb_facebook_page_plugin {
 			$return .= '</div></div></div>';
 		}
 		return $return;
+	}
+
+	function facebook_page_plugin_landing_page_menu() {
+	    add_submenu_page( 'plugins.php', __( 'Facebook Page Plugin by cameronjonesweb', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
+	}
+
+	function facebook_page_plugin_landing_page() {
+		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
 	}
 
 }
@@ -554,6 +563,7 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 
 		echo $return;
 	}
+
 }
 
 //Register the widget
