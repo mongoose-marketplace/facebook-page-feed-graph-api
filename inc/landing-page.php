@@ -2,10 +2,10 @@
 $currentuser = wp_get_current_user();
 $internet = false; ?>
 <div class="wrap">
-	<h1>Hello World</h1>
 	<div class="welcome-panel">
 		<div class="welcome-panel-content">
-			<p><?php _e( 'Thank you for downloading the Facebook Page Plugin by cameronjonesweb!' ); ?></p>
+			<img src="<?php echo CJW_FBPP_PLUGIN_URL; ?>/images/banner-772x250.jpg" class="welcome-panel-image">
+			<p class="about-description"><?php _e( 'Thank you for downloading the Facebook Page Plugin by cameronjonesweb! You\'ve joined more than 10,000 other WordPress websites using this plugin to display a Facebook Page on their site. To help introduce you to the plugin, I\'ve created this page full of useful information. Please enjoy using my Facebook Page Plugin and let me know how it works for you!' ); ?></p>
 		</div>
 	</div>
 	<div id="dashboard-widgets-wrap">
