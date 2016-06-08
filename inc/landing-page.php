@@ -1,5 +1,6 @@
 <?php defined( 'ABSPATH' ) or die();
-$currentuser = wp_get_current_user(); ?>
+$currentuser = wp_get_current_user();
+$internet = false; ?>
 <div class="wrap">
 	<h1>Hello World</h1>
 	<div class="welcome-panel">
@@ -77,27 +78,31 @@ $currentuser = wp_get_current_user(); ?>
 								<?php if ( ! function_exists( 'plugins_api' ) ){
 									require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 								}
-								$plugins = plugins_api( 'query_plugins', array( 
-									'author' => 'cameronjonesweb', 'fields' => array(
-										'active_installs' => true,
-										'description' => false,
-										'icons' => true,
-									) 
-								) );
-								if( !empty( $plugins ) ) {
-									for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
-										if( $plugins->plugins[$i]->slug != 'facebook-page-feed-graph-api' ) { ?>
-											<div class="plugin-card">
-												<div class="plugin-card-top">
-													<?php if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) { ?>
-														<img src="<?php echo $plugins->plugins[$i]->icons['1x']; ?>" alt="<?php echo $plugins->plugins[$i]->name; ?> Icon" />
-													<?php } ?>
-													<h4><strong><?php echo $plugins->plugins[$i]->name; ?></strong></h4>
-													<p><?php echo $plugins->plugins[$i]->short_description; ?></p>
-													<p><a href="<?php echo self_admin_url(); ?>plugin-install.php?tab=plugin-information&amp;plugin=<?php echo $plugins->plugins[$i]->slug; ?>TB_iframe=true&amp;width=600&amp;height=550" class="thickbox open-plugin-details-modal button" aria-label="More information about <?php echo $plugins->plugins[$i]->name; ?>" data-title="<?php echo $plugins->plugins[$i]->name; ?>">Details &amp; Install</a></p>
+								if( $internet ) {
+									$plugins = plugins_api( 'query_plugins', array( 
+										'author' => 'cameronjonesweb', 'fields' => array(
+											'active_installs' => true,
+											'description' => false,
+											'icons' => true,
+										) 
+									) );
+									if( isset( $plugins ) && !empty( $plugins ) ) {
+										for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
+											if( $plugins->plugins[$i]->slug != 'facebook-page-feed-graph-api' ) { ?>
+												<div class="plugin-card">
+													<div class="plugin-card-top">
+														<?php if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) { ?>
+															<img src="<?php echo $plugins->plugins[$i]->icons['1x']; ?>" alt="<?php echo $plugins->plugins[$i]->name; ?> Icon" />
+														<?php } ?>
+														<h4><strong><?php echo $plugins->plugins[$i]->name; ?></strong></h4>
+														<p><?php echo $plugins->plugins[$i]->short_description; ?></p>
+														<p><a href="<?php echo self_admin_url(); ?>plugin-install.php?tab=plugin-information&amp;plugin=<?php echo $plugins->plugins[$i]->slug; ?>TB_iframe=true&amp;width=600&amp;height=550" class="thickbox open-plugin-details-modal button" aria-label="More information about <?php echo $plugins->plugins[$i]->name; ?>" data-title="<?php echo $plugins->plugins[$i]->name; ?>">Details &amp; Install</a></p>
+													</div>
 												</div>
-											</div>
-										<?php } ?>
+											<?php } ?>
+										<?php }
+									} else { ?>
+										No additional plugins available at this time.
 									<?php }
 								} else { ?>
 									<p><strong>No plugins found</strong>. Check your connection.</p>
@@ -108,9 +113,16 @@ $currentuser = wp_get_current_user(); ?>
 					</div>
 					<div class="postbox">
 						<div class="main inside">
-							<?php $feed = 'https://cameronjonesweb.com.au/feed/';
-							$xml = simplexml_load_file( $feed );
-							print_r( $xml ); ?>
+							<h3><i class="dashicons dashicons-testimonial"></i> Latest News From The Developer</h3>
+							<?php if( $internet ) {
+								$feed = 'https://cameronjonesweb.com.au/feed/';
+								$xml = simplexml_load_file( $feed );
+								if( isset( $xml ) && !empty( $xml ) ) {
+									print_r( $xml );
+								}
+							} else { ?>
+								<p><strong>No posts found</strong>. Check your connection.</p>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
