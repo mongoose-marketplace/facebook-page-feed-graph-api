@@ -1,4 +1,5 @@
-<?php $currentuser = wp_get_current_user(); ?>
+<?php defined( 'ABSPATH' ) or die();
+$currentuser = wp_get_current_user(); ?>
 <div class="wrap">
 	<h1>Hello World</h1>
 	<div class="welcome-panel">
@@ -83,19 +84,23 @@
 										'icons' => true,
 									) 
 								) );
-								for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
-									if( $plugins->plugins[$i]->slug != 'facebook-page-feed-graph-api' ) { ?>
-										<div class="plugin-card">
-											<div class="plugin-card-top">
-												<?php if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) { ?>
-													<img src="<?php echo $plugins->plugins[$i]->icons['1x']; ?>" alt="<?php echo $plugins->plugins[$i]->name; ?> Icon" />
-												<?php } ?>
-												<h4><strong><?php echo $plugins->plugins[$i]->name; ?></strong></h4>
-												<p><?php echo $plugins->plugins[$i]->short_description; ?></p>
-												<p><a href="<?php echo self_admin_url(); ?>plugin-install.php?tab=plugin-information&amp;plugin=<?php echo $plugins->plugins[$i]->slug; ?>TB_iframe=true&amp;width=600&amp;height=550" class="thickbox open-plugin-details-modal button" aria-label="More information about <?php echo $plugins->plugins[$i]->name; ?>" data-title="<?php echo $plugins->plugins[$i]->name; ?>">Details &amp; Install</a></p>
+								if( !empty( $plugins ) ) {
+									for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
+										if( $plugins->plugins[$i]->slug != 'facebook-page-feed-graph-api' ) { ?>
+											<div class="plugin-card">
+												<div class="plugin-card-top">
+													<?php if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) { ?>
+														<img src="<?php echo $plugins->plugins[$i]->icons['1x']; ?>" alt="<?php echo $plugins->plugins[$i]->name; ?> Icon" />
+													<?php } ?>
+													<h4><strong><?php echo $plugins->plugins[$i]->name; ?></strong></h4>
+													<p><?php echo $plugins->plugins[$i]->short_description; ?></p>
+													<p><a href="<?php echo self_admin_url(); ?>plugin-install.php?tab=plugin-information&amp;plugin=<?php echo $plugins->plugins[$i]->slug; ?>TB_iframe=true&amp;width=600&amp;height=550" class="thickbox open-plugin-details-modal button" aria-label="More information about <?php echo $plugins->plugins[$i]->name; ?>" data-title="<?php echo $plugins->plugins[$i]->name; ?>">Details &amp; Install</a></p>
+												</div>
 											</div>
-										</div>
-									<?php } ?>
+										<?php } ?>
+									<?php }
+								} else { ?>
+									<p><strong>No plugins found</strong>. Check your connection.</p>
 								<?php } ?>
 								<div class="clear"></div>
 							</div>
