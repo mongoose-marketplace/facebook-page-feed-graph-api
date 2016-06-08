@@ -22,7 +22,7 @@ $internet = false; ?>
 								</li>
 								<li>
 									<strong>Something's broken, where do I get help?</strong>
-									<p>You can go to <a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">https://wordpress.org/support/plugin/facebook-page-feed-graph-api</a> and create a support ticket on WordPress.org, or you can email the developer at <a href="mailto:plugins@cameronjonesweb.com.au">plugins@cameronjonesweb.com.au</a>.</p>
+									<p>You can go to <a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">https://wordpress.org/support/plugin/facebook-page-feed-graph-api</a> and create a support ticket on WordPress.org, or you can email the developer at <a href="mailto:plugins@cameronjonesweb.com.au" target="_blank">plugins@cameronjonesweb.com.au</a>.</p>
 								</li>
 							</ul>
 						</div>
@@ -60,34 +60,35 @@ $internet = false; ?>
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-star-filled"></i> Leave A Review</h3>
 							<p>Is this the best plugin for adding a Facebook Page to your WordPress website? <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api#postform" target="_blank">Let me know</a>!</p>
-							<p>If there's a problem, you can <a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">let me know here</a> instead.</p>
+							<p>If there's a problem, please open a support ticket on <a href="https://github.com/cameronjonesweb/facebook-page-feed-graph-api/issues" target="_blank">GitHub</a>, on <a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">WordPress.org</a> or <a href="mailto:plugins@cameronjonesweb.com.au" target="_blank">email me</a>.</p>
 						</div>
 					</div>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-chart-line"></i> Take The Survey</h3>
 							<p>Want to have your say about the Facebook Page Plugin?</p>
+							<p><a href="#" class="button">Take The Survey!</a></p>
 						</div>
 					</div>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-admin-plugins"></i> More Plugins by cameronjonesweb</h3>
 							<p>Help support the developer by using more of his plugins!</p>
-							<?php add_thickbox(); ?>
-							<div>
-								<?php if ( ! function_exists( 'plugins_api' ) ){
-									require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
-								}
-								if( $internet ) {
-									$plugins = plugins_api( 'query_plugins', array( 
-										'author' => 'cameronjonesweb', 'fields' => array(
-											'active_installs' => true,
-											'description' => false,
-											'icons' => true,
-										) 
-									) );
-									if( isset( $plugins ) && !empty( $plugins ) ) {
-										for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
+							<?php add_thickbox();
+							if ( ! function_exists( 'plugins_api' ) ){
+								require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+							}
+							if( $internet ) {
+								$plugins = plugins_api( 'query_plugins', array( 
+									'author' => 'cameronjonesweb', 'fields' => array(
+										'active_installs' => true,
+										'description' => false,
+										'icons' => true,
+									) 
+								) );
+								if( isset( $plugins ) && !empty( $plugins ) ) { ?>
+									<div>
+										<?php for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
 											if( $plugins->plugins[$i]->slug != 'facebook-page-feed-graph-api' ) { ?>
 												<div class="plugin-card">
 													<div class="plugin-card-top">
@@ -100,15 +101,15 @@ $internet = false; ?>
 													</div>
 												</div>
 											<?php } ?>
-										<?php }
-									} else { ?>
-										No additional plugins available at this time.
-									<?php }
-								} else { ?>
-									<p><strong>No plugins found</strong>. Check your connection.</p>
-								<?php } ?>
-								<div class="clear"></div>
-							</div>
+										<?php } ?>
+										<div class="clear"></div>
+									</div>
+								<?php } else { ?>
+									No additional plugins available at this time.
+								<?php }
+							} else { ?>
+								<p><strong>No plugins found</strong>. Check your connection.</p>
+							<?php } ?>
 						</div>
 					</div>
 					<div class="postbox">
