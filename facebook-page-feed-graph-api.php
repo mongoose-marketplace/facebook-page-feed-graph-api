@@ -191,6 +191,17 @@ class cameronjonesweb_facebook_page_plugin {
 		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
 	}
 
+	function facebook_page_plugin_is_connected() {
+	    $connected = @fsockopen("cameronjonesweb.com.au", 80); 
+	    if ($connected){
+	        $is_conn = true; //action when connected
+	        fclose($connected);
+	    }else{
+	        $is_conn = false; //action in connection failure
+	    }
+	    return $is_conn;
+	}
+
 }
 
 class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
@@ -516,6 +527,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? strip_tags( $new_instance['language'] ) : '';
 	return $instance;
 	}
+
 } // Class wpb_widget ends here
 
 class cameronjonesweb_facebook_page_plugin_shortcode_generator {
