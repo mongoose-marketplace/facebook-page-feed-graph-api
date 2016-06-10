@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) or die();
 $currentuser = wp_get_current_user();
-$internet = false; ?>
+$internet = $this->facebook_page_plugin_is_connected(); ?>
 <div class="wrap">
 	<div class="welcome-panel">
 		<div class="welcome-panel-content">
