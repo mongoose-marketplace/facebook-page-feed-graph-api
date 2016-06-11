@@ -24,12 +24,15 @@ defined( 'ABSPATH' ) or die();
 
 class cameronjonesweb_facebook_page_plugin {
 
+	protected $CJW_FBPP_TABS;
+
 	public function __construct() {
 
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
-		define( 'CJW_FBPP_TABS', array( 'timeline', 'events', 'messages' ) );
+
+		$CJW_FBPP_TABS = array( 'timeline', 'events', 'messages' );
 
 		//Add all the hooks and actions
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
@@ -194,7 +197,7 @@ class cameronjonesweb_facebook_page_plugin {
 	/*
 	 * http://stackoverflow.com/a/4860432/1672694
 	 */
-	
+
 	function facebook_page_plugin_is_connected() {
 	    $connected = @fsockopen("cameronjonesweb.com.au", 80); 
 	    if ($connected){
@@ -444,14 +447,14 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
          echo '</p>';
         echo '<p>';        
         	_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
-            if( !empty( CJW_FBPP_TABS ) ) {
+            if( !empty( $CJW_FBPP_TABS ) ) {
              	// First we should convert the string to an array as that's how it will be stored moving forward.
              	if( !is_array( $tabs ) ) {
 	             	$oldtabs = esc_attr( $tabs );
 	             	$newtabs = explode( ',', $tabs );
 	             	$tabs = $newtabs;
 	             }
-             	foreach( CJW_FBPP_TABS as $tab ) {
+             	foreach( $CJW_FBPP_TABS as $tab ) {
              		echo '<br/><label>';
              			echo '<input type="checkbox" name="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']" ' . ( in_array( $tab, $tabs ) ? 'checked' : '' ) . ' /> ';
              			_e( ucfirst( $tab ), 'facebook-page-feed-graph-api' );
@@ -554,8 +557,8 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 			$return .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
 			$return .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
 			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ':';
-			if( !empty( CJW_FBPP_TABS ) ) {
-				foreach( CJW_FBPP_TABS as $tab ) {
+			if( !empty( $CJW_FBPP_TABS ) ) {
+				foreach( $CJW_FBPP_TABS as $tab ) {
 	         		$return .= '<br/><label>';
 	         			$return .= '<input type="checkbox" class="fbpp-tabs" name="' . $tab . '" /> ';
 	         			$return .= __( ucfirst( $tab ), 'facebook-page-feed-graph-api' );
