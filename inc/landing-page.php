@@ -117,9 +117,18 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 							<h3><i class="dashicons dashicons-testimonial"></i> <?php _e( 'Latest News From The Developer', 'facebook-page-feed-graph-api' ); ?></h3>
 							<?php if( $internet ) {
 								$feed = 'https://cameronjonesweb.com.au/feed/';
-								$xml = simplexml_load_file( $feed );
+								$xml = simplexml_load_file( $feed, 'SimpleXMLElement', LIBXML_NOCDATA );
 								if( isset( $xml ) && !empty( $xml ) ) {
-									print_r( $xml );
+									echo '<ul>';
+									foreach( $xml->channel->item as $blogpost ) {
+										echo '<li>';
+											echo date( 'M jS', strtotime( $blogpost->pubDate ) ) . ' - ';
+											echo '<a href="' . $blogpost->link . '">';
+												echo $blogpost->title;
+											echo '</a>';
+										echo '</li>';
+									}
+									echo '</ul>';
 								}
 							} else { ?>
 								<p><strong><?php _e( 'No posts found.', 'facebook-page-feed-graph-api' ); ?></strong> <?php _e( 'Check your connection.', 'facebook-page-feed-graph-api' ); ?></p>
