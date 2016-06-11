@@ -71,68 +71,15 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 						</div>
 					</div>
 					<div class="postbox">
-						<div class="main inside">
+						<div class="main inside" id="plugins-inside">
 							<h3><i class="dashicons dashicons-admin-plugins"></i> <?php _e( 'More Plugins by cameronjonesweb', 'facebook-page-feed-graph-api' ); ?></h3>
 							<p><?php _e( 'Help support the developer by using more of his plugins!', 'facebook-page-feed-graph-api' ); ?></p>
-							<?php add_thickbox();
-							if ( ! function_exists( 'plugins_api' ) ){
-								require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
-							}
-							if( $internet ) {
-								$plugins = plugins_api( 'query_plugins', array( 
-									'author' => 'cameronjonesweb', 'fields' => array(
-										'active_installs' => true,
-										'description' => false,
-										'icons' => true,
-									) 
-								) );
-								if( isset( $plugins ) && !empty( $plugins ) ) { ?>
-									<div>
-										<?php for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
-											if( $plugins->plugins[$i]->slug != 'facebook-page-feed-graph-api' ) { ?>
-												<div class="plugin-card">
-													<div class="plugin-card-top">
-														<?php if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) { ?>
-															<img src="<?php echo $plugins->plugins[$i]->icons['1x']; ?>" alt="<?php echo $plugins->plugins[$i]->name; ?> Icon" />
-														<?php } ?>
-														<h4><strong><?php _e( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ); ?></strong></h4>
-														<p><?php _e( $plugins->plugins[$i]->short_description, 'facebook-page-feed-graph-api' ); ?></p>
-														<p><a href="<?php echo self_admin_url(); ?>plugin-install.php?tab=plugin-information&amp;plugin=<?php echo $plugins->plugins[$i]->slug; ?>TB_iframe=true&amp;width=600&amp;height=550" class="thickbox open-plugin-details-modal button" aria-label="More information about <?php _e( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ); ?>" data-title="<?php _e( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ); ?>"><?php _e( 'Details &amp; Install', 'facebook-page-feed-graph-api' ); ?></a></p>
-													</div>
-												</div>
-											<?php } ?>
-										<?php } ?>
-										<div class="clear"></div>
-									</div>
-								<?php } else {
-									_e( 'No additional plugins available at this time.', 'facebook-page-feed-graph-api' );
-								}
-							} else { ?>
-								<p><strong><?php _e( 'No plugins found.', 'facebook-page-feed-graph-api' ); ?></strong> <?php _e( 'Check your connection.', 'facebook-page-feed-graph-api' ); ?></p>
-							<?php } ?>
+							<?php add_thickbox(); ?>
 						</div>
 					</div>
 					<div class="postbox">
-						<div class="main inside">
+						<div class="main inside" id="blog-posts-inside">
 							<h3><i class="dashicons dashicons-testimonial"></i> <?php _e( 'Latest News From The Developer', 'facebook-page-feed-graph-api' ); ?></h3>
-							<?php if( $internet ) {
-								$feed = 'https://cameronjonesweb.com.au/feed/';
-								$xml = simplexml_load_file( $feed, 'SimpleXMLElement', LIBXML_NOCDATA );
-								if( isset( $xml ) && !empty( $xml ) ) {
-									echo '<ul>';
-									foreach( $xml->channel->item as $blogpost ) {
-										echo '<li>';
-											echo date( 'M jS', strtotime( $blogpost->pubDate ) ) . ' - ';
-											echo '<a href="' . $blogpost->link . '">';
-												echo $blogpost->title;
-											echo '</a>';
-										echo '</li>';
-									}
-									echo '</ul>';
-								}
-							} else { ?>
-								<p><strong><?php _e( 'No posts found.', 'facebook-page-feed-graph-api' ); ?></strong> <?php _e( 'Check your connection.', 'facebook-page-feed-graph-api' ); ?></p>
-							<?php } ?>
 						</div>
 					</div>
 				</div>
