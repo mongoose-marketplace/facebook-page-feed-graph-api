@@ -84,7 +84,7 @@ class cameronjonesweb_facebook_page_plugin {
 	public function facebook_page_plugin_admin_resources() {
 		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/facebook-page-plugin-admin.js' );
 		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/facebook-page-plugin-admin.css' );
-		if( true ) {
+		if( get_current_screen()->base == 'plugins_page_facebook-page-plugin' ) {
 			wp_enqueue_script( 'facebook-page-plugin-landing-page', CJW_FBPP_PLUGIN_URL . 'js/landing-page.js', array( 'jquery' ), NULL, true );
 		}
 	}
