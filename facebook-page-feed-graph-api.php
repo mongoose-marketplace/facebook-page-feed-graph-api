@@ -42,6 +42,8 @@ class cameronjonesweb_facebook_page_plugin {
 		add_action( 'admin_notices', array( $this, 'facebook_page_plugin_admin_notice' ) );
 		add_action( 'admin_init', array( $this, 'facebook_page_plugin_admin_notice_ignore' ) );
 		add_action( 'admin_menu', array( $this, 'facebook_page_plugin_landing_page_menu' ) );
+		add_action( 'wp_ajax_facebook_page_plugin_latest_blog_posts_callback', array( $this, 'facebook_page_plugin_latest_blog_posts_callback' ) );
+		add_action( 'wp_ajax_facebook_page_plugin_other_plugins_callback', array( $this, 'facebook_page_plugin_other_plugins_callback' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'facebook_page_plugin_action_links' ) );
 	}
 
@@ -82,6 +84,9 @@ class cameronjonesweb_facebook_page_plugin {
 	public function facebook_page_plugin_admin_resources() {
 		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/facebook-page-plugin-admin.js' );
 		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/facebook-page-plugin-admin.css' );
+		if( true ) {
+			wp_enqueue_script( 'facebook-page-plugin-landing-page', CJW_FBPP_PLUGIN_URL . 'js/landing-page.js', array( 'jquery' ), NULL, true );
+		}
 	}
 
 	//Register the dashboard widget
@@ -97,11 +102,98 @@ class cameronjonesweb_facebook_page_plugin {
 		
 	}
 
+	function facebook_page_plugin_landing_page_menu() {
+	    add_submenu_page( 'plugins.php', __( 'Facebook Page Plugin by cameronjonesweb', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
+	}
+
+	function facebook_page_plugin_landing_page() {
+		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
+	}
+
+	/*
+	 * http://stackoverflow.com/a/4860432/1672694
+	 */
+
+	function facebook_page_plugin_is_connected() {
+	    $connected = @fsockopen( "cameronjonesweb.com.au", 80 ); 
+	    if( $connected ){
+	        $is_conn = true; //action when connected
+	        fclose( $connected );
+	    } else {
+	        $is_conn = false; //action in connection failure
+	    }
+	    return $is_conn;
+	}
+
+	function facebook_page_plugin_latest_blog_posts_callback() {
+		$internet = $this->facebook_page_plugin_is_connected();
+		if( $internet ) {
+			$feed = 'https://cameronjonesweb.com.au/feed/';
+			$xml = simplexml_load_file( $feed, 'SimpleXMLElement', LIBXML_NOCDATA );
+			if( isset( $xml ) && !empty( $xml ) ) {
+				echo '<ul>';
+				foreach( $xml->channel->item as $blogpost ) {
+					echo '<li>';
+						echo date( 'M jS', strtotime( $blogpost->pubDate ) ) . ' - ';
+						echo '<a href="' . $blogpost->link . '">';
+							echo $blogpost->title;
+						echo '</a>';
+					echo '</li>';
+				}
+				echo '</ul>';
+			}
+		} else {
+			echo '<p><strong>' . __( 'No posts found.', 'facebook-page-feed-graph-api' ) . '</strong>' . __( 'Check your connection.', 'facebook-page-feed-graph-api' ) . '</p>';
+		}
+		wp_die();
+	}
+
+	function facebook_page_plugin_other_plugins_callback() {
+		$internet = $this->facebook_page_plugin_is_connected();
+		if ( ! function_exists( 'plugins_api' ) ){
+			require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+		}
+		if( $internet ) {
+			$plugins = plugins_api( 'query_plugins', array( 
+				'author' => 'cameronjonesweb', 'fields' => array(
+					'active_installs' => true,
+					'description' => false,
+					'icons' => true,
+				) 
+			) );
+			if( isset( $plugins ) && !empty( $plugins ) ) {
+				echo '<div>';
+					for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
+						if( $plugins->plugins[$i]->slug != 'facebook-page-feed-graph-api' ) {
+							echo '<div class="plugin-card">';
+								echo '<div class="plugin-card-top">';
+									if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) {
+										echo '<img src="' . $plugins->plugins[$i]->icons['1x'] . '" alt="' . $plugins->plugins[$i]->name . ' Icon" />';
+									}
+									echo '<h4><strong>' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '</strong></h4>';
+									echo '<p>' . _e( $plugins->plugins[$i]->short_description, 'facebook-page-feed-graph-api' ) . '</p>';
+									echo '<p><a href="' . self_admin_url() . 'plugin-install.php?tab=plugin-information&amp;plugin=' . $plugins->plugins[$i]->slug . 'TB_iframe=true&amp;width=600&amp;height=550" class="thickbox open-plugin-details-modal button" aria-label="More information about ' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '" data-title="' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '">' . __( 'Details &amp; Install', 'facebook-page-feed-graph-api' ) . '</a></p>';
+								echo '</div>';
+							echo '</div>';
+						}
+					}
+					echo '<div class="clear"></div>';
+				echo '</div>';
+			} else {
+				_e( 'No additional plugins available at this time.', 'facebook-page-feed-graph-api' );
+			}
+		} else {
+			echo '<p><strong>' . __( 'No plugins found.', 'facebook-page-feed-graph-api' ) . '</strong> ' . __( 'Check your connection.', 'facebook-page-feed-graph-api' ) . '</p>';
+		}
+		wp_die();
+	}
+
+
+	//Client side stuff
 	function facebook_page_plugin_generate_wrapper_id() {
 		return substr( str_shuffle( str_repeat( implode( '', array_merge( range( 'A', 'Z' ), range( 'a', 'z' ) ) ), 5 ) ), 0, 15 );
 	}
 
-	//Client side stuff
 	//Parse shortcode
 	function facebook_page_plugin( $filter ) {
 		wp_enqueue_script( 'facebook-page-plugin-sdk', CJW_FBPP_PLUGIN_URL . 'js/sdk.js', array(), NULL, true );
@@ -184,29 +276,6 @@ class cameronjonesweb_facebook_page_plugin {
 			$return .= '</div></div></div>';
 		}
 		return $return;
-	}
-
-	function facebook_page_plugin_landing_page_menu() {
-	    add_submenu_page( 'plugins.php', __( 'Facebook Page Plugin by cameronjonesweb', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
-	}
-
-	function facebook_page_plugin_landing_page() {
-		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
-	}
-
-	/*
-	 * http://stackoverflow.com/a/4860432/1672694
-	 */
-
-	function facebook_page_plugin_is_connected() {
-	    $connected = @fsockopen("cameronjonesweb.com.au", 80); 
-	    if ($connected){
-	        $is_conn = true; //action when connected
-	        fclose($connected);
-	    }else{
-	        $is_conn = false; //action in connection failure
-	    }
-	    return $is_conn;
 	}
 
 }
