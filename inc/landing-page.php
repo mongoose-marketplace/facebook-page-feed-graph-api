@@ -67,7 +67,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-chart-line"></i> <?php _e( 'Take The Survey', 'facebook-page-feed-graph-api' ); ?></h3>
 							<p><?php _e( 'Want to have your say about the Facebook Page Plugin?', 'facebook-page-feed-graph-api' ); ?></p>
-							<p><a href="#" class="button"><?php _e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
+							<p><a href="https://cameronjonesweb.typeform.com/to/BllbYm" class="button" target="_blank"><?php _e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
 						</div>
 					</div>
 					<div class="postbox">
