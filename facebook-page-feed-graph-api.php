@@ -191,6 +191,10 @@ class cameronjonesweb_facebook_page_plugin {
 		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
 	}
 
+	/*
+	 * http://stackoverflow.com/a/4860432/1672694
+	 */
+	
 	function facebook_page_plugin_is_connected() {
 	    $connected = @fsockopen("cameronjonesweb.com.au", 80); 
 	    if ($connected){
