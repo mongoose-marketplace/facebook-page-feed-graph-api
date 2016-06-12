@@ -15,16 +15,25 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h2><abbr title="Frequently Asked Questions"><?php _e( 'FAQs', 'facebook-page-feed-graph-api' ); ?></abbr></h2>
-							<ul>
-								<li>
-									<strong><?php _e( 'Where is the settings page?', 'facebook-page-feed-graph-api' ); ?></strong>
-									<p><?php _e( 'There isn\'t one.', 'facebook-page-feed-graph-api' ); ?></p>
-								</li>
-								<li>
-									<strong><?php _e( 'Something\'s broken, where do I get help?', 'facebook-page-feed-graph-api' ); ?></strong>
-									<p><?php echo __( 'You can go to', 'facebook-page-feed-graph-api' ) . ' <a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">https://wordpress.org/support/plugin/facebook-page-feed-graph-api</a>' . __(' and create a support ticket on WordPress.org, or you can email the developer at ', 'facebook-page-feed-graph-api' ) . '<a href="mailto:plugins@cameronjonesweb.com.au" target="_blank">plugins@cameronjonesweb.com.au</a>.'; ?></p>
-								</li>
-							</ul>
+							<?php $file = CJW_FBPP_PLUGIN_DIR . '/faq.json';
+							$json = file_get_contents( $file );
+							$faq_obj = json_decode( $json );
+							if( !empty( $faq_obj->faqs ) ) {
+								echo '<ul>';
+								foreach( $faq_obj->faqs as $faq ) {
+									echo '<li>';
+										echo '<strong>';
+											_e( $faq->question, 'facebook-page-feed-graph-api' );
+										echo '</strong>';
+										echo '<p>';
+											_e( $faq->answer, 'facebook-page-feed-graph-api' );
+										echo '</p>';
+									echo '</li>';
+								}
+								echo '</ul>';
+							} else {
+								_e( 'There was a problem retrieving the FAQs.', 'facebook-page-feed-graph-api' );
+							} ?>
 						</div>
 					</div>
 				</div>

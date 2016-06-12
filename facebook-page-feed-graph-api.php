@@ -96,7 +96,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 	//Load the dashboard widget
 	function facebook_page_plugin_dashboard_widget_callback() {
-
+		echo '<a name="cameronjonesweb_facebook_page_plugin_shortcode_generator"></a>';
 		$generator = new cameronjonesweb_facebook_page_plugin_shortcode_generator;
 		$generator->generate();
 		
