@@ -37,6 +37,13 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 						</div>
 					</div>
 				</div>
+				<div class="meta-box-sortables">
+					<div class="postbox">
+						<div class="main inside">
+							<h2>Changelog</h2>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div id="postbox-container-2" class="postbox-container">
 				<div class="meta-box-sortables">
