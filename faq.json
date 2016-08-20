@@ -20,5 +20,21 @@
 			"question": "It's still broken, where do I get help?",
 			"answer": "You can go to <a href='https://wordpress.org/support/plugin/facebook-page-feed-graph-api' target='_blank'>https://wordpress.org/support/plugin/facebook-page-feed-graph-api</a> and create a support ticket on WordPress.org, or you can email the developer at <a href='mailto:plugins@cameronjonesweb.com.au' target='_blank'>plugins@cameronjonesweb.com.au</a>. Please provide your website URL if possible and any console log errors."
 		}
+	],
+
+	"changelog": [
+		{
+			"version": "1.5.3",
+			"changes": [
+				"Fixed bug where share button would return \"App Not Setup\" error"
+			]
+		},
+		{
+			"version": "1.6",
+			"changes": [
+				"Tabs are now checkboxes and the events tab is now available",
+				"New landing page to provide help new users"
+			]
+		}
 	]
 }

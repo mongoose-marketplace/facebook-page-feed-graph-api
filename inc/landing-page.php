@@ -41,6 +41,21 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h2>Changelog</h2>
+							<h3>New in version <?php echo CJW_FBPP_PLUGIN_VER; ?></h3>
+							<?php if( !empty( $faq_obj->changelog ) ) {
+								foreach( $faq_obj->changelog as $version ) {
+									if( $version->version == CJW_FBPP_PLUGIN_VER ) {
+										echo '<ul>';
+											foreach( $version->changes as $change ) {
+												echo '<li>';
+													_e( $change, 'facebook-page-feed-graph-api' );
+												echo '</li>';
+											}
+										echo '</ul>';
+										echo '<a href="https://wordpress.org/plugins/facebook-page-feed-graph-api/changelog/" target="_blank">View full changelog</a>';
+									}
+								}
+							} ?>
 						</div>
 					</div>
 				</div>
@@ -88,8 +103,8 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					</div>
 					<div class="postbox">
 						<div class="main inside">
-							<h3><i class="dashicons dashicons-admin-plugins"></i> <?php _e( 'More Plugins by cameronjonesweb', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Help support the developer by using more of his plugins!', 'facebook-page-feed-graph-api' ); ?></p>
+							<h3><i class="dashicons dashicons-admin-plugins"></i> <?php _e( 'More Free Plugins by cameronjonesweb', 'facebook-page-feed-graph-api' ); ?></h3>
+							<p><?php _e( 'Help support the developer by using more of my plugins!', 'facebook-page-feed-graph-api' ); ?></p>
 							<?php add_thickbox(); ?>
 							<div id="plugins-target">
 								<span class="spinner is-active"></span>

@@ -30,6 +30,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
 
 		$CJW_FBPP_TABS = array( 'timeline', 'events', 'messages' );
@@ -44,7 +45,8 @@ class cameronjonesweb_facebook_page_plugin {
 		add_action( 'admin_menu', array( $this, 'facebook_page_plugin_landing_page_menu' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_latest_blog_posts_callback', array( $this, 'facebook_page_plugin_latest_blog_posts_callback' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_other_plugins_callback', array( $this, 'facebook_page_plugin_other_plugins_callback' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'facebook_page_plugin_action_links' ) );
+		add_filter( 'plugin_action_links_' . CJW_FBPP_PLUGIN_BASENAME, array( $this, 'facebook_page_plugin_action_links' ) );
+		add_action( 'activated_plugin', array( $this, 'facebook_page_plugin_activation_hook' ) );
 	}
 
 
@@ -172,7 +174,7 @@ class cameronjonesweb_facebook_page_plugin {
 									}
 									echo '<h4><strong>' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '</strong></h4>';
 									echo '<p>' . _e( $plugins->plugins[$i]->short_description, 'facebook-page-feed-graph-api' ) . '</p>';
-									echo '<p><a href="' . self_admin_url() . 'plugin-install.php?tab=plugin-information&amp;plugin=' . $plugins->plugins[$i]->slug . 'TB_iframe=true&amp;width=600&amp;height=550" class="thickbox open-plugin-details-modal button" aria-label="More information about ' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '" data-title="' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '">' . __( 'Details &amp; Install', 'facebook-page-feed-graph-api' ) . '</a></p>';
+									echo '<p><a href="' . self_admin_url() . 'plugin-install.php?tab=plugin-information&plugin=' . $plugins->plugins[$i]->slug . '&TB_iframe=true&width=600&height=550" class="open-plugin-details-modal button" target="_blank" aria-label="More information about ' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '" data-title="' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '">' . __( 'Details &amp; Install', 'facebook-page-feed-graph-api' ) . '</a></p>';
 								echo '</div>';
 							echo '</div>';
 						}
@@ -186,6 +188,12 @@ class cameronjonesweb_facebook_page_plugin {
 			echo '<p><strong>' . __( 'No plugins found.', 'facebook-page-feed-graph-api' ) . '</strong> ' . __( 'Check your connection.', 'facebook-page-feed-graph-api' ) . '</p>';
 		}
 		wp_die();
+	}
+
+	function facebook_page_plugin_activation_hook( $plugin ) {
+		if( $plugin == CJW_FBPP_PLUGIN_BASENAME ) {
+	        exit( wp_redirect( admin_url( 'plugins.php?page=facebook-page-plugin' ) ) );
+	    }
 	}
 
 
