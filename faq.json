@@ -1,0 +1,40 @@
+{
+	"faqs": [
+		{
+			"question": "Where is the settings page?",
+			"answer": "There is no settings page for the Facebook Page Plugin. To add the plugin to a widget area, go to your <a href='widgets.php'>widgets</a> page, select Facebook Page Plugin from the list of available widgets, add it to your desired widget area and fill out the form. If you wish to use the plugin in a post or page, go to your <a href='index.php#cameronjonesweb_facebook_page_plugin_shortcode_generator'>dashboard</a> and fill out the shortcode generator. Copy the shortcode result and paste it into your post or page editor."
+		},
+		{
+			"question": "The plugin is blank or only displays a link",
+			"answer": "It's highly likely that you're using an ad-blocker or similar browser extension that is being blocking it. Turn off your ad-blocker or whitelist your website."
+		},
+		{
+			"question": "The plugin only shows when I'm logged in.",
+			"answer": "This means that your Facebook page has audience restrictions of age and/or location. If you want the plugin to display for all users, disable the audience restrictions in your page settings on Facebook."
+		},
+		{
+			"question": "The Facepile and/or posts aren't showing up",
+			"answer": "The chances are that they are loading, but your plugin isn't tall enough to display them. Make sure they're enabled properly and try increasing the height of the plugin to 500px and see if they are displaying."
+		},
+		{
+			"question": "It's still broken, where do I get help?",
+			"answer": "You can go to <a href='https://wordpress.org/support/plugin/facebook-page-feed-graph-api' target='_blank'>https://wordpress.org/support/plugin/facebook-page-feed-graph-api</a> and create a support ticket on WordPress.org, or you can email the developer at <a href='mailto:plugins@cameronjonesweb.com.au' target='_blank'>plugins@cameronjonesweb.com.au</a>. Please provide your website URL if possible and any console log errors."
+		}
+	],
+
+	"changelog": [
+		{
+			"version": "1.5.3",
+			"changes": [
+				"Fixed bug where share button would return \"App Not Setup\" error"
+			]
+		},
+		{
+			"version": "1.6",
+			"changes": [
+				"Tabs are now checkboxes and the events tab is now available",
+				"New landing page to provide help new users"
+			]
+		}
+	]
+}

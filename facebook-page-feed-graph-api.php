@@ -24,12 +24,16 @@ defined( 'ABSPATH' ) or die();
 
 class cameronjonesweb_facebook_page_plugin {
 
+	protected $CJW_FBPP_TABS;
+
 	public function __construct() {
 
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
-		define( 'CJW_FBPP_TABS', array( 'timeline', 'events', 'messages' ) );
+
+		$CJW_FBPP_TABS = array( 'timeline', 'events', 'messages' );
 
 		//Add all the hooks and actions
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
@@ -38,7 +42,11 @@ class cameronjonesweb_facebook_page_plugin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'facebook_page_plugin_admin_resources' ) );
 		add_action( 'admin_notices', array( $this, 'facebook_page_plugin_admin_notice' ) );
 		add_action( 'admin_init', array( $this, 'facebook_page_plugin_admin_notice_ignore' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'facebook_page_plugin_action_links' ) );
+		add_action( 'admin_menu', array( $this, 'facebook_page_plugin_landing_page_menu' ) );
+		add_action( 'wp_ajax_facebook_page_plugin_latest_blog_posts_callback', array( $this, 'facebook_page_plugin_latest_blog_posts_callback' ) );
+		add_action( 'wp_ajax_facebook_page_plugin_other_plugins_callback', array( $this, 'facebook_page_plugin_other_plugins_callback' ) );
+		add_filter( 'plugin_action_links_' . CJW_FBPP_PLUGIN_BASENAME, array( $this, 'facebook_page_plugin_action_links' ) );
+		add_action( 'activated_plugin', array( $this, 'facebook_page_plugin_activation_hook' ) );
 	}
 
 
@@ -78,6 +86,9 @@ class cameronjonesweb_facebook_page_plugin {
 	public function facebook_page_plugin_admin_resources() {
 		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/facebook-page-plugin-admin.js' );
 		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/facebook-page-plugin-admin.css' );
+		if( get_current_screen()->base == 'plugins_page_facebook-page-plugin' ) {
+			wp_enqueue_script( 'facebook-page-plugin-landing-page', CJW_FBPP_PLUGIN_URL . 'js/landing-page.js', array( 'jquery' ), NULL, true );
+		}
 	}
 
 	//Register the dashboard widget
@@ -87,17 +98,110 @@ class cameronjonesweb_facebook_page_plugin {
 
 	//Load the dashboard widget
 	function facebook_page_plugin_dashboard_widget_callback() {
-
+		echo '<a name="cameronjonesweb_facebook_page_plugin_shortcode_generator"></a>';
 		$generator = new cameronjonesweb_facebook_page_plugin_shortcode_generator;
 		$generator->generate();
 		
 	}
 
+	function facebook_page_plugin_landing_page_menu() {
+	    add_submenu_page( 'plugins.php', __( 'Facebook Page Plugin by cameronjonesweb', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
+	}
+
+	function facebook_page_plugin_landing_page() {
+		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
+	}
+
+	/*
+	 * http://stackoverflow.com/a/4860432/1672694
+	 */
+
+	function facebook_page_plugin_is_connected() {
+	    $connected = @fsockopen( "cameronjonesweb.com.au", 80 ); 
+	    if( $connected ){
+	        $is_conn = true; //action when connected
+	        fclose( $connected );
+	    } else {
+	        $is_conn = false; //action in connection failure
+	    }
+	    return $is_conn;
+	}
+
+	function facebook_page_plugin_latest_blog_posts_callback() {
+		$internet = $this->facebook_page_plugin_is_connected();
+		if( $internet ) {
+			$feed = 'https://cameronjonesweb.com.au/feed/';
+			$xml = simplexml_load_file( $feed, 'SimpleXMLElement', LIBXML_NOCDATA );
+			if( isset( $xml ) && !empty( $xml ) ) {
+				echo '<ul>';
+				foreach( $xml->channel->item as $blogpost ) {
+					echo '<li>';
+						echo date( 'M jS', strtotime( $blogpost->pubDate ) ) . ' - ';
+						echo '<a href="' . $blogpost->link . '">';
+							echo $blogpost->title;
+						echo '</a>';
+					echo '</li>';
+				}
+				echo '</ul>';
+			}
+		} else {
+			echo '<p><strong>' . __( 'No posts found.', 'facebook-page-feed-graph-api' ) . '</strong>' . __( 'Check your connection.', 'facebook-page-feed-graph-api' ) . '</p>';
+		}
+		wp_die();
+	}
+
+	function facebook_page_plugin_other_plugins_callback() {
+		$internet = $this->facebook_page_plugin_is_connected();
+		if ( ! function_exists( 'plugins_api' ) ){
+			require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+		}
+		if( $internet ) {
+			$plugins = plugins_api( 'query_plugins', array( 
+				'author' => 'cameronjonesweb', 'fields' => array(
+					'active_installs' => true,
+					'description' => false,
+					'icons' => true,
+				) 
+			) );
+			if( isset( $plugins ) && !empty( $plugins ) ) {
+				echo '<div>';
+					for( $i = 0; $i < count( $plugins->plugins ); $i++ ) {
+						if( $plugins->plugins[$i]->slug != 'facebook-page-feed-graph-api' ) {
+							echo '<div class="plugin-card">';
+								echo '<div class="plugin-card-top">';
+									if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) {
+										echo '<img src="' . $plugins->plugins[$i]->icons['1x'] . '" alt="' . $plugins->plugins[$i]->name . ' Icon" />';
+									}
+									echo '<h4><strong>' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '</strong></h4>';
+									echo '<p>' . _e( $plugins->plugins[$i]->short_description, 'facebook-page-feed-graph-api' ) . '</p>';
+									echo '<p><a href="' . self_admin_url() . 'plugin-install.php?tab=plugin-information&plugin=' . $plugins->plugins[$i]->slug . '&TB_iframe=true&width=600&height=550" class="open-plugin-details-modal button" target="_blank" aria-label="More information about ' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '" data-title="' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '">' . __( 'Details &amp; Install', 'facebook-page-feed-graph-api' ) . '</a></p>';
+								echo '</div>';
+							echo '</div>';
+						}
+					}
+					echo '<div class="clear"></div>';
+				echo '</div>';
+			} else {
+				_e( 'No additional plugins available at this time.', 'facebook-page-feed-graph-api' );
+			}
+		} else {
+			echo '<p><strong>' . __( 'No plugins found.', 'facebook-page-feed-graph-api' ) . '</strong> ' . __( 'Check your connection.', 'facebook-page-feed-graph-api' ) . '</p>';
+		}
+		wp_die();
+	}
+
+	function facebook_page_plugin_activation_hook( $plugin ) {
+		if( $plugin == CJW_FBPP_PLUGIN_BASENAME ) {
+	        exit( wp_redirect( admin_url( 'plugins.php?page=facebook-page-plugin' ) ) );
+	    }
+	}
+
+
+	//Client side stuff
 	function facebook_page_plugin_generate_wrapper_id() {
 		return substr( str_shuffle( str_repeat( implode( '', array_merge( range( 'A', 'Z' ), range( 'a', 'z' ) ) ), 5 ) ), 0, 15 );
 	}
 
-	//Client side stuff
 	//Parse shortcode
 	function facebook_page_plugin( $filter ) {
 		wp_enqueue_script( 'facebook-page-plugin-sdk', CJW_FBPP_PLUGIN_URL . 'js/sdk.js', array(), NULL, true );
@@ -420,14 +524,14 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
          echo '</p>';
         echo '<p>';        
         	_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
-            if( !empty( CJW_FBPP_TABS ) ) {
+            if( !empty( $CJW_FBPP_TABS ) ) {
              	// First we should convert the string to an array as that's how it will be stored moving forward.
              	if( !is_array( $tabs ) ) {
 	             	$oldtabs = esc_attr( $tabs );
 	             	$newtabs = explode( ',', $tabs );
 	             	$tabs = $newtabs;
 	             }
-             	foreach( CJW_FBPP_TABS as $tab ) {
+             	foreach( $CJW_FBPP_TABS as $tab ) {
              		echo '<br/><label>';
              			echo '<input type="checkbox" name="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']" ' . ( in_array( $tab, $tabs ) ? 'checked' : '' ) . ' /> ';
              			_e( ucfirst( $tab ), 'facebook-page-feed-graph-api' );
@@ -507,6 +611,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? strip_tags( $new_instance['language'] ) : '';
 	return $instance;
 	}
+
 } // Class wpb_widget ends here
 
 class cameronjonesweb_facebook_page_plugin_shortcode_generator {
@@ -529,8 +634,8 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 			$return .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
 			$return .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
 			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ':';
-			if( !empty( CJW_FBPP_TABS ) ) {
-				foreach( CJW_FBPP_TABS as $tab ) {
+			if( !empty( $CJW_FBPP_TABS ) ) {
+				foreach( $CJW_FBPP_TABS as $tab ) {
 	         		$return .= '<br/><label>';
 	         			$return .= '<input type="checkbox" class="fbpp-tabs" name="' . $tab . '" /> ';
 	         			$return .= __( ucfirst( $tab ), 'facebook-page-feed-graph-api' );
@@ -554,6 +659,7 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 
 		echo $return;
 	}
+
 }
 
 //Register the widget

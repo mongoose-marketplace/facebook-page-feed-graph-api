@@ -3,3 +3,7 @@
 #facebook-page-plugin-shortcode-generator input,#facebook-page-plugin-shortcode-generator select{float:right;}
 #facebook-page-plugin-shortcode-generator #facebook-page-plugin-shortcode-generator-output{width:100%;float:none;}
 #facebook-page-plugin-review{position:relative;}
+.plugins_page_facebook-page-plugin .welcome-panel-content{margin-right:13px;}
+.plugins_page_facebook-page-plugin .welcome-panel-image{width:100%;}
+.plugins_page_facebook-page-plugin .about-description{margin:13px 0;}
+.plugins_page_facebook-page-plugin .spinner.is-active{float:none !important;}
