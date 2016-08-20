@@ -24,16 +24,12 @@ defined( 'ABSPATH' ) or die();
 
 class cameronjonesweb_facebook_page_plugin {
 
-	protected $CJW_FBPP_TABS;
-
 	public function __construct() {
 
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
-
-		$CJW_FBPP_TABS = array( 'timeline', 'events', 'messages' );
 
 		//Add all the hooks and actions
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
@@ -291,8 +287,10 @@ class cameronjonesweb_facebook_page_plugin {
 class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	
 	private $facebookURLs = array('https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/');
+	private $settings;
 	
 	function __construct() {
+		 $this->settings = new facebook_page_plugin_settings;
 		parent::__construct( 'facebook_page_plugin_widget', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), ) 	);
 	}
 	public function widget( $args, $instance ) {
@@ -418,6 +416,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		echo $args['after_widget'];
 	} 
 	public function form( $instance ) {
+
 		if ( isset( $instance[ 'title' ] ) ) {
 			$title = $instance[ 'title' ];
 		} else {
@@ -484,7 +483,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			$language = '';
 		}
 
-		$langs = get_locale_xml();
+		$langs = $this->settings->get_locale_xml();
 
 		echo '<p>';
 			echo '<label for="' . $this->get_field_id( 'title' ) . '">';
@@ -524,6 +523,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
          echo '</p>';
         echo '<p>';        
         	_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
+        	$CJW_FBPP_TABS = $this->settings->tabs();
             if( !empty( $CJW_FBPP_TABS ) ) {
              	// First we should convert the string to an array as that's how it will be stored moving forward.
              	if( !is_array( $tabs ) ) {
@@ -617,10 +617,12 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 
 	private $langs;
+	private $settings;
 	
 	function __construct() {
 
-		$this->langs = get_locale_xml();
+		$this->settings = new facebook_page_plugin_settings;
+		$this->langs = $this->settings->get_locale_xml();
 	}
 
 	function generate() {
@@ -634,6 +636,8 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 			$return .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
 			$return .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
 			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ':';
+			$settings = new facebook_page_plugin_settings;
+        	$CJW_FBPP_TABS = $settings->tabs();
 			if( !empty( $CJW_FBPP_TABS ) ) {
 				foreach( $CJW_FBPP_TABS as $tab ) {
 	         		$return .= '<br/><label>';
@@ -662,35 +666,49 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 
 }
 
+class facebook_page_plugin_settings {
+
+	public $tabs;
+
+	function __construct() {
+		$this->tabs = array( 'timeline', 'events', 'messages' );
+	}
+
+	function tabs() {
+		return $this->tabs;
+	}
+
+	function get_locale_xml() {
+
+		$admin_abspath = str_replace( site_url(), ABSPATH, admin_url() );
+
+		include_once( $admin_abspath . '/includes/class-wp-filesystem-base.php' );
+		include_once( $admin_abspath . '/includes/class-wp-filesystem-direct.php' );
+		$wp_filesystem = new WP_Filesystem_Direct( null );
+
+		try {
+	    	//$xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
+			//$xml = file_get_contents( CJW_FBPP_PLUGIN_URL ) . 'lang.xml');
+			$lang_xml = $wp_filesystem->get_contents( CJW_FBPP_PLUGIN_DIR . '/lang.xml');
+		} catch( Exception $ex ){
+			$lang_xml = NULL;
+		}
+
+		if(isset($lang_xml) && !empty($lang_xml)){
+	    	$langs = new SimpleXMLElement($lang_xml);
+		} else {
+			$langs = NULL;
+		}
+
+		return $langs;
+	}
+
+}
+
 //Register the widget
 function facebook_page_plugin_load_widget() {
 	register_widget( 'cameronjonesweb_facebook_page_plugin_widget' );
 }
 add_action( 'widgets_init', 'facebook_page_plugin_load_widget' );
-
-function get_locale_xml() {
-
-	$admin_abspath = str_replace( site_url(), ABSPATH, admin_url() );
-
-	include_once( $admin_abspath . '/includes/class-wp-filesystem-base.php' );
-	include_once( $admin_abspath . '/includes/class-wp-filesystem-direct.php' );
-	$wp_filesystem = new WP_Filesystem_Direct( null );
-
-	try {
-    	//$xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
-		//$xml = file_get_contents( CJW_FBPP_PLUGIN_URL ) . 'lang.xml');
-		$lang_xml = $wp_filesystem->get_contents( CJW_FBPP_PLUGIN_DIR . '/lang.xml');
-	} catch( Exception $ex ){
-		$lang_xml = NULL;
-	}
-
-	if(isset($lang_xml) && !empty($lang_xml)){
-    	$langs = new SimpleXMLElement($lang_xml);
-	} else {
-		$langs = NULL;
-	}
-
-	return $langs;
-}
 
 $cameronjonesweb_facebook_page_plugin = new cameronjonesweb_facebook_page_plugin;
