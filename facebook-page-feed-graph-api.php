@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Facebook Page Plugin
- * Plugin URI: http://cameronjonesweb.com.au/projects/facebook-page-plugin
+ * Plugin URI: https://cameronjonesweb.com.au/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
  * Version: 1.5.3
  * Author: Cameron Jones
- * Author URI: //cameronjonesweb.com.au
+ * Author URI: https://cameronjonesweb.com.au
  * License: GPLv2
  
  * Copyright 2015  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
