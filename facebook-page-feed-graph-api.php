@@ -30,13 +30,14 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
+		define( 'CJW_FBPP_PLUGIN_DONTATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
+		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
 		//Add all the hooks and actions
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
 		add_filter( 'widget_text', 'do_shortcode' );
 		add_action( 'wp_dashboard_setup', array( $this, 'facebook_page_plugin_dashboard_widget' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'facebook_page_plugin_admin_resources' ) );
-		add_action( 'admin_notices', array( $this, 'facebook_page_plugin_admin_notice' ) );
 		add_action( 'admin_init', array( $this, 'facebook_page_plugin_admin_notice_ignore' ) );
 		add_action( 'admin_menu', array( $this, 'facebook_page_plugin_landing_page_menu' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_latest_blog_posts_callback', array( $this, 'facebook_page_plugin_latest_blog_posts_callback' ) );
@@ -47,21 +48,6 @@ class cameronjonesweb_facebook_page_plugin {
 
 
 	//Admin functions
-	//Display review notice
-	public function facebook_page_plugin_admin_notice() {
-		$screen = get_current_screen();
-		//Only display on the dashboard, widgets and plugins pages
-		if( $screen->base === 'widgets' || $screen->base === 'dashboard' || $screen->base === 'plugins' ){
-			global $current_user ;
-			$user_id = $current_user->ID;
-			//Don't show if they have hidden it
-			if ( !get_user_meta( $user_id, 'facebook_page_plugin_admin_notice_ignore' ) || get_user_meta( $user_id, 'facebook_page_plugin_admin_notice_ignore' ) === false ) {
-				echo '<div class="updated" id="facebook-page-plugin-review"><p>';
-				echo __( 'Thank you for using the Facebook Page Plugin. If you enjoy using it, please take the time to', 'facebook-page-feed-graph-api' ) . ' <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api?rate=5#postform" target="_blank">' . __( 'leave a review', 'facebook-page-feed-graph-api' ) . '</a>. ' . __( 'Thanks', 'facebook-page-feed-graph-api' );
-				echo '<a href="?facebook_page_plugin_admin_notice_ignore=0" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a></p></div>';
-			}
-		}
-	}
 
 	//Handler function for when review notice is hidden
 	public function facebook_page_plugin_admin_notice_ignore() {
@@ -139,6 +125,7 @@ class cameronjonesweb_facebook_page_plugin {
 					echo '</li>';
 				}
 				echo '</ul>';
+				echo '<p><a href="https://cameronjonesweb.com.au/blog/" target="_blank">' . __( 'View more recent posts', 'facebook-page-feed-graph-api' ) . '</a></p>';
 			}
 		} else {
 			echo '<p><strong>' . __( 'No posts found.', 'facebook-page-feed-graph-api' ) . '</strong>' . __( 'Check your connection.', 'facebook-page-feed-graph-api' ) . '</p>';
@@ -485,6 +472,18 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 
 		$langs = $this->settings->get_locale_xml();
 
+		echo '<div id="facebook-page-plugin-donate"><p>';
+
+			echo __( 'Thank you for using the Facebook Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
+
+			echo '</p><p>';
+
+			echo '<a href="' . CJW_FBPP_PLUGIN_DONTATE_LINK . '" target="_blank" class="button button-secondary">' . __( 'Donate now', 'facebook-page-feed-graph-api' ) . '</a>';
+
+			echo '<a href="?facebook_page_plugin_donate_notice_ignore=0" class="notice-dismiss" title="' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a>';
+
+		echo '</p></div>';
+
 		echo '<p>';
 			echo '<label for="' . $this->get_field_id( 'title' ) . '">';
 				_e( 'Title:', 'facebook-page-feed-graph-api' );
@@ -628,6 +627,18 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 	function generate() {
 		
 		$return = NULL;
+
+		$return .= '<div id="facebook-page-plugin-donate"><p>';
+
+			$return .= __( 'Thank you for using the Facebook Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
+
+			$return .= '</p><p>';
+
+			$return .= '<a href="' . CJW_FBPP_PLUGIN_DONTATE_LINK . '" target="_blank" class="button button-secondary">' . __( 'Donate now', 'facebook-page-feed-graph-api' ) . '</a>';
+
+			$return .= '<a href="?facebook_page_plugin_donate_notice_ignore=0" class="notice-dismiss" title="' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a>';
+
+		$return .= '</p></div>';
 
 		$return .= '<form>';
 			$return .= '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';

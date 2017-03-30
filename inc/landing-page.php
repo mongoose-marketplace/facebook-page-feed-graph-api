@@ -93,7 +93,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-star-filled"></i> <?php _e( 'Leave A Review', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Is this the best plugin for adding a Facebook Page to your WordPress website?', 'facebook-page-feed-graph-api' ); ?> <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api#postform" target="_blank"><?php _e( 'Let me know', 'facebook-page-feed-graph-api' ); ?></a>!</p>
+							<p><?php _e( 'Is this the best plugin for adding a Facebook Page to your WordPress website?', 'facebook-page-feed-graph-api' ); ?> <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api#new-post" target="_blank"><?php _e( 'Let me know', 'facebook-page-feed-graph-api' ); ?></a>!</p>
 							<p><?php echo __( 'If there\'s a problem, please open a support ticket on', 'facebook-page-feed-graph-api' ) . ' <a href="https://github.com/cameronjonesweb/facebook-page-feed-graph-api/issues" target="_blank">' . __( 'GitHub', 'facebook-page-feed-graph-api' ) . '</a>' . __( ', on', 'facebook-page-feed-graph-api' ) . ' <a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">' . __( 'WordPress.org', 'facebook-page-feed-graph-api' ) . '</a>' . __( ' or ', 'facebook-page-feed-graph-api' ) . '<a href="mailto:plugins@cameronjonesweb.com.au" target="_blank">' . __( 'email me', 'facebook-page-feed-graph-api' ) . '</a>.'; ?></p>
 						</div>
 					</div>
@@ -101,7 +101,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-chart-line"></i> <?php _e( 'Take The Survey', 'facebook-page-feed-graph-api' ); ?></h3>
 							<p><?php _e( 'Want to have your say about the Facebook Page Plugin?', 'facebook-page-feed-graph-api' ); ?></p>
-							<p><a href="https://cameronjonesweb.typeform.com/to/BllbYm" class="button" target="_blank"><?php _e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
+							<p><a href="<?php echo CJW_FBPP_PLUGIN_SURVEY_LINK; ?>" class="button" target="_blank"><?php _e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
 						</div>
 					</div>
 					<div class="postbox">
