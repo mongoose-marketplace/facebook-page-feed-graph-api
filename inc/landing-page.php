@@ -2,6 +2,9 @@
 $currentuser = wp_get_current_user();
 $internet = $this->facebook_page_plugin_is_connected(); ?>
 <div class="wrap">
+
+	<h1>Facebook Page Plugin</h1>
+
 	<div class="welcome-panel">
 		<div class="welcome-panel-content">
 			<img src="<?php echo CJW_FBPP_PLUGIN_URL; ?>/images/banner-772x250.jpg" class="welcome-panel-image">
