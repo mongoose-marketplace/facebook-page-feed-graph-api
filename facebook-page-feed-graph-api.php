@@ -51,6 +51,15 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 
+	// Filter functions
+	private static function dashboard_widget_capability() {
+
+		$return = apply_filters( 'facebook_page_plugin_dashboard_widget_capability', 'edit_posts' );
+		return $return;
+
+	}
+
+
 	//Admin functions
 
 	public static function donate_notice() {
@@ -125,7 +134,13 @@ class cameronjonesweb_facebook_page_plugin {
 
 	//Register the dashboard widget
 	public function facebook_page_plugin_dashboard_widget() {
-		wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Facebook Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
+
+		if( current_user_can( self::dashboard_widget_capability() ) ) {
+		
+			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Facebook Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
+
+		}
+
 	}
 
 	//Load the dashboard widget
