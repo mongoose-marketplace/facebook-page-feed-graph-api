@@ -1,8 +1,13 @@
 (function($){
+
     $(document).ready(function(){
+
         $('#facebook-page-plugin-shortcode-generator form').submit(function(e){
+
             e.preventDefault();
+
         });
+
         var $facebookURLs = ['https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/'];
         $('#facebook-page-plugin-shortcode-generator input, #facebook-page-plugin-shortcode-generator select').change(function(){
             if( $('#fbpp-link').prop("checked") == false ) {
@@ -64,7 +69,41 @@
                 }
                 $shortcode += ']';
                 $('#facebook-page-plugin-shortcode-generator-output').val($shortcode);
+
             }
+
         });
+
+        jQuery('#facebook-page-plugin-donate-notice-dismiss').click(function(e){
+
+            e.preventDefault();
+
+            var $notice = jQuery(this).parents('#facebook-page-plugin-donate');
+
+            jQuery.ajax({
+
+                type: "POST",
+                url: ajaxurl,
+                data: {
+
+                    action: 'facebook_page_plugin_remove_donate_notice',
+
+                },
+                success: function(){
+
+                    $notice.fadeOut();
+
+                },
+                error: function( data ) {
+
+                    console.log( data );
+
+                }
+
+            });
+
+        });
+
     });
+
 }(jQuery));
