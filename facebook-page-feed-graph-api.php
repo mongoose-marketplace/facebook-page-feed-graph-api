@@ -24,13 +24,15 @@ defined( 'ABSPATH' ) or die();
 
 class cameronjonesweb_facebook_page_plugin {
 
+	public static $remove_donate_notice_key = 'facebook_page_plugin_donate_notice_ignore';
+
 	public function __construct() {
 
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
-		define( 'CJW_FBPP_PLUGIN_DONTATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
+		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
 		//Add all the hooks and actions
@@ -38,24 +40,73 @@ class cameronjonesweb_facebook_page_plugin {
 		add_filter( 'widget_text', 'do_shortcode' );
 		add_action( 'wp_dashboard_setup', array( $this, 'facebook_page_plugin_dashboard_widget' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'facebook_page_plugin_admin_resources' ) );
-		add_action( 'admin_init', array( $this, 'facebook_page_plugin_admin_notice_ignore' ) );
+		add_action( 'admin_init', array( $this, 'remove_donate_notice_nojs' ) );
 		add_action( 'admin_menu', array( $this, 'facebook_page_plugin_landing_page_menu' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_latest_blog_posts_callback', array( $this, 'facebook_page_plugin_latest_blog_posts_callback' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_other_plugins_callback', array( $this, 'facebook_page_plugin_other_plugins_callback' ) );
 		add_filter( 'plugin_action_links_' . CJW_FBPP_PLUGIN_BASENAME, array( $this, 'facebook_page_plugin_action_links' ) );
 		add_action( 'activated_plugin', array( $this, 'facebook_page_plugin_activation_hook' ) );
+		add_action( 'wp_ajax_facebook_page_plugin_remove_donate_notice', array( $this, 'remove_donate_notice' ) );
+
 	}
 
 
 	//Admin functions
 
-	//Handler function for when review notice is hidden
-	public function facebook_page_plugin_admin_notice_ignore() {
-		global $current_user;
-	    $user_id = $current_user->ID;
-	    if ( isset($_GET['facebook_page_plugin_admin_notice_ignore']) && '0' == $_GET['facebook_page_plugin_admin_notice_ignore'] ) {
-	         update_user_meta($user_id, 'facebook_page_plugin_admin_notice_ignore', 'true', true);
+	public static function donate_notice() {
+
+		$return = NULL;
+
+		if( current_user_can( 'administrator' ) ) {
+
+			$user_id = get_current_user_id();
+
+			if ( !get_user_meta( $user_id, self::$remove_donate_notice_key ) || get_user_meta( $user_id, self::$remove_donate_notice_key ) === false ) {
+
+				$return .= '<div id="facebook-page-plugin-donate"><p>';
+
+					$return .= __( 'Thank you for using the Facebook Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
+
+					$return .= '</p><p>';
+
+					$return .= '<a href="' . CJW_FBPP_PLUGIN_DONATE_LINK . '" target="_blank" class="button button-secondary">' . __( 'Donate now', 'facebook-page-feed-graph-api' ) . '</a>';
+
+					$return .= '<a href="?' . self::$remove_donate_notice_key . '=0" class="notice-dismiss" title="' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '" id="facebook-page-plugin-donate-notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a>';
+
+				$return .= '</p></div>';
+
+			}
+
 		}
+
+		return $return;
+
+	}
+
+	public static function remove_donate_notice() {
+
+		$user_id = get_current_user_id();
+
+		update_user_meta( $user_id, self::$remove_donate_notice_key, 'true', true );
+
+		if( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+
+			wp_die();
+
+		}
+
+	}
+
+	public function remove_donate_notice_nojs() {
+
+		delete_user_meta( get_current_user_id(), self::$remove_donate_notice_key );
+
+		if ( isset( $_GET[self::$remove_donate_notice_key] ) && '0' == $_GET[self::$remove_donate_notice_key] ) {
+
+			self::remove_donate_notice();
+
+		}
+
 	}
 
 	//Add link on plugins page to my plugins directory
@@ -66,11 +117,10 @@ class cameronjonesweb_facebook_page_plugin {
 
 	//Enqueue CSS and JS for admin
 	public function facebook_page_plugin_admin_resources() {
+
 		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/facebook-page-plugin-admin.js' );
 		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/facebook-page-plugin-admin.css' );
-		if( get_current_screen()->base == 'plugins_page_facebook-page-plugin' ) {
-			wp_enqueue_script( 'facebook-page-plugin-landing-page', CJW_FBPP_PLUGIN_URL . 'js/landing-page.js', array( 'jquery' ), NULL, true );
-		}
+
 	}
 
 	//Register the dashboard widget
@@ -91,7 +141,10 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_landing_page() {
+
+		wp_enqueue_script( 'facebook-page-plugin-landing-page', CJW_FBPP_PLUGIN_URL . 'js/landing-page.js', array( 'jquery' ), NULL, true );
 		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
+
 	}
 
 	/*
@@ -472,17 +525,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 
 		$langs = $this->settings->get_locale_xml();
 
-		echo '<div id="facebook-page-plugin-donate"><p>';
-
-			echo __( 'Thank you for using the Facebook Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
-
-			echo '</p><p>';
-
-			echo '<a href="' . CJW_FBPP_PLUGIN_DONTATE_LINK . '" target="_blank" class="button button-secondary">' . __( 'Donate now', 'facebook-page-feed-graph-api' ) . '</a>';
-
-			echo '<a href="?facebook_page_plugin_donate_notice_ignore=0" class="notice-dismiss" title="' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a>';
-
-		echo '</p></div>';
+		echo cameronjonesweb_facebook_page_plugin::donate_notice();
 
 		echo '<p>';
 			echo '<label for="' . $this->get_field_id( 'title' ) . '">';
@@ -628,17 +671,9 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 		
 		$return = NULL;
 
-		$return .= '<div id="facebook-page-plugin-donate"><p>';
+		$return .= cameronjonesweb_facebook_page_plugin::donate_notice();
 
-			$return .= __( 'Thank you for using the Facebook Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
-
-			$return .= '</p><p>';
-
-			$return .= '<a href="' . CJW_FBPP_PLUGIN_DONTATE_LINK . '" target="_blank" class="button button-secondary">' . __( 'Donate now', 'facebook-page-feed-graph-api' ) . '</a>';
-
-			$return .= '<a href="?facebook_page_plugin_donate_notice_ignore=0" class="notice-dismiss" title="' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a>';
-
-		$return .= '</p></div>';
+		$return .= '<noscript>' . __( 'The shortcode generator requires JavaScript enabled', 'facebook-page-feed-graph-api' ) . '</noscript>';
 
 		$return .= '<form>';
 			$return .= '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';
