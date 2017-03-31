@@ -74,11 +74,13 @@
 
         });
 
-        jQuery('#facebook-page-plugin-donate-notice-dismiss').click(function(e){
+        jQuery( document ).on( 'click', '.facebook-page-plugin-donate-notice-dismiss', function(e){
+
+            console.log('click');
 
             e.preventDefault();
 
-            var $notice = jQuery(this).parents('#facebook-page-plugin-donate');
+            var $notice = jQuery(this).parents('.facebook-page-plugin-donate');
 
             jQuery.ajax({
 
@@ -89,7 +91,7 @@
                     action: 'facebook_page_plugin_remove_donate_notice',
 
                 },
-                success: function(){
+                success: function() {
 
                     $notice.fadeOut();
 

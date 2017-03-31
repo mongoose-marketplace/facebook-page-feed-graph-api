@@ -80,7 +80,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 			if ( !get_user_meta( $user_id, self::$remove_donate_notice_key ) || get_user_meta( $user_id, self::$remove_donate_notice_key ) === false ) {
 
-				$return .= '<div id="facebook-page-plugin-donate"><p>';
+				$return .= '<div class="facebook-page-plugin-donate"><p>';
 
 					$return .= __( 'Thank you for using the Facebook Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
 
@@ -88,7 +88,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 					$return .= '<a href="' . CJW_FBPP_PLUGIN_DONATE_LINK . '" target="_blank" class="button button-secondary">' . __( 'Donate now', 'facebook-page-feed-graph-api' ) . '</a>';
 
-					$return .= '<a href="?' . self::$remove_donate_notice_key . '=0" class="notice-dismiss" title="' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '" id="facebook-page-plugin-donate-notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a>';
+					$return .= '<a href="?' . self::$remove_donate_notice_key . '=0" class="notice-dismiss facebook-page-plugin-donate-notice-dismiss" title="' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '"><span class="screen-reader-text">' . __( 'Dismiss this notice', 'facebook-page-feed-graph-api' ) . '.</span></a>';
 
 				$return .= '</p></div>';
 
