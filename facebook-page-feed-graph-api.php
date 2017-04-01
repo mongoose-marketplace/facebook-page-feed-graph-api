@@ -3,7 +3,7 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: http://cameronjonesweb.com.au/projects/facebook-page-plugin
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.5.3
+ * Version: 1.6.0
  * Author: Cameron Jones
  * Author URI: //cameronjonesweb.com.au
  * License: GPLv2
@@ -31,7 +31,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.5.3' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.6.0' );
 		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
@@ -44,9 +44,10 @@ class cameronjonesweb_facebook_page_plugin {
 		add_action( 'admin_menu', array( $this, 'facebook_page_plugin_landing_page_menu' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_latest_blog_posts_callback', array( $this, 'facebook_page_plugin_latest_blog_posts_callback' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_other_plugins_callback', array( $this, 'facebook_page_plugin_other_plugins_callback' ) );
-		add_filter( 'plugin_action_links_' . CJW_FBPP_PLUGIN_BASENAME, array( $this, 'facebook_page_plugin_action_links' ) );
 		add_action( 'activated_plugin', array( $this, 'facebook_page_plugin_activation_hook' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_remove_donate_notice', array( $this, 'remove_donate_notice' ) );
+		add_filter( 'plugin_action_links_' . CJW_FBPP_PLUGIN_BASENAME, array( $this, 'plugin_action_links' ) );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
 
 	}
 
@@ -116,8 +117,6 @@ class cameronjonesweb_facebook_page_plugin {
 
 	public function remove_donate_notice_nojs() {
 
-		delete_user_meta( get_current_user_id(), self::$remove_donate_notice_key );
-
 		if ( isset( $_GET[self::$remove_donate_notice_key] ) && '0' == $_GET[self::$remove_donate_notice_key] ) {
 
 			self::remove_donate_notice();
@@ -126,11 +125,27 @@ class cameronjonesweb_facebook_page_plugin {
 
 	}
 
-	//Add link on plugins page to my plugins directory
-	public function facebook_page_plugin_action_links( $links ) {
-		$links[] = '<a href="https://profiles.wordpress.org/cameronjonesweb/#content-plugins" target="_blank">More plugins by cameronjonesweb</a>';	
+
+	// Add a link to support on plugins listing
+	function plugin_action_links( $links ) {
+
+		$links[] = '<a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">Support</a>';	
 		return $links;
 	}
+
+	//Add link on plugins listing to my plugins directory
+	function plugin_meta_links( $links, $file ) {
+
+		if ( $file == CJW_FBPP_PLUGIN_BASENAME ) {
+
+			$links[] = '<a href="https://profiles.wordpress.org/cameronjonesweb/#content-plugins" target="_blank">More plugins by cameronjonesweb</a>';
+
+		}
+		
+		return $links;
+
+	}
+
 
 	//Enqueue CSS and JS for admin
 	public function facebook_page_plugin_admin_resources() {

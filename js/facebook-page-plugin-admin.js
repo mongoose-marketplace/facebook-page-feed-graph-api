@@ -76,8 +76,6 @@
 
         jQuery( document ).on( 'click', '.facebook-page-plugin-donate-notice-dismiss', function(e){
 
-            console.log('click');
-
             e.preventDefault();
 
             var $notice = jQuery(this).parents('.facebook-page-plugin-donate');
