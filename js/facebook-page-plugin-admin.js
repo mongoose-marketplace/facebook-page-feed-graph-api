@@ -1,8 +1,13 @@
 (function($){
+
     $(document).ready(function(){
+
         $('#facebook-page-plugin-shortcode-generator form').submit(function(e){
+
             e.preventDefault();
+
         });
+
         var $facebookURLs = ['https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/'];
         $('#facebook-page-plugin-shortcode-generator input, #facebook-page-plugin-shortcode-generator select').change(function(){
             if( $('#fbpp-link').prop("checked") == false ) {
@@ -30,8 +35,22 @@
                 $shortcode += 'cover="' + $cover + '" ';
                 var $facepile = $('#fbpp-facepile').prop("checked");
                 $shortcode += 'facepile="' + $facepile + '" ';
-                var $tabs = $('#fbpp-tabs').val();
-                $shortcode += 'tabs="' + $tabs + '" ';
+                var $tabs = [];
+                $('.fbpp-tabs').each(function(){
+                    if( $(this).prop('checked') == true ) {
+                        $tabs.push( $(this).attr('name' ) );
+                    }
+                });
+                if($tabs.length > 0){
+                    var $tabstring = '';
+                    for( $i = 0; $i < $tabs.length; $i++ ) {
+                        $tabstring += $tabs[$i];
+                        if( $i != $tabs.length - 1 ) {
+                            $tabstring += ','
+                        }
+                    }
+                    $shortcode += 'tabs="' + $tabstring + '" ';
+                }
 				var $cta = $('#fbpp-cta').prop("checked");
                 $shortcode += 'cta="' + $cta + '" ';
 				var $small = $('#fbpp-small').prop("checked");
@@ -50,7 +69,41 @@
                 }
                 $shortcode += ']';
                 $('#facebook-page-plugin-shortcode-generator-output').val($shortcode);
+
             }
+
         });
+
+        jQuery( document ).on( 'click', '.facebook-page-plugin-donate-notice-dismiss', function(e){
+
+            e.preventDefault();
+
+            var $notice = jQuery(this).parents('.facebook-page-plugin-donate');
+
+            jQuery.ajax({
+
+                type: "POST",
+                url: ajaxurl,
+                data: {
+
+                    action: 'facebook_page_plugin_remove_donate_notice',
+
+                },
+                success: function() {
+
+                    $notice.fadeOut();
+
+                },
+                error: function( data ) {
+
+                    console.log( data );
+
+                }
+
+            });
+
+        });
+
     });
+
 }(jQuery));
