@@ -1,12 +1,13 @@
 <?php
 /**
  * Plugin Name: Facebook Page Plugin
- * Plugin URI: https://cameronjonesweb.com.au/projects/facebook-page-plugin
+ * Plugin URI: https://cameronjonesweb.com.au/wordpress-plugins/facebook-page-plugin/
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.6.0
+ * Version: 1.6.1
  * Author: Cameron Jones
  * Author URI: https://cameronjonesweb.com.au
  * License: GPLv2
+ * Text Domain: facebook-page-feed-graph-api
  
  * Copyright 2015  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
 
@@ -31,7 +32,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.6.0' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.6.1' );
 		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
@@ -296,6 +297,7 @@ class cameronjonesweb_facebook_page_plugin {
 			'link' => true,
 			'linktext' => NULL,
 			'standard' => 'html5',
+			'_implementation' => 'shortcode'
 	    ), $filter );
 		if(isset($a['href']) && !empty($a['href'])){
 			$a['language'] = str_replace("-", "_", $a['language']);
@@ -303,7 +305,7 @@ class cameronjonesweb_facebook_page_plugin {
 			//Send the language as a parameter to the SDK
 			wp_localize_script( 'facebook-page-plugin-sdk', 'facebook_page_plugin_language', array( 'language' => $a['language'] ) );
 
-			$return .= '<div class="cameronjonesweb_facebook_page_plugin" data-version="' . CJW_FBPP_PLUGIN_VER . '" id="' . $this->facebook_page_plugin_generate_wrapper_id() . '">';
+			$return .= '<div class="cameronjonesweb_facebook_page_plugin" data-version="' . CJW_FBPP_PLUGIN_VER . '" data-implementation="' . esc_attr( $a['_implementation'] ) . '" id="' . $this->facebook_page_plugin_generate_wrapper_id() . '">';
 			$return .= '<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.5&appId=' . self::app_id() . '";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
 			$return .= '<div class="fb-page" data-href="https://facebook.com/' . $a["href"] . '" ';
 			if(isset($a['width']) && !empty($a['width'])){
@@ -488,6 +490,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			if( isset( $linktext ) && !empty( $linktext ) ){
 				$shortcode .= ' linktext="' . $linktext . '"';
 			}
+			$shortcode .= ' _implementation="widget"';
 			$shortcode .= ']';
 			echo do_shortcode( $shortcode );
 		}
