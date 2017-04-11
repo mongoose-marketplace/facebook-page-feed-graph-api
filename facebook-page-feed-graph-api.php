@@ -49,6 +49,7 @@ class cameronjonesweb_facebook_page_plugin {
 		add_action( 'wp_ajax_facebook_page_plugin_remove_donate_notice', array( $this, 'remove_donate_notice' ) );
 		add_filter( 'plugin_action_links_' . CJW_FBPP_PLUGIN_BASENAME, array( $this, 'plugin_action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
 	}
 
@@ -788,6 +789,12 @@ class facebook_page_plugin_settings {
 		}
 
 		return $langs;
+	}
+
+	function load_plugin_textdomain() {
+
+	    load_plugin_textdomain( 'facebook-page-plugin-graph-api', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+
 	}
 
 }
