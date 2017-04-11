@@ -7,6 +7,7 @@
  * Author: Cameron Jones
  * Author URI: https://cameronjonesweb.com.au
  * License: GPLv2
+ * Text Domain: facebook-page-feed-graph-api
  
  * Copyright 2015  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
 
