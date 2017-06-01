@@ -366,7 +366,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	
-	private $facebookURLs = array('https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/');
+	private $facebookURLs = array( 'https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/', 'http://facebook.com/', 'http://www.facebook.com/' );
 	private $settings;
 	
 	function __construct() {
