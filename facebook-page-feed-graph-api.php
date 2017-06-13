@@ -130,7 +130,7 @@ class cameronjonesweb_facebook_page_plugin {
 	// Add a link to support on plugins listing
 	function plugin_action_links( $links ) {
 
-		$links[] = '<a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">Support</a>';	
+		$links[] = '<a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">' . __( 'Support', 'facebook-page-feed-graph-api' ) . '</a>';	
 		return $links;
 	}
 
@@ -139,7 +139,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 		if ( $file == CJW_FBPP_PLUGIN_BASENAME ) {
 
-			$links[] = '<a href="https://profiles.wordpress.org/cameronjonesweb/#content-plugins" target="_blank">More plugins by cameronjonesweb</a>';
+			$links[] = '<a href="https://profiles.wordpress.org/cameronjonesweb/#content-plugins" target="_blank">' . __( 'More plugins by cameronjonesweb', 'facebook-page-feed-graph-api' ) . '</a>';
 
 		}
 		
@@ -245,11 +245,11 @@ class cameronjonesweb_facebook_page_plugin {
 							echo '<div class="plugin-card">';
 								echo '<div class="plugin-card-top">';
 									if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) {
-										echo '<img src="' . $plugins->plugins[$i]->icons['1x'] . '" alt="' . $plugins->plugins[$i]->name . ' Icon" />';
+										echo '<img src="' . $plugins->plugins[$i]->icons['1x'] . '" alt="' . esc_attr( sprintf( __( '%2 Icon', 'facebook-page-feed-graph-api' ), $plugins->plugins[$i]->name ) ) . '" />';
 									}
 									echo '<h4><strong>' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '</strong></h4>';
 									echo '<p>' . _e( $plugins->plugins[$i]->short_description, 'facebook-page-feed-graph-api' ) . '</p>';
-									echo '<p><a href="' . self_admin_url() . 'plugin-install.php?tab=plugin-information&plugin=' . $plugins->plugins[$i]->slug . '&TB_iframe=true&width=600&height=550" class="open-plugin-details-modal button" target="_blank" aria-label="More information about ' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '" data-title="' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '">' . __( 'Details &amp; Install', 'facebook-page-feed-graph-api' ) . '</a></p>';
+									echo '<p><a href="' . self_admin_url() . 'plugin-install.php?tab=plugin-information&plugin=' . $plugins->plugins[$i]->slug . '&TB_iframe=true&width=600&height=550" class="open-plugin-details-modal button" target="_blank" aria-label="' . esc_attr( sprintf( __( 'More information about %2', 'facebook-page-feed-graph-api' ), $plugins->plugins[$i]->name ) ) . '" data-title="' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '">' . __( 'Details &amp; Install', 'facebook-page-feed-graph-api' ) . '</a></p>';
 								echo '</div>';
 							echo '</div>';
 						}
@@ -260,7 +260,14 @@ class cameronjonesweb_facebook_page_plugin {
 				_e( 'No additional plugins available at this time.', 'facebook-page-feed-graph-api' );
 			}
 		} else {
-			echo '<p><strong>' . __( 'No plugins found.', 'facebook-page-feed-graph-api' ) . '</strong> ' . __( 'Check your connection.', 'facebook-page-feed-graph-api' ) . '</p>';
+
+			echo esc_html ( sprintf(
+				__( '%2No plugins found%2Check your connection%2' ),
+				'<p><strong>',
+				'</strong>',
+				'</p>'
+			) );
+
 		}
 		wp_die();
 	}

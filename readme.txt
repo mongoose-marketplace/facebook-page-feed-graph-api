@@ -2,7 +2,7 @@
 Contributors: cameronjonesweb
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
-Requires at least: 4.0
+Requires at least: 4.6
 Tested up to: 4.7.3
 Stable tag: 1.6.1
 License: GPLv2
