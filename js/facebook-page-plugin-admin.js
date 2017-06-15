@@ -65,7 +65,7 @@
                 }
 				var $lang = $('#fbpp-lang').val();
 				if($lang.length > 0){
-                    $shortcode += 'lang="' + $lang + '" ';
+                    $shortcode += 'language="' + $lang + '" ';
                 }
                 $shortcode += ']';
                 $('#facebook-page-plugin-shortcode-generator-output').val($shortcode);
