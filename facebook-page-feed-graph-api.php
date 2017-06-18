@@ -245,11 +245,11 @@ class cameronjonesweb_facebook_page_plugin {
 							echo '<div class="plugin-card">';
 								echo '<div class="plugin-card-top">';
 									if( !empty( $plugins->plugins[$i]->icons['1x'] ) ) {
-										echo '<img src="' . $plugins->plugins[$i]->icons['1x'] . '" alt="' . esc_attr( sprintf( __( '%2 Icon', 'facebook-page-feed-graph-api' ), $plugins->plugins[$i]->name ) ) . '" />';
+										echo '<img src="' . $plugins->plugins[$i]->icons['1x'] . '" alt="' . esc_attr( sprintf( __( '%s Icon', 'facebook-page-feed-graph-api' ), $plugins->plugins[$i]->name ) ) . '" />';
 									}
 									echo '<h4><strong>' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '</strong></h4>';
 									echo '<p>' . _e( $plugins->plugins[$i]->short_description, 'facebook-page-feed-graph-api' ) . '</p>';
-									echo '<p><a href="' . self_admin_url() . 'plugin-install.php?tab=plugin-information&plugin=' . $plugins->plugins[$i]->slug . '&TB_iframe=true&width=600&height=550" class="open-plugin-details-modal button" target="_blank" aria-label="' . esc_attr( sprintf( __( 'More information about %2', 'facebook-page-feed-graph-api' ), $plugins->plugins[$i]->name ) ) . '" data-title="' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '">' . __( 'Details &amp; Install', 'facebook-page-feed-graph-api' ) . '</a></p>';
+									echo '<p><a href="' . self_admin_url() . 'plugin-install.php?tab=plugin-information&plugin=' . $plugins->plugins[$i]->slug . '&TB_iframe=true&width=600&height=550" class="open-plugin-details-modal button" target="_blank" aria-label="' . esc_attr( sprintf( __( 'More information about %s', 'facebook-page-feed-graph-api' ), $plugins->plugins[$i]->name ) ) . '" data-title="' . __( $plugins->plugins[$i]->name, 'facebook-page-feed-graph-api' ) . '">' . __( 'Details &amp; Install', 'facebook-page-feed-graph-api' ) . '</a></p>';
 								echo '</div>';
 							echo '</div>';
 						}
@@ -262,7 +262,7 @@ class cameronjonesweb_facebook_page_plugin {
 		} else {
 
 			echo esc_html ( sprintf(
-				__( '%2No plugins found%2Check your connection%2' ),
+				__( '%s No plugins found %s Check your connection %s' ),
 				'<p><strong>',
 				'</strong>',
 				'</p>'
