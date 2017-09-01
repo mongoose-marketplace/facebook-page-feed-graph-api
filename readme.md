@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api)
+
 # Facebook Page Plugin
 by @cameronjonesweb
 
