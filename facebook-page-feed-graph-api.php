@@ -3,13 +3,13 @@
  * Plugin Name: Facebook Page Plugin
  * Plugin URI: https://cameronjonesweb.com.au/wordpress-plugins/facebook-page-plugin/
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.6.1
+ * Version: 1.6.2
  * Author: Cameron Jones
  * Author URI: https://cameronjonesweb.com.au
  * License: GPLv2
  * Text Domain: facebook-page-feed-graph-api
  
- * Copyright 2015  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
+ * Copyright 2015-2017  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -32,7 +32,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.6.1' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.6.2' );
 		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
@@ -366,7 +366,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	
-	private $facebookURLs = array('https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/');
+	private $facebookURLs = array( 'https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/', 'http://facebook.com/', 'http://www.facebook.com/' );
 	private $settings;
 	
 	function __construct() {

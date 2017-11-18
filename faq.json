@@ -9,8 +9,8 @@
 			"answer": "It's highly likely that you're using an ad-blocker or similar browser extension that is being blocking it. Turn off your ad-blocker or whitelist your website."
 		},
 		{
-			"question": "The plugin only shows when I'm logged in.",
-			"answer": "This means that your Facebook page has audience restrictions of age and/or location. If you want the plugin to display for all users, disable the audience restrictions in your page settings on Facebook."
+			"question": "I have audience restrictions and the plugin won't display",
+			"answer": "If your Facebook page has audience restrictions for age and/or location, the plugin will not display. If you want the plugin to display, disable the audience restrictions in your page settings on Facebook. <a href='https://developers.facebook.com/docs/plugins/page-plugin/#privacy' target='_blank'>See Facebook documentation</a>."
 		},
 		{
 			"question": "The Facepile and/or posts aren't showing up",
@@ -34,6 +34,22 @@
 			"changes": [
 				"Tabs are now checkboxes and the events tab is now available",
 				"New landing page to provide help new users"
+			]
+		},
+		{
+			"version": "1.6.1",
+			"changes": [
+				"Adding text domain header",
+				"Adding implementation indicator for debugging"
+			]
+		},
+		{
+			"version": "1.6.2",
+			"changes": [
+				"Changes minimum WordPress version to 4.6 for translations",
+				"Tested for WordPress 4.9 'Tipton'",
+				"Fixed bug with setting the language in the shortcode generator",
+				"Increased accuracy of URL detection in the widget form"
 			]
 		}
 	]

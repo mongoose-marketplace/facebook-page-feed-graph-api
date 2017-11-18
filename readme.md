@@ -36,7 +36,8 @@ Also, if your page has only just been created it may take some time for the API 
 Shortcodes were introduced in WordPress 2.5, so theorectially it should work on all sites that are at least 2.5, however it has only been tested on versions 4.0 and up, and no guarantee will be made concerning earlier versions
 
 ### I can only see a link, the plugin won't load
-By default the plugin will display a link to your page while the page plugin loads. If the page plugin doesn't load, this could happen for a number of reasons. Your connection could be very slow, you could have JavaScript disabled, you could have an ad blocker or similar browser extension blocking the plugin or there could be an error in the information you have provided in the widget or shortcode. 
+By default the plugin will display a link to your page while the page plugin loads. If the page plugin doesn't load, this could happen for a number of reasons. Your connection could be very slow, you could have JavaScript disabled, you could have an ad blocker or similar browser extension blocking the plugin or there could be an error in the information you have provided in the widget or shortcode.
+Additionally, if your Facebook page has audience restrictions for age and/or location, the plugin will not display. If you want the plugin to display, disable the audience restrictions in your page settings on Facebook.
 
 ### I can't get the Facepile to work!
 Chances are your plugin isn't tall enough to display the facepile properly. The facepile requires the plugin to have a minimum height of 214 pixels, or 154 pixel if using the small header.
@@ -49,6 +50,16 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 ## Changelog
+
+### 1.6.2 - 18/11/17
+* Changes minimum WordPress version to 4.6 for translations
+* Tested for WordPress 4.9 'Tipton'
+* Fixed bug with setting the language in the shortcode generator
+* Increased accuracy of URL detection in the widget form
+
+### 1.6.1 - 11/04/17
+* Adding text domain header
+* Adding implementation indicator for debugging
 
 ### 1.6.0 - 02/04/17
 * New landing page with FAQs to help with onboarding of new users
