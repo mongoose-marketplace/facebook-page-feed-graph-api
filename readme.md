@@ -50,6 +50,16 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 ## Changelog
 
+### 1.6.2 - 18/11/17
+* Changes minimum WordPress version to 4.6 for translations
+* Tested for WordPress 4.9 'Tipton'
+* Fixed bug with setting the language in the shortcode generator
+* Increased accuracy of URL detection in the widget form
+
+### 1.6.1 - 11/04/17
+* Adding text domain header
+* Adding implementation indicator for debugging
+
 ### 1.6.0 - 02/04/17
 * New landing page with FAQs to help with onboarding of new users
 * Removal of the admin notice review nag

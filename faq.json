@@ -35,6 +35,22 @@
 				"Tabs are now checkboxes and the events tab is now available",
 				"New landing page to provide help new users"
 			]
+		},
+		{
+			"version": "1.6.1",
+			"changes": [
+				"Adding text domain header",
+				"Adding implementation indicator for debugging"
+			]
+		},
+		{
+			"version": "1.6.2",
+			"changes": [
+				"Changes minimum WordPress version to 4.6 for translations",
+				"Tested for WordPress 4.9 'Tipton'",
+				"Fixed bug with setting the language in the shortcode generator",
+				"Increased accuracy of URL detection in the widget form"
+			]
 		}
 	]
 }

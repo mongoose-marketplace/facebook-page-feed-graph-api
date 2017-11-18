@@ -2,8 +2,8 @@
 Contributors: cameronjonesweb
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
-Requires at least: 4.0
-Tested up to: 4.7.3
+Requires at least: 4.6
+Tested up to: 4.9
 Stable tag: 1.6.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -56,6 +56,12 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 == Changelog ==
+
+= 1.6.2 - 18/11/17 =
+* Changes minimum WordPress version to 4.6 for translations
+* Tested for WordPress 4.9 'Tipton'
+* Fixed bug with setting the language in the shortcode generator
+* Increased accuracy of URL detection in the widget form
 
 = 1.6.1 - 11/04/17 =
 * Adding text domain header
