@@ -55,7 +55,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 												echo '</li>';
 											}
 										echo '</ul>';
-										echo '<a href="https://wordpress.org/plugins/facebook-page-feed-graph-api/changelog/" target="_blank">View full changelog</a>';
+										echo '<a href="https://wordpress.org/plugins/facebook-page-feed-graph-api/#developers" target="_blank" rel="noopener noreferrer">View full changelog</a>';
 									}
 								}
 							} ?>
@@ -68,7 +68,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-heart"></i> <?php _e( 'Donate', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Development relies on donations from kind-hearted supporters of the Facebook Page Plugin. If you\'re enjoying the plugin,', 'facebook-page-feed-graph-api' ); ?> <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WLV5HPHSPM2BG&lc=AU&item_name=cameronjonesweb%20-%20Facebook%20Page%20Plugin&¤cy_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank"><?php _e( 'please donate today', 'facebook-page-feed-graph-api' ); ?></a>.</p>
+							<p><?php _e( 'Development relies on donations from kind-hearted supporters of the Facebook Page Plugin. If you\'re enjoying the plugin,', 'facebook-page-feed-graph-api' ); ?> <a href="https://www.patreon.com/cameronjonesweb" target="_blank" rel="noopener noreferrer"><?php _e( 'please donate today', 'facebook-page-feed-graph-api' ); ?></a>.</p>
 						</div>
 					</div>
 					<div class="postbox">
@@ -93,7 +93,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-star-filled"></i> <?php _e( 'Leave A Review', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Is this the best plugin for adding a Facebook Page to your WordPress website?', 'facebook-page-feed-graph-api' ); ?> <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api#new-post" target="_blank"><?php _e( 'Let me know', 'facebook-page-feed-graph-api' ); ?></a>!</p>
+							<p><?php _e( 'Is this the best plugin for adding a Facebook Page to your WordPress website?', 'facebook-page-feed-graph-api' ); ?> <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api#new-post" target="_blank" rel="noopener noreferrer"><?php _e( 'Let me know', 'facebook-page-feed-graph-api' ); ?></a>!</p>
 							<p><?php echo __( 'If there\'s a problem, please open a support ticket on', 'facebook-page-feed-graph-api' ) . ' <a href="https://github.com/cameronjonesweb/facebook-page-feed-graph-api/issues" target="_blank">' . __( 'GitHub', 'facebook-page-feed-graph-api' ) . '</a>' . __( ', on', 'facebook-page-feed-graph-api' ) . ' <a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">' . __( 'WordPress.org', 'facebook-page-feed-graph-api' ) . '</a>' . __( ' or ', 'facebook-page-feed-graph-api' ) . '<a href="mailto:plugins@cameronjonesweb.com.au" target="_blank">' . __( 'email me', 'facebook-page-feed-graph-api' ) . '</a>.'; ?></p>
 						</div>
 					</div>
@@ -101,7 +101,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-chart-line"></i> <?php _e( 'Take The Survey', 'facebook-page-feed-graph-api' ); ?></h3>
 							<p><?php _e( 'Want to have your say about the Facebook Page Plugin?', 'facebook-page-feed-graph-api' ); ?></p>
-							<p><a href="<?php echo CJW_FBPP_PLUGIN_SURVEY_LINK; ?>" class="button" target="_blank"><?php _e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
+							<p><a href="<?php echo CJW_FBPP_PLUGIN_SURVEY_LINK; ?>" class="button" target="_blank" rel="noopener noreferrer"><?php _e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
 						</div>
 					</div>
 					<div class="postbox">
