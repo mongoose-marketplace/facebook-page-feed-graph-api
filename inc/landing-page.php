@@ -106,16 +106,6 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					</div>
 					<div class="postbox">
 						<div class="main inside">
-							<h3><i class="dashicons dashicons-admin-plugins"></i> <?php _e( 'More Free Plugins by cameronjonesweb', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Help support the developer by using more of my plugins!', 'facebook-page-feed-graph-api' ); ?></p>
-							<?php add_thickbox(); ?>
-							<div id="plugins-target">
-								<span class="spinner is-active"></span>
-							</div>
-						</div>
-					</div>
-					<div class="postbox">
-						<div class="main inside">
 							<h3><i class="dashicons dashicons-testimonial"></i> <?php _e( 'Latest News From The Developer', 'facebook-page-feed-graph-api' ); ?></h3>
 							<div id="blog-posts-target">
 								<span class="spinner is-active"></span>
