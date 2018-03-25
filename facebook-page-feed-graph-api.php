@@ -201,27 +201,35 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_latest_blog_posts_callback() {
+
+		$output = sprintf(
+			'<p><strong>%1$s</strong></p>',
+			__( 'Unable to load posts.', 'facebook-page-feed-graph-api' )
+		);
+
 		$internet = $this->facebook_page_plugin_is_connected();
-		if( $internet ) {
+		if( true === $internet && function_exists( 'simplexml_load_file' ) ) {
 			$feed = 'https://cameronjonesweb.com.au/feed/';
 			$xml = simplexml_load_file( $feed, 'SimpleXMLElement', LIBXML_NOCDATA );
 			if( isset( $xml ) && !empty( $xml ) ) {
-				echo '<ul>';
+				$output = '';
+				$output .= '<ul>';
 				foreach( $xml->channel->item as $blogpost ) {
-					echo '<li>';
-						echo date( 'M jS', strtotime( $blogpost->pubDate ) ) . ' - ';
-						echo '<a href="' . $blogpost->link . '">';
-							echo $blogpost->title;
-						echo '</a>';
-					echo '</li>';
+					$output .= '<li>';
+						$output .= date( 'M jS', strtotime( $blogpost->pubDate ) ) . ' - ';
+						$output .= '<a href="' . $blogpost->link . '">';
+							$output .= $blogpost->title;
+						$output .= '</a>';
+					$output .= '</li>';
 				}
-				echo '</ul>';
-				echo '<p><a href="https://cameronjonesweb.com.au/blog/" target="_blank">' . __( 'View more recent posts', 'facebook-page-feed-graph-api' ) . '</a></p>';
+				$output .= '</ul>';
 			}
-		} else {
-			echo '<p><strong>' . __( 'No posts found.', 'facebook-page-feed-graph-api' ) . '</strong>' . __( 'Check your connection.', 'facebook-page-feed-graph-api' ) . '</p>';
 		}
-		wp_die();
+		$output .= sprintf(
+			'<p><a href="https://cameronjonesweb.com.au/blog/" target="_blank">%1$s</a></p>',
+			__( 'View all recent posts', 'facebook-page-feed-graph-api' )
+		);
+		wp_die( $output );
 	}
 
 	function facebook_page_plugin_activation_hook( $plugin ) {
