@@ -1,4 +1,4 @@
-# Facebook Page Plugin
+# Responsive Facebook Page Plugin
 by @cameronjonesweb
 
 It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget.
