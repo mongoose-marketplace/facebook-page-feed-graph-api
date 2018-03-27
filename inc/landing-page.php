@@ -3,7 +3,10 @@ $currentuser = wp_get_current_user();
 $internet = $this->facebook_page_plugin_is_connected(); ?>
 <div class="wrap">
 
-	<h1>Facebook Page Plugin</h1>
+	<?php printf(
+		'<h1>%1$s</h1>',
+		__( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' )
+	); ?>
 
 	<div class="welcome-panel">
 		<div class="welcome-panel-content">
@@ -24,14 +27,11 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 							if( !empty( $faq_obj->faqs ) ) {
 								echo '<ul>';
 								foreach( $faq_obj->faqs as $faq ) {
-									echo '<li>';
-										echo '<strong>';
-											_e( $faq->question, 'facebook-page-feed-graph-api' );
-										echo '</strong>';
-										echo '<p>';
-											_e( $faq->answer, 'facebook-page-feed-graph-api' );
-										echo '</p>';
-									echo '</li>';
+									printf(
+										'<li><strong>%1$s</strong><p>%2$s</p></li>',
+										$faq->question,
+										$faq->answer
+									);
 								}
 								echo '</ul>';
 							} else {
@@ -43,19 +43,26 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 				<div class="meta-box-sortables">
 					<div class="postbox">
 						<div class="main inside">
-							<h2>Changelog</h2>
-							<h3>New in version <?php echo CJW_FBPP_PLUGIN_VER; ?></h3>
+							<h2><?php _e( 'Changelog', 'facebook-page-feed-graph-api' ); ?></h2>
+							<h3><?php _e( 'New in version %2$s', 'facebook-page-feed-graph-api' ),
+								CJW_FBPP_PLUGIN_VER
+							); ?></h3>
+							
 							<?php if( !empty( $faq_obj->changelog ) ) {
 								foreach( $faq_obj->changelog as $version ) {
 									if( $version->version == CJW_FBPP_PLUGIN_VER ) {
 										echo '<ul>';
 											foreach( $version->changes as $change ) {
-												echo '<li>';
-													_e( $change, 'facebook-page-feed-graph-api' );
-												echo '</li>';
+												printf(
+													'<li>%1$s</li>',
+													$change
+												);
 											}
 										echo '</ul>';
-										echo '<a href="https://wordpress.org/plugins/facebook-page-feed-graph-api/#developers" target="_blank" rel="noopener noreferrer">View full changelog</a>';
+										printf(
+											'<a href="https://wordpress.org/plugins/facebook-page-feed-graph-api/#developers" target="_blank" rel="noopener noreferrer">%1$s</a>',
+											__( 'View full changelog', 'facebook-page-feed-graph-api' )
+										);
 									}
 								}
 							} ?>
@@ -68,7 +75,10 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-heart"></i> <?php _e( 'Donate', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Development relies on donations from kind-hearted supporters of the Facebook Page Plugin. If you\'re enjoying the plugin,', 'facebook-page-feed-graph-api' ); ?> <a href="https://www.patreon.com/cameronjonesweb" target="_blank" rel="noopener noreferrer"><?php _e( 'please donate today', 'facebook-page-feed-graph-api' ); ?></a>.</p>
+							<p><?php printf(
+								__( 'Development relies on donations from kind-hearted supporters of the Facebook Page Plugin. If you\'re enjoying the plugin, <a href="%2$s">please donate today</a>.', 'facebook-page-feed-graph-api' )
+								CJW_FBPP_PLUGIN_DONATE_LINK
+							); ?></p>
 						</div>
 					</div>
 					<div class="postbox">
@@ -93,8 +103,18 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-star-filled"></i> <?php _e( 'Leave A Review', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Is this the best plugin for adding a Facebook Page to your WordPress website?', 'facebook-page-feed-graph-api' ); ?> <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api#new-post" target="_blank" rel="noopener noreferrer"><?php _e( 'Let me know', 'facebook-page-feed-graph-api' ); ?></a>!</p>
-							<p><?php echo __( 'If there\'s a problem, please open a support ticket on', 'facebook-page-feed-graph-api' ) . ' <a href="https://github.com/cameronjonesweb/facebook-page-feed-graph-api/issues" target="_blank">' . __( 'GitHub', 'facebook-page-feed-graph-api' ) . '</a>' . __( ', on', 'facebook-page-feed-graph-api' ) . ' <a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">' . __( 'WordPress.org', 'facebook-page-feed-graph-api' ) . '</a>' . __( ' or ', 'facebook-page-feed-graph-api' ) . '<a href="mailto:plugins@cameronjonesweb.com.au" target="_blank">' . __( 'email me', 'facebook-page-feed-graph-api' ) . '</a>.'; ?></p>
+							<?php printf(
+								'<p>%1$s <a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api#new-post" target="_blank" rel="noopener noreferrer">%2$s</a>!</p>',
+								__( 'Is this the best plugin for adding a Facebook Page to your WordPress website?', 'facebook-page-feed-graph-api' ),
+								__( 'Let me know', 'facebook-page-feed-graph-api' )
+							);
+							printf(
+								__( '<p>If there\'s a problem, please open a support ticket on <a href="%1$s" target="_blank" rel="noopener noreferrer">Github</a>, on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a>, or <a href="%3$s" target="_blank" rel="noopener noreferrer">email me</a>.</p>', 'facebook-page-feed-graph-api' ),
+								'https://github.com/cameronjonesweb/facebook-page-feed-graph-api/issues',
+								'https://wordpress.org/support/plugin/facebook-page-feed-graph-api',
+								'mailto:plugins@cameronjonesweb.com.au'
+								
+							); ?>
 						</div>
 					</div>
 					<div class="postbox">
