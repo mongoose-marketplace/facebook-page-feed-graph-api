@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Facebook Page Plugin
+ * Plugin Name: Responsive Facebook Page Plugin
  * Plugin URI: https://cameronjonesweb.com.au/wordpress-plugins/facebook-page-plugin/
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
  * Version: 1.6.2

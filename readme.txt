@@ -1,4 +1,4 @@
-=== Facebook Page Plugin ===
+=== Responsive Facebook Page Plugin ===
 Contributors: cameronjonesweb
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
