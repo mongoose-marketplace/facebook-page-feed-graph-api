@@ -47,6 +47,16 @@
 				"Fixed bug with setting the language in the shortcode generator",
 				"Increased accuracy of URL detection in the widget form"
 			]
+		},
+		{
+			"version": "1.6.3",
+			"changes": [
+				"Improved string translations",
+				"Updated Graph API from v2.5 to v2.12",
+				"Fail gracefully when SimpleXML isn't installed",
+				"Fixed changelog link",
+				"Updated the plugin display name to avoid potential trademark issues"
+			]
 		}
 	]
 }
