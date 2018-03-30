@@ -1,11 +1,11 @@
-# Facebook Page Plugin
+# Responsive Facebook Page Plugin
 by @cameronjonesweb
 
 It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget.
 
 
 ## Description
-Seamlessly add a Facebook Page to your WordPress website with the Facebook Page Plugin! Trusted by more than 20,000 WordPress websites worldwide, the Facebook Page Plugin is the simplest way to add a Facebook page to your website.
+Seamlessly add a Facebook Page to your WordPress website with the Facebook Page Plugin! Trusted by more than 30,000 WordPress websites worldwide, the Facebook Page Plugin is the simplest way to add a Facebook page to your website.
 
 You can add your Facebook page to any widget area with the custom Facebook Page Plugin widget, with live preview available in the Customizer.
 
@@ -17,7 +17,7 @@ Other features include:
 
 * Uses your site language by default, but you can display your Facebook page in all 95 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
 
-With more than 20,000 installs and nearly 50 5-star rating, the Facebook Page Plugin is one of the most popular social media plugins for WordPress.
+With more than 30,000 installs and nearly 50 5-star rating, the Facebook Page Plugin is one of the most popular social media plugins for WordPress.
 
 
 ## Frequently Asked Questions
@@ -50,6 +50,13 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 ## Changelog
+
+### 1.6.3 - 01/04/18
+* Improved string translations
+* Updated Graph API from v2.5 to v2.12
+* Fail gracefully when SimpleXML isn't installed
+* Fixed changelog link
+* Updated the plugin display name to avoid potential trademark issues
 
 ### 1.6.2 - 18/11/17
 * Changes minimum WordPress version to 4.6 for translations

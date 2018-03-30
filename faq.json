@@ -1,16 +1,12 @@
 {
 	"faqs": [
 		{
+			"question": "The plugin is blank or only displays a link",
+			"answer": "It is likely one of two issues, your page has audience restrictions or you're using an ad-blocker or similar browser extension that is blocking it. If your Facebook page has audience restrictions for age and/or location, the plugin will not display. If you want the plugin to display, make sure any audience restrictions are disabled in your page settings on Facebook, and turn off your ad-blocker or whitelist your website."
+		},
+		{
 			"question": "Where is the settings page?",
 			"answer": "There is no settings page for the Facebook Page Plugin. To add the plugin to a widget area, go to your <a href='widgets.php'>widgets</a> page, select Facebook Page Plugin from the list of available widgets, add it to your desired widget area and fill out the form. If you wish to use the plugin in a post or page, go to your <a href='index.php#cameronjonesweb_facebook_page_plugin_shortcode_generator'>dashboard</a> and fill out the shortcode generator. Copy the shortcode result and paste it into your post or page editor."
-		},
-		{
-			"question": "The plugin is blank or only displays a link",
-			"answer": "It's highly likely that you're using an ad-blocker or similar browser extension that is being blocking it. Turn off your ad-blocker or whitelist your website."
-		},
-		{
-			"question": "I have audience restrictions and the plugin won't display",
-			"answer": "If your Facebook page has audience restrictions for age and/or location, the plugin will not display. If you want the plugin to display, disable the audience restrictions in your page settings on Facebook. <a href='https://developers.facebook.com/docs/plugins/page-plugin/#privacy' target='_blank'>See Facebook documentation</a>."
 		},
 		{
 			"question": "The Facepile and/or posts aren't showing up",
@@ -50,6 +46,16 @@
 				"Tested for WordPress 4.9 'Tipton'",
 				"Fixed bug with setting the language in the shortcode generator",
 				"Increased accuracy of URL detection in the widget form"
+			]
+		},
+		{
+			"version": "1.6.3",
+			"changes": [
+				"Improved string translations",
+				"Updated Graph API from v2.5 to v2.12",
+				"Fail gracefully when SimpleXML isn't installed",
+				"Fixed changelog link",
+				"Updated the plugin display name to avoid potential trademark issues"
 			]
 		}
 	]
