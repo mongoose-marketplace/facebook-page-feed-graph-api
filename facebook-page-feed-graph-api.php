@@ -273,7 +273,7 @@ class cameronjonesweb_facebook_page_plugin {
 			wp_localize_script( 'facebook-page-plugin-sdk', 'facebook_page_plugin_language', array( 'language' => $a['language'] ) );
 
 			$return .= '<div class="cameronjonesweb_facebook_page_plugin" data-version="' . CJW_FBPP_PLUGIN_VER . '" data-implementation="' . esc_attr( $a['_implementation'] ) . '" id="' . $this->facebook_page_plugin_generate_wrapper_id() . '">';
-			$return .= '<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.5&appId=' . self::app_id() . '";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
+			$return .= '<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v2.12&appId=' . self::app_id() . '";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>';
 			$return .= '<div class="fb-page" data-href="https://facebook.com/' . $a["href"] . '" ';
 			if(isset($a['width']) && !empty($a['width'])){
 				$return .= ' data-width="' . $a['width'] . '"';
