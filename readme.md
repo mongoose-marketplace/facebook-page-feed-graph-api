@@ -51,7 +51,7 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 ## Changelog
 
-### 1.6.3 - 01/04/18
+### 1.6.3 - 30/03/18
 * Improved string translations
 * Updated Graph API from v2.5 to v2.12
 * Fail gracefully when SimpleXML isn't installed
