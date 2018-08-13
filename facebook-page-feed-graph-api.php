@@ -201,35 +201,13 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_latest_blog_posts_callback() {
-
-		$output = sprintf(
-			'<p><strong>%1$s</strong></p>',
-			__( 'Unable to load posts.', 'facebook-page-feed-graph-api' )
+		$links = sprintf(
+			'<p><a href="https://cameronjonesweb.com.au/blog/" target="_blank">%1$s</a> | <a href="https://mongooseplugins.com/news/" target="_blank">%2$s</a></p>',
+			__( 'Developer\'s blog', 'facebook-page-feed-graph-api' ),
+			__( 'Latest plugin news', 'facebook-page-feed-graph-api' )
 		);
-
-		$internet = $this->facebook_page_plugin_is_connected();
-		if( true === $internet && function_exists( 'simplexml_load_file' ) ) {
-			$feed = 'https://cameronjonesweb.com.au/feed/';
-			$xml = simplexml_load_file( $feed, 'SimpleXMLElement', LIBXML_NOCDATA );
-			if( isset( $xml ) && !empty( $xml ) ) {
-				$output = '';
-				$output .= '<ul>';
-				foreach( $xml->channel->item as $blogpost ) {
-					$output .= '<li>';
-						$output .= date( 'M jS', strtotime( $blogpost->pubDate ) ) . ' - ';
-						$output .= '<a href="' . $blogpost->link . '">';
-							$output .= $blogpost->title;
-						$output .= '</a>';
-					$output .= '</li>';
-				}
-				$output .= '</ul>';
-			}
-		}
-		$output .= sprintf(
-			'<p><a href="https://cameronjonesweb.com.au/blog/" target="_blank">%1$s</a></p>',
-			__( 'View all recent posts', 'facebook-page-feed-graph-api' )
-		);
-		wp_die( $output );
+		wp_widget_rss_output( 'https://feed.rssunify.com/5b718c594e800/rss.xml', [ 'show_date' => 1 ] );
+		wp_die( $links );
 	}
 
 	function facebook_page_plugin_activation_hook( $plugin ) {
