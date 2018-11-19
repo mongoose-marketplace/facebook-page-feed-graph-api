@@ -4,14 +4,13 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 <div class="wrap">
 
 	<?php printf(
-		'<h1>%1$s</h1>',
-		__( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' )
+		'<h1 class="page-title">%1$s</h1>',
+		esc_html( get_admin_page_title() )
 	); ?>
 
 	<div class="welcome-panel">
 		<div class="welcome-panel-content">
-			<img src="<?php echo CJW_FBPP_PLUGIN_URL; ?>/images/banner-772x250.jpg" class="welcome-panel-image">
-			<p class="about-description"><?php _e( 'Thank you for downloading the Facebook Page Plugin by cameronjonesweb! You\'ve joined more than 30,000 other WordPress websites using this plugin to display a Facebook Page on their site. To help introduce you to the plugin, I\'ve created this page full of useful information. Please enjoy using my Facebook Page Plugin and let me know how it works for you!', 'facebook-page-feed-graph-api' ); ?></p>
+			<p class="about-description"><?php _e( 'Thank you for downloading the Facebook Page Plugin by Mongoose Marketplace! You\'ve joined more than 30,000 other WordPress websites using this plugin to display a Facebook Page on their site. To help introduce you to the plugin, I\'ve created this page full of useful information. Please enjoy using my Facebook Page Plugin and let me know how it works for you!', 'facebook-page-feed-graph-api' ); ?></p>
 		</div>
 	</div>
 	<div id="dashboard-widgets-wrap">

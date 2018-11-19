@@ -1,0 +1,31 @@
+.plugins_page_facebook-page-plugin .welcome-panel-content {
+	margin-right: 13px;
+}
+
+.plugins_page_facebook-page-plugin .welcome-panel-image{
+	width: 100%;
+}
+
+.plugins_page_facebook-page-plugin .about-description{
+	margin: 13px 0;
+}
+
+.plugins_page_facebook-page-plugin .spinner.is-active{
+	float: none !important;
+}
+
+.plugins_page_facebook-page-plugin #wpbody-content {
+	font-family: 'Muli', 'Helvetica', 'Arial', sans-serif;
+}
+
+.plugins_page_facebook-page-plugin .page-title {
+	font-family: 'Rammetto One', cursive;
+}
+
+.plugins_page_facebook-page-plugin h2,
+.plugins_page_facebook-page-plugin h3,
+.plugins_page_facebook-page-plugin h4,
+.plugins_page_facebook-page-plugin h5,
+.plugins_page_facebook-page-plugin h6 {
+	font-family: 'Paytone One', sans-serif;
+}

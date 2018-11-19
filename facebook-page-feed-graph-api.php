@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Responsive Facebook Page Plugin
- * Plugin URI: https://cameronjonesweb.com.au/wordpress-plugins/facebook-page-plugin/
+ * Plugin Name: Mongoose Facebook Page Plugin
+ * Plugin URI: https://mongoosemarketplace.com/downloads/facebook-page-plugin/
  * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
  * Version: 1.6.3
- * Author: Cameron Jones
- * Author URI: https://cameronjonesweb.com.au
+ * Author: Mongoose Marketplace
+ * Author URI: https://mongoosemarketplace.com/
  * License: GPLv2
  * Text Domain: facebook-page-feed-graph-api
  
@@ -36,7 +36,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
-		//Add all the hooks and actions
+		// Add all the hooks and actions.
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
 		add_filter( 'widget_text', 'do_shortcode' );
 		add_action( 'wp_dashboard_setup', array( $this, 'facebook_page_plugin_dashboard_widget' ) );
@@ -47,12 +47,11 @@ class cameronjonesweb_facebook_page_plugin {
 		add_action( 'activated_plugin', array( $this, 'facebook_page_plugin_activation_hook' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_remove_donate_notice', array( $this, 'remove_donate_notice' ) );
 		add_filter( 'plugin_action_links_' . CJW_FBPP_PLUGIN_BASENAME, array( $this, 'plugin_action_links' ) );
-		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
 
 	}
 
 
-	// Filter functions
+	// Filter functions.
 	private static function dashboard_widget_capability() {
 
 		$return = apply_filters( 'facebook_page_plugin_dashboard_widget_capability', 'edit_posts' );
@@ -69,7 +68,7 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 
-	//Admin functions
+	// Admin functions.
 
 	public static function donate_notice() {
 
@@ -129,29 +128,19 @@ class cameronjonesweb_facebook_page_plugin {
 	// Add a link to support on plugins listing
 	function plugin_action_links( $links ) {
 
-		$links[] = '<a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">Support</a>';	
+		$links[] = sprintf(
+			'<a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank">%1$s</a>',
+			__( 'Support', 'facebook-page-feed-graph-api' )
+		);
 		return $links;
-	}
-
-	//Add link on plugins listing to my plugins directory
-	function plugin_meta_links( $links, $file ) {
-
-		if ( $file == CJW_FBPP_PLUGIN_BASENAME ) {
-
-			$links[] = '<a href="https://profiles.wordpress.org/cameronjonesweb/#content-plugins" target="_blank">More plugins by cameronjonesweb</a>';
-
-		}
-		
-		return $links;
-
 	}
 
 
 	//Enqueue CSS and JS for admin
 	public function facebook_page_plugin_admin_resources() {
 
-		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/facebook-page-plugin-admin.js' );
-		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/facebook-page-plugin-admin.css' );
+		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/admin-global.js' );
+		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/admin-global.css' );
 
 	}
 
@@ -169,20 +158,20 @@ class cameronjonesweb_facebook_page_plugin {
 	//Load the dashboard widget
 	function facebook_page_plugin_dashboard_widget_callback() {
 		echo '<a name="cameronjonesweb_facebook_page_plugin_shortcode_generator"></a>';
-		$generator = new cameronjonesweb_facebook_page_plugin_shortcode_generator;
+		$generator = new cameronjonesweb_facebook_page_plugin_shortcode_generator();
 		$generator->generate();
 		
 	}
 
 	function facebook_page_plugin_landing_page_menu() {
-		add_submenu_page( 'plugins.php', __( 'Facebook Page Plugin by cameronjonesweb', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
+		add_submenu_page( 'plugins.php', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
 	}
 
 	function facebook_page_plugin_landing_page() {
-
-		wp_enqueue_script( 'facebook-page-plugin-landing-page', CJW_FBPP_PLUGIN_URL . 'js/landing-page.js', array( 'jquery' ), NULL, true );
+		wp_enqueue_style( 'facebook-page-plugin-google-fonts', 'https://fonts.googleapis.com/css?family=Rammetto+One|Paytone+One|Space+Mono:400|Muli:400,400i,700', [], CJW_FBPP_PLUGIN_VER );
+		wp_enqueue_script( 'facebook-page-plugin-landing-page-js', CJW_FBPP_PLUGIN_URL . 'js/admin-landing-page.js', array( 'jquery' ), CJW_FBPP_PLUGIN_VER, true );
+		wp_enqueue_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', [], CJW_FBPP_PLUGIN_VER );
 		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
-
 	}
 
 	/*
@@ -202,7 +191,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 	function facebook_page_plugin_latest_blog_posts_callback() {
 		$links = sprintf(
-			'<p><a href="https://cameronjonesweb.com.au/blog/" target="_blank">%1$s</a> | <a href="https://mongooseplugins.com/news/" target="_blank">%2$s</a></p>',
+			'<p><a href="https://cameronjonesweb.com.au/blog/" target="_blank">%1$s</a> | <a href="https://mongoosemarketplace.com/news/" target="_blank">%2$s</a></p>',
 			__( 'Developer\'s blog', 'facebook-page-feed-graph-api' ),
 			__( 'Latest plugin news', 'facebook-page-feed-graph-api' )
 		);
@@ -217,12 +206,12 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 
-	//Client side stuff
+	// Client side stuff.
 	function facebook_page_plugin_generate_wrapper_id() {
 		return substr( str_shuffle( str_repeat( implode( '', array_merge( range( 'A', 'Z' ), range( 'a', 'z' ) ) ), 5 ) ), 0, 15 );
 	}
 
-	//Parse shortcode
+	// Parse shortcode.
 	function facebook_page_plugin( $filter ) {
 		wp_enqueue_script( 'facebook-page-plugin-sdk', CJW_FBPP_PLUGIN_URL . 'js/sdk.js', array(), NULL, true );
 		wp_enqueue_script( 'facebook-page-plugin-responsive-script', CJW_FBPP_PLUGIN_URL . 'js/responsive.min.js', 'jquery', NULL, true );
@@ -640,7 +629,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	return $instance;
 	}
 
-} // Class wpb_widget ends here
+}
 
 class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 
@@ -737,7 +726,7 @@ class facebook_page_plugin_settings {
 
 }
 
-//Register the widget
+// Register the widget.
 function facebook_page_plugin_load_widget() {
 	register_widget( 'cameronjonesweb_facebook_page_plugin_widget' );
 }
