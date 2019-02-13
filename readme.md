@@ -1,6 +1,8 @@
 # Responsive Facebook Page Plugin
 by @cameronjonesweb
 
+[![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/E1E0GU12)
+
 It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget.
 
 
