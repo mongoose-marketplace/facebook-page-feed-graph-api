@@ -1,5 +1,5 @@
-# Responsive Facebook Page Plugin
-by @cameronjonesweb
+# Mongoose Facebook Page Plugin
+by (Mongoose Marketplace)[https://github.com/mongoosemarketplace]
 
 It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget.
 
@@ -22,25 +22,17 @@ With more than 30,000 installs and nearly 50 5-star rating, the Facebook Page Pl
 
 ## Frequently Asked Questions
 
-### What happened to "Show Posts"?
-The latest version of the API has removed show posts and replaced it with `tabs` which is more dynamic. To show just the posts, your tabs value should be "timeline". To hide the posts, `tabs` should be empty (shortcode) or select "none" (widget). If you're using the shortcode, remember that by default it shows the timeline so you must set it as either an empty or false value to hide posts ie `tabs=""` or `tabs="false"`. If the posts option is already being used it will be converted to tabs.
-
-### What languages are available?
-As of version 1.2.0, the plugin is available in all languages provided by Facebook ( full list availabe [here](https://www.facebook.com/translations/FacebookLocales.xml) ). By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is currently only available in English but is multilingual ready.
-
-### My Facebook page isn't loading
-If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: `[facebook-page-plugin href="ABC123"]`
-Also, if your page has only just been created it may take some time for the API to load the page. Just be patient
-
-### What versions of WordPress will this plugin work on? ###
-Shortcodes were introduced in WordPress 2.5, so theorectially it should work on all sites that are at least 2.5, however it has only been tested on versions 4.0 and up, and no guarantee will be made concerning earlier versions
+### Where did Mongoose Marketplace come from?
+Mongoose Marketplace is a new website just for my plugins. It's still being maintained by the same developer as always, just with new branding.
 
 ### I can only see a link, the plugin won't load
-By default the plugin will display a link to your page while the page plugin loads. If the page plugin doesn't load, this could happen for a number of reasons. Your connection could be very slow, you could have JavaScript disabled, you could have an ad blocker or similar browser extension blocking the plugin or there could be an error in the information you have provided in the widget or shortcode.
-Additionally, if your Facebook page has audience restrictions for age and/or location, the plugin will not display. If you want the plugin to display, disable the audience restrictions in your page settings on Facebook.
+The two most common causes of the plugin not displaying are an ad blocker, or audience restrictions. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook.
 
-### I can't get the Facepile to work!
-Chances are your plugin isn't tall enough to display the facepile properly. The facepile requires the plugin to have a minimum height of 214 pixels, or 154 pixel if using the small header.
+### The plugin loads but doesn't show the facepile or posts
+The default height of the plugin is only tall enough to display the main page header. Increase the height until you can see the additional features you want to display.
+
+### Where is the shortcode generator?
+On your dashboard. We'll be improving how this is implemented in future versions.
 
 
 ## Screenshots
@@ -50,6 +42,11 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 ## Changelog
+
+### 1.7.0 - TBD
+* Introduced Mongoose Marketplace branding
+* Fixed Elementor conflict that wouldn't save tabs properly
+* Minor performance improvements
 
 ### 1.6.3 - 30/03/18
 * Improved string translations
