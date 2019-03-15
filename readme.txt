@@ -1,10 +1,10 @@
-=== Facebook Page Plugin ===
+=== Responsive Facebook Page Plugin ===
 Contributors: cameronjonesweb
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
-Requires at least: 4.0
-Tested up to: 4.7.3
-Stable tag: 1.6.1
+Requires at least: 4.6
+Tested up to: 4.9
+Stable tag: 1.6.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ It's time to upgrade from your old like box! Display the Facebook Page Plugin fr
 
 
 == Description ==
-Seamlessly add a Facebook Page to your WordPress website with the Facebook Page Plugin! Trusted by more than 20,000 WordPress websites worldwide, the Facebook Page Plugin is the simplest way to add a Facebook page to your website.
+Seamlessly add a Facebook Page to your WordPress website with the Facebook Page Plugin! Trusted by more than 30,000 WordPress websites worldwide, the Facebook Page Plugin is the simplest way to add a Facebook page to your website.
 
 You can add your Facebook page to any widget area with the custom Facebook Page Plugin widget, with live preview available in the Customizer.
 
@@ -24,7 +24,7 @@ Other features include:
 
 * Uses your site language by default, but you can display your Facebook page in all 95 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
 
-With more than 20,000 installs and nearly 50 5-star rating, the Facebook Page Plugin is one of the most popular social media plugins for WordPress.
+With more than 30,000 installs and nearly 50 5-star rating, the Facebook Page Plugin is one of the most popular social media plugins for WordPress.
 
 
 == Frequently Asked Questions ==
@@ -43,7 +43,8 @@ Also, if your page has only just been created it may take some time for the API 
 Shortcodes were introduced in WordPress 2.5, so theorectially it should work on all sites that are at least 2.5, however it has only been tested on versions 4.0 and up, and no guarantee will be made concerning earlier versions
 
 = I can only see a link, the plugin won't load =
-By default the plugin will display a link to your page while the page plugin loads. If the page plugin doesn't load, this could happen for a number of reasons. Your connection could be very slow, you could have JavaScript disabled, you could have an ad blocker or similar browser extension blocking the plugin or there could be an error in the information you have provided in the widget or shortcode. 
+By default the plugin will display a link to your page while the page plugin loads. If the page plugin doesn't load, this could happen for a number of reasons. Your connection could be very slow, you could have JavaScript disabled, you could have an ad blocker or similar browser extension blocking the plugin or there could be an error in the information you have provided in the widget or shortcode.
+Additionally, if your Facebook page has audience restrictions for age and/or location, the plugin will not display. If you want the plugin to display, disable the audience restrictions in your page settings on Facebook.
 
 = I can't get the Facepile to work! =
 Chances are your plugin isn't tall enough to display the facepile properly. The facepile requires the plugin to have a minimum height of 214 pixels, or 154 pixel if using the small header.
@@ -56,6 +57,19 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 == Changelog ==
+
+= 1.6.3 - 30/03/18 =
+* Improved string translations
+* Updated Graph API from v2.5 to v2.12
+* Fail gracefully when SimpleXML isn't installed
+* Fixed changelog link
+* Updated the plugin display name to avoid potential trademark issues
+
+= 1.6.2 - 18/11/17 =
+* Changes minimum WordPress version to 4.6 for translations
+* Tested for WordPress 4.9 'Tipton'
+* Fixed bug with setting the language in the shortcode generator
+* Increased accuracy of URL detection in the widget form
 
 = 1.6.1 - 11/04/17 =
 * Adding text domain header
