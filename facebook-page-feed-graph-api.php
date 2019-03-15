@@ -186,7 +186,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 	function facebook_page_plugin_activation_hook( $plugin ) {
 		if( $plugin == CJW_FBPP_PLUGIN_BASENAME ) {
-			exit( wp_redirect( admin_url( 'plugins.php?page=facebook-page-plugin' ) ) );
+			exit( wp_redirect( admin_url( 'options-general.php?page=facebook-page-plugin' ) ) );
 		}
 	}
 
