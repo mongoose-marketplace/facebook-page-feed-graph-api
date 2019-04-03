@@ -54,6 +54,7 @@ On your dashboard. We'll be improving how this is implemented in future versions
 * Introduced Mongoose Marketplace branding
 * Fixed Elementor conflict that wouldn't save tabs properly
 * Minor performance improvements
+* Updated Graph API to version 3.2
 
 = 1.6.3 - 30/03/18 =
 * Improved string translations
