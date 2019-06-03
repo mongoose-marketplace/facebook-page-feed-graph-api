@@ -57,6 +57,14 @@
 				"Fixed changelog link",
 				"Updated the plugin display name to avoid potential trademark issues"
 			]
+		},
+		{
+			"version": "1.7.0",
+			"changes": [
+				"Rebranded under the Mongoose Marketplace umbrella",
+				"Updated RSS feed",
+				"Fixed conflict with Elementor page builder"
+			]
 		}
 	]
 }

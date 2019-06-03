@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: Mongoose Facebook Page Plugin
+ * Plugin Name: Mongoose Page Plugin
  * Plugin URI: https://mongoosemarketplace.com/downloads/facebook-page-plugin/
- * Description: It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget. Now available in 95 different languages
- * Version: 1.6.3
+ * Description: The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
+ * Version: 1.7.0
  * Author: Mongoose Marketplace
  * Author URI: https://mongoosemarketplace.com/
  * License: GPLv2
  * Text Domain: facebook-page-feed-graph-api
  
- * Copyright 2015-2018  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
+ * Copyright 2015-2019  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as 

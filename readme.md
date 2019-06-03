@@ -1,11 +1,10 @@
 [![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api)
 
-# Responsive Facebook Page Plugin
-by @cameronjonesweb
+# Mongoose Page Plugin
 
-[![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/E1E0GU12)
+[![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/E1E0GU12) [![patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://patreon.com/cameronjonesweb)
 
-It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget.
+The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
 
 
 ## Description
@@ -54,6 +53,11 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 ## Changelog
+
+### 1.7.0 - 03/06/19
+* Rebranded under the Mongoose Marketplace umbrella
+* Updated RSS feed
+* Fixed conflict with Elementor page builder
 
 ### 1.6.3 - 30/03/18
 * Improved string translations
