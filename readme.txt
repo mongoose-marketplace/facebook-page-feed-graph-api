@@ -1,14 +1,14 @@
-=== Responsive Facebook Page Plugin ===
+=== Mongoose Page Plugin ===
 Contributors: cameronjonesweb
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
-Tested up to: 5.1
-Stable tag: 1.6.3
+Tested up to: 5.2
+Stable tag: 1.7.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget.
+The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
 
 
 == Description ==
@@ -58,7 +58,12 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 == Changelog ==
 
-= 1.6.3 - 01/04/18 =
+= 1.7.0 - 03/06/19 =
+* Rebranded under the Mongoose Marketplace umbrella
+* Updated RSS feed
+* Fixed conflict with Elementor page builder
+
+= 1.6.3 - 30/03/18 =
 * Improved string translations
 * Updated Graph API from v2.5 to v2.12
 * Fail gracefully when SimpleXML isn't installed
