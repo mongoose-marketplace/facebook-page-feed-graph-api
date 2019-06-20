@@ -11,7 +11,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 	<div class="welcome-panel">
 		<div class="welcome-panel-content">
 			<img src="<?php echo CJW_FBPP_PLUGIN_URL; ?>/images/banner-772x250.jpg" class="welcome-panel-image">
-			<p class="about-description"><?php _e( 'Thank you for downloading the Facebook Page Plugin by cameronjonesweb! You\'ve joined more than 30,000 other WordPress websites using this plugin to display a Facebook Page on their site. To help introduce you to the plugin, I\'ve created this page full of useful information. Please enjoy using my Facebook Page Plugin and let me know how it works for you!', 'facebook-page-feed-graph-api' ); ?></p>
+			<p class="about-description"><?php _e( 'Thank you for downloading the Mongoose Page Plugin by cameronjonesweb! You\'ve joined more than 30,000 other WordPress websites using this plugin to display a Facebook Page on their site. To help introduce you to the plugin, I\'ve created this page full of useful information. Please enjoy using my Mongoose Page Plugin and let me know how it works for you!', 'facebook-page-feed-graph-api' ); ?></p>
 		</div>
 	</div>
 	<div id="dashboard-widgets-wrap">
@@ -77,7 +77,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-heart"></i> <?php _e( 'Donate', 'facebook-page-feed-graph-api' ); ?></h3>
 							<p><?php printf(
-								__( 'Development relies on donations from kind-hearted supporters of the Facebook Page Plugin. If you\'re enjoying the plugin, <a href="%1$s" target="_blank" rel="noopener noreferrer">please donate today</a>.', 'facebook-page-feed-graph-api' ),
+								__( 'Development relies on donations from kind-hearted supporters of the Mongoose Page Plugin. If you\'re enjoying the plugin, <a href="%1$s" target="_blank" rel="noopener noreferrer">please donate today</a>.', 'facebook-page-feed-graph-api' ),
 								CJW_FBPP_PLUGIN_DONATE_LINK
 							); ?></p>
 						</div>
@@ -85,7 +85,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-email-alt"></i> <?php _e( 'Plugin Newsletter', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Subscribe today to receive the latest updates for the Facebook Page Plugin', 'facebook-page-feed-graph-api' ); ?></p>
+							<p><?php _e( 'Subscribe today to receive the latest updates for the Mongoose Page Plugin', 'facebook-page-feed-graph-api' ); ?></p>
 							<!-- Begin MailChimp Signup Form -->
 							<div id="mc_embed_signup">
 							<form action="//cameronjonesweb.us10.list-manage.com/subscribe/post?u=507cd0221f4894316c903e99b&amp;id=8d3d7b8378" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -113,7 +113,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 								__( 'If there\'s a problem, please open a support ticket on <a href="%1$s" target="_blank" rel="noopener noreferrer">Github</a>, on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a>, or <a href="%3$s" target="_blank" rel="noopener noreferrer">email me</a>.', 'facebook-page-feed-graph-api' ),
 								'https://github.com/cameronjonesweb/facebook-page-feed-graph-api/issues',
 								'https://wordpress.org/support/plugin/facebook-page-feed-graph-api',
-								'mailto:plugins@cameronjonesweb.com.au'
+								'mailto:support@mongoosemarketplace.com'
 								
 							); ?></p>
 						</div>
@@ -121,7 +121,7 @@ $internet = $this->facebook_page_plugin_is_connected(); ?>
 					<div class="postbox">
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-chart-line"></i> <?php _e( 'Take The Survey', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php _e( 'Want to have your say about the Facebook Page Plugin?', 'facebook-page-feed-graph-api' ); ?></p>
+							<p><?php _e( 'Want to have your say about the Mongoose Page Plugin?', 'facebook-page-feed-graph-api' ); ?></p>
 							<p><a href="<?php echo CJW_FBPP_PLUGIN_SURVEY_LINK; ?>" class="button" target="_blank" rel="noopener noreferrer"><?php _e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
 						</div>
 					</div>

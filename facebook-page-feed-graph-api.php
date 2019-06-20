@@ -9,7 +9,7 @@
  * License: GPLv2
  * Text Domain: facebook-page-feed-graph-api
  
- * Copyright 2015-2019  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
+ * Copyright 2015-2019  Cameron Jones  (email : support@mongoosemarketplace.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as 
@@ -32,7 +32,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.6.3' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.7.0' );
 		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
@@ -82,7 +82,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 				$return .= '<div class="facebook-page-plugin-donate"><p>';
 
-					$return .= __( 'Thank you for using the Facebook Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
+					$return .= __( 'Thank you for using the Mongoose Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
 
 					$return .= '</p><p>';
 
@@ -139,8 +139,8 @@ class cameronjonesweb_facebook_page_plugin {
 	//Enqueue CSS and JS for admin
 	public function facebook_page_plugin_admin_resources() {
 
-		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/admin-global.js' );
-		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/admin-global.css' );
+		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/facebook-page-plugin-admin.js' );
+		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/facebook-page-plugin-admin.css' );
 
 	}
 
@@ -149,7 +149,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 		if( current_user_can( self::dashboard_widget_capability() ) ) {
 		
-			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Facebook Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
+			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Mongoose Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
 
 		}
 
@@ -164,7 +164,7 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_landing_page_menu() {
-		add_submenu_page( 'plugins.php', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
+		add_submenu_page( 'plugins.php', __( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ), 'Mongoose Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
 	}
 
 	function facebook_page_plugin_landing_page() {
@@ -305,7 +305,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	
 	function __construct() {
 		 $this->settings = new facebook_page_plugin_settings;
-		parent::__construct( 'facebook_page_plugin_widget', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), ) 	);
+		parent::__construct( 'facebook_page_plugin_widget', __( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), ) 	);
 	}
 	public function widget( $args, $instance ) {
 		if( isset( $instance['title'] ) && !empty( $instance['title'] ) ) {
