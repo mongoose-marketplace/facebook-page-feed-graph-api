@@ -1,20 +1,20 @@
-=== Mongoose Facebook Page Plugin ===
+=== Mongoose Page Plugin ===
 Contributors: cameronjonesweb, mongoosemarketplace
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
-Tested up to: 5.1
-Stable tag: 1.6.3
+Tested up to: 5.2
+Stable tag: 1.7.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-It's time to upgrade from your old like box! Display the Facebook Page Plugin from the Graph API using a shortcode or widget.
+The most popular way to display the Mongoose Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
 
 
 == Description ==
-Seamlessly add a Facebook Page to your WordPress website with the Facebook Page Plugin! Trusted by more than 30,000 WordPress websites worldwide, the Facebook Page Plugin is the simplest way to add a Facebook page to your website.
+Seamlessly add a Facebook Page to your WordPress website with the Mongoose Page Plugin! Trusted by more than 30,000 WordPress websites worldwide, the Mongoose Page Plugin is the simplest way to add a Facebook page to your website.
 
-You can add your Facebook page to any widget area with the custom Facebook Page Plugin widget, with live preview available in the Customizer.
+You can add your Facebook page to any widget area with the custom Mongoose Page Plugin widget, with live preview available in the Customizer.
 
 The plugin can be used to add your Facebook page to any post, page or text widget by using the `[facebook-page-plugin]` shortcode to display the plugin wherever you like, as often as you like.
 
@@ -24,37 +24,44 @@ Other features include:
 
 * Uses your site language by default, but you can display your Facebook page in all 95 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
 
-With more than 30,000 installs and nearly 50 5-star rating, the Facebook Page Plugin is one of the most popular social media plugins for WordPress.
+With more than 30,000 installs and over 50 5-star ratings, the Mongoose Page Plugin is one of the most popular social media plugins for WordPress.
 
 
 == Frequently Asked Questions ==
 
-= Where did Mongoose Marketplace come from? =
-Mongoose Marketplace is a new website just for my plugins. It's still being maintained by the same developer as always, just with new branding.
+= What happened to "Show Posts"? =
+The latest version of the API has removed show posts and replaced it with `tabs` which is more dynamic. To show just the posts, your tabs value should be "timeline". To hide the posts, `tabs` should be empty (shortcode) or select "none" (widget). If you're using the shortcode, remember that by default it shows the timeline so you must set it as either an empty or false value to hide posts ie `tabs=""` or `tabs="false"`. If the posts option is already being used it will be converted to tabs.
+
+= What languages are available? =
+As of version 1.2.0, the plugin is available in all languages provided by Facebook ( full list availabe [here](https://www.facebook.com/translations/FacebookLocales.xml) ). By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is currently only available in English but is multilingual ready.
+
+= My Facebook page isn't loading =
+If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: `[facebook-page-plugin href="ABC123"]`
+Also, if your page has only just been created it may take some time for the API to load the page. Just be patient
+
+= What versions of WordPress will this plugin work on? =
+Shortcodes were introduced in WordPress 2.5, so theorectially it should work on all sites that are at least 2.5, however it has only been tested on versions 4.0 and up, and no guarantee will be made concerning earlier versions
 
 = I can only see a link, the plugin won't load =
-The two most common causes of the plugin not displaying are an ad blocker, or audience restrictions. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook.
+By default the plugin will display a link to your page while the page plugin loads. If the page plugin doesn't load, this could happen for a number of reasons. Your connection could be very slow, you could have JavaScript disabled, you could have an ad blocker or similar browser extension blocking the plugin or there could be an error in the information you have provided in the widget or shortcode.
+Additionally, if your Facebook page has audience restrictions for age and/or location, the plugin will not display. If you want the plugin to display, disable the audience restrictions in your page settings on Facebook.
 
-= The plugin loads but doesn't show the facepile or posts =
-The default height of the plugin is only tall enough to display the main page header. Increase the height until you can see the additional features you want to display.
-
-= Where is the shortcode generator? =
-On your dashboard. We'll be improving how this is implemented in future versions.
+= I can't get the Facepile to work! =
+Chances are your plugin isn't tall enough to display the facepile properly. The facepile requires the plugin to have a minimum height of 214 pixels, or 154 pixel if using the small header.
 
 
 == Screenshots ==
-1. The Facebook Page Plugin widget in use with the Twenty Sixteen theme
+1. The Mongoose Page Plugin widget in use with the Twenty Sixteen theme
 2. Easy-to-use widget form with the new options available in 1.6
 3. The shortcode generator dashboard widget
 
 
 == Changelog ==
 
-= 1.7.0 - TBD =
-* Introduced Mongoose Marketplace branding
-* Fixed Elementor conflict that wouldn't save tabs properly
-* Minor performance improvements
-* Updated Graph API to version 3.2
+= 1.7.0 - 03/06/19 =
+* Rebranded under the Mongoose Marketplace umbrella
+* Updated RSS feed
+* Fixed conflict with Elementor page builder
 
 = 1.6.3 - 30/03/18 =
 * Improved string translations
@@ -168,7 +175,7 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 == Plugin Settings ==
 
-The Facebook Page Plugin uses a shortcode to insert the page feed. You set your settings within the shortcode.
+The Mongoose Page Plugin uses a shortcode to insert the page feed. You set your settings within the shortcode.
 `[facebook-page-plugin setting="value"]` 
 Available settings: 
 
