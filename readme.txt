@@ -1,5 +1,5 @@
 === Mongoose Page Plugin ===
-Contributors: cameronjonesweb
+Contributors: cameronjonesweb, mongoosemarketplace
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6

@@ -1,0 +1,7 @@
+#facebook-page-plugin-shortcode-generator p:after{clear:both;display:table;content:" ";}
+#facebook-page-plugin-shortcode-generator input:not([type="checkbox"]),#facebook-page-plugin-shortcode-generator select{width:50%;}
+#facebook-page-plugin-shortcode-generator input,#facebook-page-plugin-shortcode-generator select{float:right;}
+#facebook-page-plugin-shortcode-generator #facebook-page-plugin-shortcode-generator-output{width:100%;float:none;}
+.facebook-page-plugin-donate{margin:20px 0 10px;font-size:14px;line-height:175%;background:#fff;border: 1px solid rgba(0,0,0,0.1);border-left:4px solid #46b450;-webkit-box-shadow:0 1px 1px 0 rgba(0,0,0,.1);box-shadow:0 1px 1px 0 rgba(0,0,0,.1);padding:1px 29px 1px 12px;position:relative;}
+.facebook-page-plugin-donate p{margin:.5em 0;padding:2px;}
+.facebook-page-plugin-donate .notice-dismiss{text-decoration:none;}

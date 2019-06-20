@@ -139,8 +139,8 @@ class cameronjonesweb_facebook_page_plugin {
 	//Enqueue CSS and JS for admin
 	public function facebook_page_plugin_admin_resources() {
 
-		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/facebook-page-plugin-admin.js' );
-		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/facebook-page-plugin-admin.css' );
+		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/admin-global.js' );
+		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/admin-global.css' );
 
 	}
 
@@ -164,29 +164,14 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_landing_page_menu() {
-		add_submenu_page( 'plugins.php', __( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ), 'Mongoose Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
+		add_options_page( __( 'Facebook Page Plugin by Mongoose Marketplace', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
 	}
 
 	function facebook_page_plugin_landing_page() {
+		wp_enqueue_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', [], CJW_FBPP_PLUGIN_VER );
 		wp_enqueue_style( 'facebook-page-plugin-google-fonts', 'https://fonts.googleapis.com/css?family=Rammetto+One|Paytone+One|Space+Mono:400|Muli:400,400i,700', [], CJW_FBPP_PLUGIN_VER );
 		wp_enqueue_script( 'facebook-page-plugin-landing-page-js', CJW_FBPP_PLUGIN_URL . 'js/admin-landing-page.js', array( 'jquery' ), CJW_FBPP_PLUGIN_VER, true );
-		wp_enqueue_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', [], CJW_FBPP_PLUGIN_VER );
 		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
-	}
-
-	/*
-	 * http://stackoverflow.com/a/4860432/1672694
-	 */
-
-	function facebook_page_plugin_is_connected() {
-		$connected = @fsockopen( "cameronjonesweb.com.au", 80 ); 
-		if( $connected ){
-			$is_conn = true; //action when connected
-			fclose( $connected );
-		} else {
-			$is_conn = false; //action in connection failure
-		}
-		return $is_conn;
 	}
 
 	function facebook_page_plugin_latest_blog_posts_callback() {
@@ -201,7 +186,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 	function facebook_page_plugin_activation_hook( $plugin ) {
 		if( $plugin == CJW_FBPP_PLUGIN_BASENAME ) {
-			exit( wp_redirect( admin_url( 'plugins.php?page=facebook-page-plugin' ) ) );
+			exit( wp_redirect( admin_url( 'options-general.php?page=facebook-page-plugin' ) ) );
 		}
 	}
 
