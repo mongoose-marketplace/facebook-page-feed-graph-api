@@ -15,7 +15,7 @@ $plugin_data = plugins_api(
 <div class="wrap mongoose-facebook-page-plugin">
 	<h1 class="notices-placeholder"></h1>
 	<div class="mongoose-facebook-page-plugin__banner">
-		<img src="<?php echo esc_url( trailingslashit( CJW_FBPP_PLUGIN_URL ) ); ?>images/banner-772x250.jpg" />
+		<img src="<?php echo esc_url( trailingslashit( CJW_FBPP_PLUGIN_URL ) ); ?>images/banner-1544x500.png" />
 	</div>
 	<div class="mongoose-facebook-page-plugin__box">
 		<?php
@@ -24,7 +24,7 @@ $plugin_data = plugins_api(
 			esc_html( get_admin_page_title() )
 		);
 		?>
-		<p class="about-description"><?php esc_html_e( 'Thank you for downloading the Facebook Page Plugin by Mongoose Marketplace! You\'ve joined more than 30,000 other WordPress websites using this plugin to display a Facebook Page on their site. To help introduce you to the plugin, I\'ve created this page full of useful information. Please enjoy using my Facebook Page Plugin and let me know how it works for you!', 'facebook-page-feed-graph-api' ); ?></p>
+		<p class="about-description"><?php esc_html_e( 'Thank you for downloading the Mongoose Page Plugin by Mongoose Marketplace! You\'ve joined more than 30,000 other WordPress websites using this plugin to display a Facebook Page on their site. To help introduce you to the plugin, I\'ve created this page full of useful information. Please enjoy using my Mongoose Page Plugin and let me know how it works for you!', 'facebook-page-feed-graph-api' ); ?></p>
 	</div>
 	<div id="dashboard-widgets-wrap">
 		<div id="dashboard-widgets" class="metabox-holder columns-2">

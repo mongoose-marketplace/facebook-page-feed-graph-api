@@ -164,7 +164,7 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_landing_page_menu() {
-		add_options_page( __( 'Facebook Page Plugin by Mongoose Marketplace', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
+		add_options_page( __( 'Mongoose Page Plugin by Mongoose Marketplace', 'facebook-page-feed-graph-api' ), 'Mongoose Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
 	}
 
 	function facebook_page_plugin_landing_page() {
