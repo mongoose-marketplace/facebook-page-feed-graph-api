@@ -46,6 +46,10 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 ## Changelog
 
+### 1.7.1 - 21/06/19
+* Rebranded langing page
+* Fixed admin resources not being enqueued properly
+
 ### 1.7.0 - 03/06/19
 * Rebranded under the Mongoose Marketplace umbrella
 * Updated RSS feed

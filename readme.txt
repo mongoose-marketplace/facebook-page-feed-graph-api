@@ -4,7 +4,7 @@ Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook p
 Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
 Tested up to: 5.2
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -57,6 +57,10 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 == Changelog ==
+
+= 1.7.1 - 21/06/19 =
+* Rebranded langing page
+* Fixed admin resources not being enqueued properly
 
 = 1.7.0 - 03/06/19 =
 * Rebranded under the Mongoose Marketplace umbrella
