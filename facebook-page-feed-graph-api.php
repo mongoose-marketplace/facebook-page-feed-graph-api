@@ -3,13 +3,13 @@
  * Plugin Name: Mongoose Page Plugin
  * Plugin URI: https://mongoosemarketplace.com/downloads/facebook-page-plugin/
  * Description: The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
- * Version: 1.7.0
+ * Version: 1.7.1
  * Author: Mongoose Marketplace
  * Author URI: https://mongoosemarketplace.com/
  * License: GPLv2
  * Text Domain: facebook-page-feed-graph-api
  
- * Copyright 2015-2019  Cameron Jones  (email : plugins@cameronjonesweb.com.au)
+ * Copyright 2015-2019  Cameron Jones  (email : support@mongoosemarketplace.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as 
@@ -32,7 +32,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.6.3' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.7.1' );
 		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
@@ -82,7 +82,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 				$return .= '<div class="facebook-page-plugin-donate"><p>';
 
-					$return .= __( 'Thank you for using the Facebook Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
+					$return .= __( 'Thank you for using the Mongoose Page Plugin. Please consider donating to support ongoing development. ', 'facebook-page-feed-graph-api' );
 
 					$return .= '</p><p>';
 
@@ -149,7 +149,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 		if( current_user_can( self::dashboard_widget_capability() ) ) {
 		
-			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Facebook Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
+			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Mongoose Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
 
 		}
 
@@ -164,29 +164,14 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_landing_page_menu() {
-		add_submenu_page( 'plugins.php', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), 'Facebook Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
+		add_options_page( __( 'Mongoose Page Plugin by Mongoose Marketplace', 'facebook-page-feed-graph-api' ), 'Mongoose Page Plugin', 'install_plugins', 'facebook-page-plugin', array( $this, 'facebook_page_plugin_landing_page' ) );
 	}
 
 	function facebook_page_plugin_landing_page() {
+		wp_enqueue_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', [], CJW_FBPP_PLUGIN_VER );
 		wp_enqueue_style( 'facebook-page-plugin-google-fonts', 'https://fonts.googleapis.com/css?family=Rammetto+One|Paytone+One|Space+Mono:400|Muli:400,400i,700', [], CJW_FBPP_PLUGIN_VER );
 		wp_enqueue_script( 'facebook-page-plugin-landing-page-js', CJW_FBPP_PLUGIN_URL . 'js/admin-landing-page.js', array( 'jquery' ), CJW_FBPP_PLUGIN_VER, true );
-		wp_enqueue_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', [], CJW_FBPP_PLUGIN_VER );
 		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
-	}
-
-	/*
-	 * http://stackoverflow.com/a/4860432/1672694
-	 */
-
-	function facebook_page_plugin_is_connected() {
-		$connected = @fsockopen( "cameronjonesweb.com.au", 80 ); 
-		if( $connected ){
-			$is_conn = true; //action when connected
-			fclose( $connected );
-		} else {
-			$is_conn = false; //action in connection failure
-		}
-		return $is_conn;
 	}
 
 	function facebook_page_plugin_latest_blog_posts_callback() {
@@ -201,7 +186,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 	function facebook_page_plugin_activation_hook( $plugin ) {
 		if( $plugin == CJW_FBPP_PLUGIN_BASENAME ) {
-			exit( wp_redirect( admin_url( 'plugins.php?page=facebook-page-plugin' ) ) );
+			exit( wp_redirect( admin_url( 'options-general.php?page=facebook-page-plugin' ) ) );
 		}
 	}
 
@@ -305,7 +290,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 	
 	function __construct() {
 		 $this->settings = new facebook_page_plugin_settings;
-		parent::__construct( 'facebook_page_plugin_widget', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), ) 	);
+		parent::__construct( 'facebook_page_plugin_widget', __( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), ) 	);
 	}
 	public function widget( $args, $instance ) {
 		if( isset( $instance['title'] ) && !empty( $instance['title'] ) ) {
