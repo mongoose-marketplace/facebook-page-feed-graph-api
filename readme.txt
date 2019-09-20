@@ -8,7 +8,7 @@ Stable tag: 1.7.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-The most popular way to display the Mongoose Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
+The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
 
 
 == Description ==

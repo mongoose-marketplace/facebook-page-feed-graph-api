@@ -8,9 +8,9 @@ The most popular way to display the Facebook Page Plugin on your WordPress websi
 
 
 ## Description
-Seamlessly add a Facebook Page to your WordPress website with the Facebook Page Plugin! Trusted by more than 30,000 WordPress websites worldwide, the Facebook Page Plugin is the simplest way to add a Facebook page to your website.
+Seamlessly add a Facebook Page to your WordPress website with the Mongoose Page Plugin! Trusted by more than 30,000 WordPress websites worldwide, the Mongoose Page Plugin is the simplest way to add a Facebook page to your website.
 
-You can add your Facebook page to any widget area with the custom Facebook Page Plugin widget, with live preview available in the Customizer.
+You can add your Facebook page to any widget area with the custom Mongoose Page Plugin widget, with live preview available in the Customizer.
 
 The plugin can be used to add your Facebook page to any post, page or text widget by using the `[facebook-page-plugin]` shortcode to display the plugin wherever you like, as often as you like.
 
@@ -20,7 +20,7 @@ Other features include:
 
 * Uses your site language by default, but you can display your Facebook page in all 95 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
 
-With more than 30,000 installs and nearly 50 5-star rating, the Facebook Page Plugin is one of the most popular social media plugins for WordPress.
+With more than 30,000 installs and nearly 50 5-star rating, the Mongoose Page Plugin is one of the most popular social media plugins for WordPress.
 
 
 ## Frequently Asked Questions
@@ -167,7 +167,7 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 ## Plugin Settings
 
-The Facebook Page Plugin uses a shortcode to insert the page feed. You set your settings within the shortcode.
+The Mongoose Page Plugin uses a shortcode to insert the page feed. You set your settings within the shortcode.
 `[facebook-page-plugin setting="value"]` 
 Available settings: 
 
