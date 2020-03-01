@@ -220,3 +220,5 @@ Changes who can see the shortcode generator on the dashboard. Default: `edit_pos
 `facebook_page_plugin_app_id`
 
 Changes the Facebook App ID.
+
+[](http://coderisk.com/wp/plugin/facebook-page-feed-graph-api/RIPS-pefVtkhz2c)
