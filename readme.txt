@@ -5,7 +5,7 @@ Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
 Tested up to: 5.2
 Requires PHP: 5.3
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -58,6 +58,10 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 == Changelog ==
+
+= 1.7.2 - 13/04/20 =
+* Improved processing of the widget URL field
+* Tested for WordPress 5.4 'Adderley'
 
 = 1.7.1 - 21/06/19 =
 * Rebranded langing page
