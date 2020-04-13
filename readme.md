@@ -46,6 +46,10 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 ## Changelog
 
+### 1.7.2 - 13/04/20
+* Improved processing of the widget URL field
+* Tested for WordPress 5.4 'Adderley'
+
 ### 1.7.1 - 21/06/19
 * Rebranded langing page
 * Fixed admin resources not being enqueued properly

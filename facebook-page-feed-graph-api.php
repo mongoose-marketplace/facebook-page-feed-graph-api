@@ -3,7 +3,7 @@
  * Plugin Name: Mongoose Page Plugin
  * Plugin URI: https://mongoosemarketplace.com/downloads/facebook-page-plugin/
  * Description: The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
- * Version: 1.7.1
+ * Version: 1.7.2
  * Author: Mongoose Marketplace
  * Author URI: https://mongoosemarketplace.com/
  * License: GPLv2
@@ -32,7 +32,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.7.1' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.7.2' );
 		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
@@ -487,111 +487,157 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 
 		echo cameronjonesweb_facebook_page_plugin::donate_notice();
 
+		printf(
+			'<p><label for="%1$s">%2$s</label><input class="widefat" id="%1$s" name="%3$s" type="text" value="%4$s" /></p>',
+			esc_attr( $this->get_field_id( 'title' ) ),
+			esc_html__( 'Title:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'title' ) ),
+			esc_attr( $title )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label><input class="widefat" id="%1$s" name="%3$s" type="text" value="%4$s" /></p>',
+			esc_attr( $this->get_field_id( 'href' ) ),
+			esc_html__( 'Page URL:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'href' ) ),
+			esc_attr( $href )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label><input class="widefat" id="%1$s" name="%3$s" type="number" min="180" max="500" value="%4$s" /></p>',
+			esc_attr( $this->get_field_id( 'width' ) ),
+			esc_html__( 'Width:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'width' ) ),
+			esc_attr( $width )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label><input class="widefat" id="%1$s" name="%3$s" type="number" min="70" value="%4$s" /></p>',
+			esc_attr( $this->get_field_id( 'height' ) ),
+			esc_html__( 'Height:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'height' ) ),
+			esc_attr( $height )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label> <input class="widefat" id="%1$s" name="%3$s" type="checkbox" value="true" %4$s /></p>',
+			esc_attr( $this->get_field_id( 'cover' ) ),
+			esc_html__( 'Cover Photo:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'cover' ) ),
+			checked( esc_attr( $cover ), 'true', false )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label> <input class="widefat" id="%1$s" name="%3$s" type="checkbox" value="true" %4$s /></p>',
+			esc_attr( $this->get_field_id( 'facepile' ) ),
+			esc_html__( 'Show Facepile:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'facepile' ) ),
+			checked( esc_attr( $facepile ), 'true', false )
+		);
+
 		echo '<p>';
-			echo '<label for="' . $this->get_field_id( 'title' ) . '">';
-				_e( 'Title:', 'facebook-page-feed-graph-api' );
-			echo '</label>';
-			echo '<input class="widefat" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" type="text" value="' . esc_attr( $title ) . '" />';
-		echo '</p>';
-		echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'href' ) . '">';
-				_e( 'Page URL:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo '<input class="widefat" id="' . $this->get_field_id( 'href' ) . '" name="' . $this->get_field_name( 'href' ) . '" type="url" value="' . esc_attr( $href ) . '" required />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'width' ) . '">';
-				_e( 'Width:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo '<input class="widefat" id="' . $this->get_field_id( 'width' ) . '" name="' . $this->get_field_name( 'width' ) . '" type="number" min="180" max="500" value="' . esc_attr( $width ) . '" />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'height' ) . '">';
-				_e( 'Height:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo '<input class="widefat" id="' . $this->get_field_id( 'height' ) . '" name="' . $this->get_field_name( 'height' ) . '" type="number" min="70" value="' . esc_attr( $height ) . '" />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'cover' ) . '">';
-				_e( 'Cover Photo:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo ' <input class="widefat" id="' . $this->get_field_id( 'cover' ) . '" name="' . $this->get_field_name( 'cover' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $cover ), 'true', false ) . ' />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'facepile' ) . '">';
-				_e( 'Show Facepile:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo ' <input class="widefat" id="' . $this->get_field_id( 'facepile' ) . '" name="' . $this->get_field_name( 'facepile' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $facepile ), 'true', false ) . ' />';
-		 echo '</p>';
-		echo '<p>';        
-			_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
-			$CJW_FBPP_TABS = $this->settings->tabs();
-			if( !empty( $CJW_FBPP_TABS ) ) {
-				// First we should convert the string to an array as that's how it will be stored moving forward.
-				if( !is_array( $tabs ) ) {
-					$oldtabs = esc_attr( $tabs );
-					$newtabs = explode( ',', $tabs );
-					$tabs = $newtabs;
-				 }
-				foreach( $CJW_FBPP_TABS as $tab ) {
-					echo '<br/><label>';
-						echo '<input type="checkbox" name="' . $this->get_field_name( 'tabs' ) . '[' . $tab . ']" ' . ( in_array( $tab, $tabs ) ? 'checked' : '' ) . ' /> ';
-						_e( ucfirst( $tab ), 'facebook-page-feed-graph-api' );
-					echo '</label>';
-				}
+		esc_html_e( 'Page Tabs:', 'facebook-page-feed-graph-api' );
+		$cjw_fbpp_tabs = $this->settings->tabs();
+		if ( ! empty( $cjw_fbpp_tabs ) ) {
+			// First we should convert the string to an array as that's how it will be stored moving forward.
+			if ( ! is_array( $tabs ) ) {
+				$oldtabs = esc_attr( $tabs );
+				$newtabs = explode( ',', $tabs );
+				$tabs    = $newtabs;
 			}
+			foreach ( $cjw_fbpp_tabs as $tab ) {
+				printf(
+					'<br/><label><input type="checkbox" name="%1$s[%2$s]" %3$s /> %4$s</label>',
+					esc_attr( $this->get_field_name( 'tabs' ) ),
+					esc_attr( $tab ),
+					in_array( $tab, $tabs, true ) ? 'checked' : '',
+					esc_html( ucfirst( $tab ) )
+				);
+			}
+		}
 		echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'cta' ) . '">';
-				_e( 'Hide Call To Action:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo ' <input class="widefat" id="' . $this->get_field_id( 'cta' ) . '" name="' . $this->get_field_name( 'cta' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $cta ), 'true', false ) . ' />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'small' ) . '">';
-				_e( 'Small Header:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo ' <input class="widefat" id="' . $this->get_field_id( 'small' ) . '" name="' . $this->get_field_name( 'small' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $small ), 'true', false ) . ' />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'adapt' ) . '">';
-				_e( 'Adaptive Width:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo ' <input class="widefat" id="' . $this->get_field_id( 'adapt' ) . '" name="' . $this->get_field_name( 'adapt' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $adapt ), 'true', false ) . ' />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'link' ) . '">';
-				_e( 'Display link while loading:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo ' <input class="widefat" id="' . $this->get_field_id( 'link' ) . '" name="' . $this->get_field_name( 'link' ) . '" type="checkbox" value="true" ' . checked( esc_attr( $link ), 'true', false ) . ' />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'linktext' ) . '">';
-				_e( 'Link text:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo '<input class="widefat" id="' . $this->get_field_id( 'linktext' ) . '" name="' . $this->get_field_name( 'linktext' ) . '" type="text" value="' . esc_attr( $linktext ) . '" />';
-		 echo '</p>';
-		 echo '<p>';
-			 echo '<label for="' . $this->get_field_id( 'language' ) . '">';
-				_e( 'Language:', 'facebook-page-feed-graph-api' );
-			 echo '</label>';
-			 echo '<select class="widefat" id="' . $this->get_field_id( 'language' ) . '" name="' . $this->get_field_name( 'language' ) . '">';
-				echo '<option value="">' . __( 'Site Language (default)', 'facebook-page-feed-graph-api' ) . '</option>';
-				if(isset($langs) && !empty($langs)){
-					foreach($langs as $lang){
-						//echo '<option value="' . $lang->codes->code->standard->representation . '"' . selected( esc_attr( $language ), $lang->codes->code->standard->representation, false ) . '>' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>'; // Facebook only
-						echo '<option value="' . $lang->standard->representation . '"' . selected( esc_attr( $language ), $lang->standard->representation, false ) . '>' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>';
+
+		printf(
+			'<p><label for="%1$s">%2$s</label> <input class="widefat" id="%1$s" name="%3$s" type="checkbox" value="true" %4$s /></p>',
+			esc_attr( $this->get_field_id( 'cta' ) ),
+			esc_html__( 'Hide Call To Action:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'cta' ) ),
+			checked( esc_attr( $cta ), 'true', false )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label> <input class="widefat" id="%1$s" name="%3$s" type="checkbox" value="true" %4$s /></p>',
+			esc_attr( $this->get_field_id( 'small' ) ),
+			esc_html__( 'Small Header:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'small' ) ),
+			checked( esc_attr( $small ), 'true', false )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label> <input class="widefat" id="%1$s" name="%3$s" type="checkbox" value="true" %4$s /></p>',
+			esc_attr( $this->get_field_id( 'adapt' ) ),
+			esc_html__( 'Adaptive Width:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'adapt' ) ),
+			checked( esc_attr( $adapt ), 'true', false )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label> <input class="widefat" id="%1$s" name="%3$s" type="checkbox" value="true" %4$s /></p>',
+			esc_attr( $this->get_field_id( 'link' ) ),
+			esc_html__( 'Display link while loading:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'link' ) ),
+			checked( esc_attr( $link ), 'true', false )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label><input class="widefat" id="%1$s" name="%3$s" type="text" value="%4$s" /></p>',
+			esc_attr( $this->get_field_id( 'linktext' ) ),
+			esc_html__( 'Link text:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'linktext' ) ),
+			esc_attr( $linktext )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label><input class="widefat" id="%1$s" name="%3$s" type="text" value="%4$s" /></p>',
+			esc_attr( $this->get_field_id( 'linktext' ) ),
+			esc_html__( 'Link text:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'linktext' ) ),
+			esc_attr( $linktext )
+		);
+
+		printf(
+			'<p><label for="%1$s">%2$s</label><select class="widefat" id="%1$s" name="%3$s">%4$s</select></p>',
+			esc_attr( $this->get_field_id( 'language' ) ),
+			esc_html__( 'Language:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'language' ) ),
+			(
+				function() use ( $langs, $language ) {
+					$return = '<option value="">' . esc_html__( 'Site Language (default)', 'facebook-page-feed-graph-api' ) . '</option>';
+					foreach ( $langs as $lang ) {
+						$return .= sprintf(
+							'<option value="%1$s" %2$s>%3$s</option>',
+							esc_attr( $lang->standard->representation ),
+							selected( esc_attr( $language ), $lang->standard->representation, false ),
+							esc_html( $lang->englishName )
+						);
 					}
+					return $return;
 				}
-			 echo '</select>';
-		 echo '</p>';
+			)()
+		);
 	}
 		
 	// Updating widget replacing old instances with new
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-		$instance['href'] = ( ! empty( $new_instance['href'] ) ) ? strip_tags( $new_instance['href'] ) : '';
+		if ( ! empty( $new_instance['href'] ) ) {
+			$href = strip_tags( $new_instance['href'] );
+			$href = wp_http_validate_url( $href ) ? $href : 'https://facebook.com/' . $href;
+			$instance['href'] = esc_url( $href );
+		} else {
+			$instance['href'] = '';
+		}
 		$instance['width'] = ( ! empty( $new_instance['width'] ) ) ? strip_tags( $new_instance['width'] ) : '';
 		$instance['height'] = ( ! empty( $new_instance['height'] ) ) ? strip_tags( $new_instance['height'] ) : '';
 		$instance['cover'] = ( ! empty( $new_instance['cover'] ) ) ? strip_tags( $new_instance['cover'] ) : '';
