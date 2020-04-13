@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api)
+[![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api) [![RIPS CodeRisk](https://coderisk.com/wp/plugin/facebook-page-feed-graph-api/badge "RIPS CodeRisk")](https://coderisk.com/wp/plugin/facebook-page-feed-graph-api)
 
 # Mongoose Page Plugin
 
