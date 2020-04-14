@@ -34,7 +34,7 @@ With more than 30,000 installs and over 50 5-star ratings, the Mongoose Page Plu
 The latest version of the API has removed show posts and replaced it with `tabs` which is more dynamic. To show just the posts, your tabs value should be "timeline". To hide the posts, `tabs` should be empty (shortcode) or select "none" (widget). If you're using the shortcode, remember that by default it shows the timeline so you must set it as either an empty or false value to hide posts ie `tabs=""` or `tabs="false"`. If the posts option is already being used it will be converted to tabs.
 
 = What languages are available? =
-As of version 1.2.0, the plugin is available in all languages provided by Facebook ( full list availabe [here](https://www.facebook.com/translations/FacebookLocales.xml) ). By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is currently only available in English but is multilingual ready.
+As of version 1.2.0, the plugin is available in all languages provided by Facebook. By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is currently only available in English but is multilingual ready.
 
 = My Facebook page isn't loading =
 If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: `[facebook-page-plugin href="ABC123"]`

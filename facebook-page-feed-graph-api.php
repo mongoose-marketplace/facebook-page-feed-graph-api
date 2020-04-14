@@ -644,7 +644,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			esc_attr( $this->get_field_id( 'language' ) ),
 			esc_html__( 'Language:', 'facebook-page-feed-graph-api' ),
 			esc_attr( $this->get_field_name( 'language' ) ),
-			(
+			call_user_func(
 				function() use ( $langs, $language ) {
 					$return = '<option value="">' . esc_html__( 'Site Language (default)', 'facebook-page-feed-graph-api' ) . '</option>';
 					foreach ( $langs as $lang ) {
@@ -657,7 +657,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 					}
 					return $return;
 				}
-			)()
+			)
 		);
 	}
 		
