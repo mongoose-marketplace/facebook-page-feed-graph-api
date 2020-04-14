@@ -46,7 +46,7 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 ## Changelog
 
-### 1.7.3 - 14/05/20
+### 1.7.3 - 14/04/20
 * Fixed Immediately Invoked Function Expression that was breaking on PHP < 7.0
 * Code quality improvements in shortcode render method
 
