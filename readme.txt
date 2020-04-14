@@ -5,7 +5,7 @@ Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
 Tested up to: 5.4
 Requires PHP: 5.3
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -58,6 +58,10 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 == Changelog ==
+
+= 1.7.3 - 14/05/20 =
+* Fixed Immediately Invoked Function Expression that was breaking on PHP < 7.0
+* Code quality improvements in shortcode render method
 
 = 1.7.2 - 13/04/20 =
 * Improved processing of the widget URL field
