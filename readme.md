@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api)
+[![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api) [![RIPS CodeRisk](https://coderisk.com/wp/plugin/facebook-page-feed-graph-api/badge "RIPS CodeRisk")](https://coderisk.com/wp/plugin/facebook-page-feed-graph-api)
 
 # Mongoose Page Plugin
 
@@ -45,6 +45,10 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 
 ## Changelog
+
+### 1.7.3 - 14/05/20
+* Fixed Immediately Invoked Function Expression that was breaking on PHP < 7.0
+* Code quality improvements in shortcode render method
 
 ### 1.7.2 - 13/04/20
 * Improved processing of the widget URL field

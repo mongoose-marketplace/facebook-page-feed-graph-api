@@ -3,9 +3,9 @@ Contributors: cameronjonesweb, mongoosemarketplace
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
-Tested up to: 5.2
+Tested up to: 5.4
 Requires PHP: 5.3
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ With more than 30,000 installs and over 50 5-star ratings, the Mongoose Page Plu
 The latest version of the API has removed show posts and replaced it with `tabs` which is more dynamic. To show just the posts, your tabs value should be "timeline". To hide the posts, `tabs` should be empty (shortcode) or select "none" (widget). If you're using the shortcode, remember that by default it shows the timeline so you must set it as either an empty or false value to hide posts ie `tabs=""` or `tabs="false"`. If the posts option is already being used it will be converted to tabs.
 
 = What languages are available? =
-As of version 1.2.0, the plugin is available in all languages provided by Facebook ( full list availabe [here](https://www.facebook.com/translations/FacebookLocales.xml) ). By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is currently only available in English but is multilingual ready.
+As of version 1.2.0, the plugin is available in all languages provided by Facebook. By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is currently only available in English but is multilingual ready.
 
 = My Facebook page isn't loading =
 If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: `[facebook-page-plugin href="ABC123"]`
@@ -58,6 +58,10 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 == Changelog ==
+
+= 1.7.3 - 14/05/20 =
+* Fixed Immediately Invoked Function Expression that was breaking on PHP < 7.0
+* Code quality improvements in shortcode render method
 
 = 1.7.2 - 13/04/20 =
 * Improved processing of the widget URL field
@@ -225,5 +229,3 @@ Changes who can see the shortcode generator on the dashboard. Default: `edit_pos
 `facebook_page_plugin_app_id`
 
 Changes the Facebook App ID.
-
-[](http://coderisk.com/wp/plugin/facebook-page-feed-graph-api/RIPS-pefVtkhz2c)
