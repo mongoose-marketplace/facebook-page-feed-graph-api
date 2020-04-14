@@ -660,38 +660,44 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			)
 		);
 	}
-		
-	// Updating widget replacing old instances with new
+
+	/**
+	 * Updating widget replacing old instances with new
+	 *
+	 * @param array $new_instance Updated widget instance.
+	 * @param array $old_instance Previous widget instance.
+	 * @return array
+	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance          = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
 		if ( ! empty( $new_instance['href'] ) ) {
-			$href = strip_tags( $new_instance['href'] );
-			$href = wp_http_validate_url( $href ) ? $href : 'https://facebook.com/' . $href;
+			$href             = wp_strip_all_tags( $new_instance['href'] );
+			$href             = wp_http_validate_url( $href ) ? $href : 'https://facebook.com/' . $href;
 			$instance['href'] = esc_url( $href );
 		} else {
 			$instance['href'] = '';
 		}
-		$instance['width'] = ( ! empty( $new_instance['width'] ) ) ? strip_tags( $new_instance['width'] ) : '';
-		$instance['height'] = ( ! empty( $new_instance['height'] ) ) ? strip_tags( $new_instance['height'] ) : '';
-		$instance['cover'] = ( ! empty( $new_instance['cover'] ) ) ? strip_tags( $new_instance['cover'] ) : '';
-		$instance['facepile'] = ( ! empty( $new_instance['facepile'] ) ) ? strip_tags( $new_instance['facepile'] ) : '';
-		if( !empty( $new_instance['tabs'] ) ) {
-			if( is_array( $new_instance['tabs'] ) ) {
-				foreach( $new_instance['tabs'] as $key => $var ) {
+		$instance['width']    = ( ! empty( $new_instance['width'] ) ) ? wp_strip_all_tags( $new_instance['width'] ) : '';
+		$instance['height']   = ( ! empty( $new_instance['height'] ) ) ? wp_strip_all_tags( $new_instance['height'] ) : '';
+		$instance['cover']    = ( ! empty( $new_instance['cover'] ) ) ? wp_strip_all_tags( $new_instance['cover'] ) : '';
+		$instance['facepile'] = ( ! empty( $new_instance['facepile'] ) ) ? wp_strip_all_tags( $new_instance['facepile'] ) : '';
+		if ( ! empty( $new_instance['tabs'] ) ) {
+			if ( is_array( $new_instance['tabs'] ) ) {
+				foreach ( $new_instance['tabs'] as $key => $var ) {
 					$instance['tabs'][] = sanitize_text_field( $key );
 				}
 			}
 		} else {
 			$instance['tabs'] = '';
 		}
-		$instance['cta'] = ( ! empty( $new_instance['cta'] ) ) ? strip_tags( $new_instance['cta'] ) : '';
-		$instance['small'] = ( ! empty( $new_instance['small'] ) ) ? strip_tags( $new_instance['small'] ) : '';
-		$instance['adapt'] = ( ! empty( $new_instance['adapt'] ) ) ? strip_tags( $new_instance['adapt'] ) : '';
-		$instance['link'] = ( ! empty( $new_instance['link'] ) ) ? strip_tags( $new_instance['link'] ) : '';
-		$instance['linktext'] = ( ! empty( $new_instance['linktext'] ) ) ? strip_tags( $new_instance['linktext'] ) : '';
-		$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? strip_tags( $new_instance['language'] ) : '';
-	return $instance;
+		$instance['cta']      = ( ! empty( $new_instance['cta'] ) ) ? wp_strip_all_tags( $new_instance['cta'] ) : '';
+		$instance['small']    = ( ! empty( $new_instance['small'] ) ) ? wp_strip_all_tags( $new_instance['small'] ) : '';
+		$instance['adapt']    = ( ! empty( $new_instance['adapt'] ) ) ? wp_strip_all_tags( $new_instance['adapt'] ) : '';
+		$instance['link']     = ( ! empty( $new_instance['link'] ) ) ? wp_strip_all_tags( $new_instance['link'] ) : '';
+		$instance['linktext'] = ( ! empty( $new_instance['linktext'] ) ) ? wp_strip_all_tags( $new_instance['linktext'] ) : '';
+		$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? wp_strip_all_tags( $new_instance['language'] ) : '';
+		return $instance;
 	}
 
 }
