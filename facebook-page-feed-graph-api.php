@@ -72,7 +72,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 	public static function donate_notice() {
 
-		$return = NULL;
+		$return = null;
 
 		if( current_user_can( 'administrator' ) ) {
 
@@ -136,23 +136,22 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 
-	//Enqueue CSS and JS for admin
+	/**
+	 * Enqueue CSS and JS for admin
+	 */
 	public function facebook_page_plugin_admin_resources() {
-
 		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/admin-global.js' );
 		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/admin-global.css' );
 
 	}
 
-	//Register the dashboard widget
+	/**
+	 * Register the dashboard widget
+	 */
 	public function facebook_page_plugin_dashboard_widget() {
-
 		if( current_user_can( self::dashboard_widget_capability() ) ) {
-		
 			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Mongoose Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
-
 		}
-
 	}
 
 	//Load the dashboard widget
@@ -160,7 +159,6 @@ class cameronjonesweb_facebook_page_plugin {
 		echo '<a name="cameronjonesweb_facebook_page_plugin_shortcode_generator"></a>';
 		$generator = new cameronjonesweb_facebook_page_plugin_shortcode_generator();
 		$generator->generate();
-		
 	}
 
 	function facebook_page_plugin_landing_page_menu() {
@@ -168,8 +166,8 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_landing_page() {
-		wp_enqueue_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', [], CJW_FBPP_PLUGIN_VER );
-		wp_enqueue_style( 'facebook-page-plugin-google-fonts', 'https://fonts.googleapis.com/css?family=Rammetto+One|Paytone+One|Space+Mono:400|Muli:400,400i,700', [], CJW_FBPP_PLUGIN_VER );
+		wp_enqueue_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', array(), CJW_FBPP_PLUGIN_VER );
+		wp_enqueue_style( 'facebook-page-plugin-google-fonts', 'https://fonts.googleapis.com/css?family=Rammetto+One|Paytone+One|Space+Mono:400|Muli:400,400i,700', array(), CJW_FBPP_PLUGIN_VER );
 		wp_enqueue_script( 'facebook-page-plugin-landing-page-js', CJW_FBPP_PLUGIN_URL . 'js/admin-landing-page.js', array( 'jquery' ), CJW_FBPP_PLUGIN_VER, true );
 		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
 	}
@@ -180,7 +178,7 @@ class cameronjonesweb_facebook_page_plugin {
 			__( 'Developer\'s blog', 'facebook-page-feed-graph-api' ),
 			__( 'Latest plugin news', 'facebook-page-feed-graph-api' )
 		);
-		wp_widget_rss_output( 'https://feed.rssunify.com/5b718c594e800/rss.xml', [ 'show_date' => 1 ] );
+		wp_widget_rss_output( 'https://feed.rssunify.com/5b718c594e800/rss.xml', ['show_date' => 1 ] );
 		wp_die( $links );
 	}
 
@@ -265,7 +263,7 @@ class cameronjonesweb_facebook_page_plugin {
 				}
 			}
 			if ( isset( $a['facepile'] ) && ! empty( $a['facepile'] ) ) {
-				$return .= ' data-show-facepile="' . $a['facepile'] . '"';
+				$return .= ' data-show-facepile="' . esc_attr( $a['facepile'] ) . '"';
 			}
 			if ( isset( $a['tabs'] ) && ! empty( $a['tabs'] ) ) {
 				$return .= sprintf(
@@ -318,201 +316,202 @@ class cameronjonesweb_facebook_page_plugin {
 }
 
 class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
-	
-	private $facebookURLs = array( 'https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/', 'http://facebook.com/', 'http://www.facebook.com/' );
+
+	private $facebook_urls = array( 'https://www.facebook.com/', 'https://facebook.com/', 'www.facebook.com/', 'facebook.com/', 'http://facebook.com/', 'http://www.facebook.com/' );
 	private $settings;
-	
+
 	function __construct() {
-		 $this->settings = new facebook_page_plugin_settings;
-		parent::__construct( 'facebook_page_plugin_widget', __( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ), ) 	);
+		$this->settings = new facebook_page_plugin_settings();
+		parent::__construct( 'facebook_page_plugin_widget', __( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ) ) );
 	}
 	public function widget( $args, $instance ) {
-		if( isset( $instance['title'] ) && !empty( $instance['title'] ) ) {
+		if ( isset( $instance['title'] ) && ! empty( $instance['title'] ) ) {
 			$title = apply_filters( 'widget_title', $instance['title'] );
 		} else {
-			$title = NULL;
+			$title = null;
 		}
-		if(isset($instance['href']) && !empty($instance['href'])){
+		if ( isset( $instance['href'] ) && ! empty( $instance['href'] ) ) {
 			$href = $instance['href'];
-			foreach($this->facebookURLs as $url){
-				$href = str_replace($url, '', $href);
+			foreach ( $this->facebook_urls as $url ) {
+				$href = str_replace( $url, '', $href );
 			}
 		} else {
-			$href = NULL;
+			$href = null;
 		}
-		if(isset($instance['width']) && !empty($instance['width'])){
+		if ( isset( $instance['width'] ) && ! empty( $instance['width'] ) ) {
 			$width = $instance['width'];
 		} else {
-			$width = NULL;
+			$width = null;
 		}
-		if(isset($instance['height']) && !empty($instance['height'])){
+		if ( isset( $instance['height'] ) && ! empty( $instance['height'] ) ) {
 			$height = $instance['height'];
 		} else {
-			$height = NULL;
+			$height = null;
 		}
-		if(isset($instance['cover']) && !empty($instance['cover'])){
+		if ( isset( $instance['cover'] ) && ! empty( $instance['cover'] ) ) {
 			$cover = 'true';
 		} else {
 			$cover = 'false';
 		}
-		if(isset($instance['facepile']) && !empty($instance['facepile'])){
+		if ( isset( $instance['facepile'] ) && ! empty( $instance['facepile'] ) ) {
 			$facepile = 'true';
 		} else {
 			$facepile = 'false';
 		}
-		if(isset($instance['tabs']) && !empty($instance['tabs'])){
+		if ( isset( $instance['tabs'] ) && ! empty( $instance['tabs'] ) ) {
 			$tabs = $instance['tabs'];
 		} else {
 			$tabs = '';
 		}
-		if(isset($instance['cta']) && !empty($instance['cta'])){
+		if ( isset( $instance['cta'] ) && ! empty( $instance['cta'] ) ) {
 			$cta = 'true';
 		} else {
 			$cta = 'false';
 		}
-		if(isset($instance['small']) && !empty($instance['small'])){
+		if ( isset( $instance['small'] ) && ! empty( $instance['small'] ) ) {
 			$small = 'true';
 		} else {
 			$small = 'false';
 		}
-		if(isset($instance['adapt']) && !empty($instance['adapt'])){
+		if ( isset( $instance['adapt'] ) && ! empty( $instance['adapt'] ) ) {
 			$adapt = 'true';
 		} else {
 			$adapt = 'false';
 		}
-		if(isset($instance['link']) && !empty($instance['link'])){
+		if ( isset( $instance['link'] ) && ! empty( $instance['link'] ) ) {
 			$link = 'true';
 		} else {
 			$link = 'false';
 		}
-		if(isset($instance['linktext']) && !empty($instance['linktext'])){
+		if ( isset( $instance['linktext'] ) && ! empty( $instance['linktext'] ) ) {
 			$linktext = $instance['linktext'];
 		} else {
-			$linktext = NULL;
+			$linktext = null;
 		}
-		if(isset($instance['language']) && !empty($instance['language'])){
+		if ( isset( $instance['language'] ) && ! empty( $instance['language'] ) ) {
 			$language = $instance['language'];
 		} else {
-			$language = NULL;
+			$language = null;
 		}
 		echo $args['before_widget'];
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
 		}
-		if( !empty($href )){
+		if ( ! empty( $href ) ) {
 			$shortcode = '[facebook-page-plugin href="' . $href . '"';
-			if( isset( $width ) && !empty( $width ) ){
-				$shortcode .= ' width="' . $width . '"';
+			if ( isset( $width ) && ! empty( $width ) ) {
+				$shortcode .= ' width="' . esc_attr( $width ) . '"';
 			}
-			if( isset( $height ) && !empty( $height ) ){
-				$shortcode .= ' height="' . $height . '"';
+			if ( isset( $height ) && ! empty( $height ) ) {
+				$shortcode .= ' height="' . esc_attr( $height ) . '"';
 			}
-			if( isset( $cover ) && !empty( $cover ) ){
-				$shortcode .= ' cover="' . $cover . '"';
+			if ( isset( $cover ) && ! empty( $cover ) ) {
+				$shortcode .= ' cover="' . esc_attr( $cover ) . '"';
 			}
-			if( isset( $facepile ) && !empty( $facepile ) ){
-				$shortcode .= ' facepile="' . $facepile . '"';
+			if ( isset( $facepile ) && ! empty( $facepile ) ) {
+				$shortcode .= ' facepile="' . esc_attr( $facepile ) . '"';
 			}
-			if( isset( $tabs ) && !empty( $tabs ) ){
-				if( is_array( $tabs ) ) {
+			if ( isset( $tabs ) && ! empty( $tabs ) ) {
+				if ( is_array( $tabs ) ) {
 					$shortcode .= ' tabs="';
-					for( $i = 0; $i < count( $tabs ); $i++ ) {
-						$shortcode .= $tabs[$i];
-						$shortcode .= ( $i != count( $tabs ) - 1 ? ',' : '' );
+					for ( $i = 0, $c = count( $tabs ); $i < $c; $i++ ) {
+						$shortcode .= esc_attr( $tabs[ $i ] );
+						$shortcode .= ( $i < $c - 1 ? ',' : '' );
 					}
 					$shortcode .= '"';
 				} else {
-					$shortcode .= ' tabs="' . $tabs . '"';
+					$shortcode .= ' tabs="' . esc_attr( $tabs ) . '"';
 				}
 			}
-			if( isset( $language ) && !empty( $language ) ){
-				$shortcode .= ' language="' . $language . '"';
+			if ( isset( $language ) && ! empty( $language ) ) {
+				$shortcode .= ' language="' . esc_attr( $language ) . '"';
 			}
-			if( isset( $cta ) && !empty( $cta ) ){
-				$shortcode .= ' cta="' . $cta . '"';
+			if ( isset( $cta ) && ! empty( $cta ) ) {
+				$shortcode .= ' cta="' . esc_attr( $cta ) . '"';
 			}
-			if( isset( $small ) && !empty( $small ) ){
-				$shortcode .= ' small="' . $small . '"';
+			if ( isset( $small ) && ! empty( $small ) ) {
+				$shortcode .= ' small="' . esc_attr( $small ) . '"';
 			}
-			if( isset( $adapt ) && !empty( $adapt ) ){
-				$shortcode .= ' adapt="' . $adapt . '"';
+			if ( isset( $adapt ) && ! empty( $adapt ) ) {
+				$shortcode .= ' adapt="' . esc_attr( $adapt ) . '"';
 			}
-			if( isset( $link ) && !empty( $link ) ){
-				$shortcode .= ' link="' . $link . '"';
+			if ( isset( $link ) && ! empty( $link ) ) {
+				$shortcode .= ' link="' . esc_attr( $link ) . '"';
 			}
-			if( isset( $linktext ) && !empty( $linktext ) ){
-				$shortcode .= ' linktext="' . $linktext . '"';
+			if ( isset( $linktext ) && ! empty( $linktext ) ) {
+				$shortcode .= ' linktext="' . esc_attr( $linktext ) . '"';
 			}
 			$shortcode .= ' _implementation="widget"';
 			$shortcode .= ']';
 			echo do_shortcode( $shortcode );
 		}
 		echo $args['after_widget'];
-	} 
+	}
+
 	public function form( $instance ) {
 
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
+		if ( isset( $instance['title'] ) ) {
+			$title = $instance['title'];
 		} else {
 			$title = __( 'New title', 'facebook-page-feed-graph-api' );
 		}
-		if ( isset( $instance[ 'href' ] ) ) {
-			$href = $instance[ 'href' ];
+		if ( isset( $instance['href'] ) ) {
+			$href = $instance['href'];
 		} else {
 			$href = '';
 		}
-		if ( isset( $instance[ 'width' ] ) ) {
-			$width = $instance[ 'width' ];
+		if ( isset( $instance['width'] ) ) {
+			$width = $instance['width'];
 		} else {
 			$width = '';
 		}
-		if ( isset( $instance[ 'height' ] ) ) {
-			$height = $instance[ 'height' ];
+		if ( isset( $instance['height'] ) ) {
+			$height = $instance['height'];
 		} else {
 			$height = '';
 		}
-		if ( isset( $instance[ 'cover' ] ) ) {
-			$cover = $instance[ 'cover' ];
+		if ( isset( $instance['cover'] ) ) {
+			$cover = $instance['cover'];
 		} else {
 			$cover = 'false';
 		}
-		if ( isset( $instance[ 'facepile' ] ) ) {
-			$facepile = $instance[ 'facepile' ];
+		if ( isset( $instance['facepile'] ) ) {
+			$facepile = $instance['facepile'];
 		} else {
 			$facepile = 'false';
 		}
-		if ( isset( $instance[ 'tabs' ] ) ) {
-			$tabs = $instance[ 'tabs' ];
+		if ( isset( $instance['tabs'] ) ) {
+			$tabs = $instance['tabs'];
 		} else {
 			$tabs = '';
 		}
-		if ( isset( $instance[ 'cta' ] ) ) {
-			$cta = $instance[ 'cta' ];
+		if ( isset( $instance['cta'] ) ) {
+			$cta = $instance['cta'];
 		} else {
 			$cta = 'false';
 		}
-		if ( isset( $instance[ 'small' ] ) ) {
-			$small = $instance[ 'small' ];
+		if ( isset( $instance['small'] ) ) {
+			$small = $instance['small'];
 		} else {
 			$small = 'false';
 		}
-		if ( isset( $instance[ 'adapt' ] ) ) {
-			$adapt = $instance[ 'adapt' ];
+		if ( isset( $instance['adapt'] ) ) {
+			$adapt = $instance['adapt'];
 		} else {
 			$adapt = 'true';
 		}
-		if ( isset( $instance[ 'link' ] ) ) {
-			$link = $instance[ 'link' ];
+		if ( isset( $instance['link'] ) ) {
+			$link = $instance['link'];
 		} else {
 			$link = 'true';
 		}
-		if ( isset( $instance[ 'linktext' ] ) ) {
-			$linktext = $instance[ 'linktext' ];
+		if ( isset( $instance['linktext'] ) ) {
+			$linktext = $instance['linktext'];
 		} else {
 			$linktext = '';
 		}
-		if ( isset( $instance[ 'language' ] ) ) {
-			$language = $instance[ 'language' ];
+		if ( isset( $instance['language'] ) ) {
+			$language = $instance['language'];
 		} else {
 			$language = '';
 		}
@@ -706,51 +705,51 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 
 	private $langs;
 	private $settings;
-	
+
 	function __construct() {
 
-		$this->settings = new facebook_page_plugin_settings;
-		$this->langs = $this->settings->get_locale_xml();
+		$this->settings = new facebook_page_plugin_settings();
+		$this->langs    = $this->settings->get_locale_xml();
 	}
 
 	function generate() {
-		
-		$return = NULL;
+
+		$return = null;
 
 		$return .= cameronjonesweb_facebook_page_plugin::donate_notice();
 
 		$return .= '<noscript>' . __( 'The shortcode generator requires JavaScript enabled', 'facebook-page-feed-graph-api' ) . '</noscript>';
 
-		$return .= '<form>';
-			$return .= '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';
-			$return .= '<p><label>' . __( 'Width (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
-			$return .= '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
-			$return .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
-			$return .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
-			$return .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ':';
-			$settings = new facebook_page_plugin_settings;
-			$CJW_FBPP_TABS = $settings->tabs();
-			if( !empty( $CJW_FBPP_TABS ) ) {
-				foreach( $CJW_FBPP_TABS as $tab ) {
-					$return .= '<br/><label>';
-						$return .= '<input type="checkbox" class="fbpp-tabs" name="' . $tab . '" /> ';
-						$return .= __( ucfirst( $tab ), 'facebook-page-feed-graph-api' );
-					$return .= '</label>';
-				}
-			 }
-			$return .= '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
-			$return .= '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
-			$return .= '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
-			$return .= '<p><label>' . __( 'Display link while loading', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
-			$return .= '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
-			$return .= '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang"><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
-			if(isset($this->langs) && !empty($this->langs)){
-				foreach($this->langs as $lang){
-					$return .= '<option value="' . $lang->standard->representation . '">' . __( $lang->englishName, 'facebook-page-feed-graph-api' ) . '</option>';
-				}
+		$return       .= '<form>';
+		$return       .= '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';
+		$return       .= '<p><label>' . __( 'Width (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
+		$return       .= '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
+		$return       .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
+		$return       .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
+		$return       .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ':';
+		$settings      = new facebook_page_plugin_settings();
+		$cjw_fbpp_tabs = $settings->tabs();
+		if ( ! empty( $cjw_fbpp_tabs ) ) {
+			foreach ( $cjw_fbpp_tabs as $tab ) {
+				$return .= '<br/><label>';
+				$return .= '<input type="checkbox" class="fbpp-tabs" name="' . $tab . '" /> ';
+				$return .= ucfirst( $tab );
+				$return .= '</label>';
 			}
-			$return .= '</select></label></p>';
-			$return .= '<input type="text" readonly="readonly" id="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
+		}
+		$return .= '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
+		$return .= '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
+		$return .= '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
+		$return .= '<p><label>' . __( 'Display link while loading', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
+		$return .= '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
+		$return .= '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang"><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
+		if ( isset( $this->langs ) && ! empty( $this->langs ) ) {
+			foreach ( $this->langs as $lang ) {
+				$return .= '<option value="' . esc_attr( $lang->standard->representation ) . '">' . esc_html( $lang->englishName ) . '</option>';
+			}
+		}
+		$return .= '</select></label></p>';
+		$return .= '<input type="text" readonly="readonly" id="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
 		$return .= '</form>';
 
 		echo $return;
@@ -774,22 +773,20 @@ class facebook_page_plugin_settings {
 
 		$admin_abspath = str_replace( site_url(), ABSPATH, admin_url() );
 
-		include_once( $admin_abspath . '/includes/class-wp-filesystem-base.php' );
-		include_once( $admin_abspath . '/includes/class-wp-filesystem-direct.php' );
+		include_once $admin_abspath . '/includes/class-wp-filesystem-base.php';
+		include_once $admin_abspath . '/includes/class-wp-filesystem-direct.php';
 		$wp_filesystem = new WP_Filesystem_Direct( null );
 
 		try {
-			//$xml = file_get_contents('https://www.facebook.com/translations/FacebookLocales.xml');
-			//$xml = file_get_contents( CJW_FBPP_PLUGIN_URL ) . 'lang.xml');
-			$lang_xml = $wp_filesystem->get_contents( CJW_FBPP_PLUGIN_DIR . '/lang.xml');
-		} catch( Exception $ex ){
-			$lang_xml = NULL;
+			$lang_xml = $wp_filesystem->get_contents( CJW_FBPP_PLUGIN_DIR . '/lang.xml' );
+		} catch ( Exception $ex ) {
+			$lang_xml = null;
 		}
 
-		if(isset($lang_xml) && !empty($lang_xml)){
-			$langs = new SimpleXMLElement($lang_xml);
+		if ( isset( $lang_xml ) && ! empty( $lang_xml ) ) {
+			$langs = new SimpleXMLElement( $lang_xml );
 		} else {
-			$langs = NULL;
+			$langs = null;
 		}
 
 		return $langs;
@@ -797,7 +794,9 @@ class facebook_page_plugin_settings {
 
 }
 
-// Register the widget.
+/**
+ * Register the widget
+ */
 function facebook_page_plugin_load_widget() {
 	register_widget( 'cameronjonesweb_facebook_page_plugin_widget' );
 }
