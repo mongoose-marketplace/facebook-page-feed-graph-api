@@ -27,6 +27,120 @@ class cameronjonesweb_facebook_page_plugin {
 
 	public static $remove_donate_notice_key = 'facebook_page_plugin_donate_notice_ignore';
 
+	public static $locales = array(
+		'so_SO' => 'Af-Soomaali',
+		'af_ZA' => 'Afrikaans',
+		'az_AZ' => 'Azərbaycan dili',
+		'id_ID' => 'Bahasa Indonesia',
+		'ms_MY' => 'Bahasa Melayu',
+		'jv_ID' => 'Basa Jawa',
+		'cx_PH' => 'Bisaya',
+		'bs_BA' => 'Bosanski',
+		'br_FR' => 'Brezhoneg',
+		'ca_ES' => 'Català',
+		'co_FR' => 'Corsu',
+		'cy_GB' => 'Cymraeg',
+		'da_DK' => 'Dansk',
+		'de_DE' => 'Deutsch',
+		'et_EE' => 'Eesti',
+		'en_GB' => 'English (UK)',
+		'en_US' => 'English (US)',
+		'en_UD' => 'English (uʍop əpısdՈ)',
+		'es_LA' => 'Español',
+		'es_ES' => 'Español (España)',
+		'eo_EO' => 'Esperanto',
+		'eu_ES' => 'Euskara',
+		'tl_PH' => 'Filipino',
+		'fr_CA' => 'Français (Canada)',
+		'fr_FR' => 'Français (France)',
+		'fy_NL' => 'Frysk',
+		'ff_NG' => 'Fula',
+		'fo_FO' => 'Føroyskt',
+		'ga_IE' => 'Gaeilge',
+		'gl_ES' => 'Galego',
+		'gn_PY' => 'Guarani',
+		'ha_NG' => 'Hausa',
+		'hr_HR' => 'Hrvatski',
+		'rw_RW' => 'Ikinyarwanda',
+		'it_IT' => 'Italiano',
+		'sw_KE' => 'Kiswahili',
+		'ht_HT' => 'Kreyòl Ayisyen',
+		'ku_TR' => 'Kurdî (Kurmancî)',
+		'lv_LV' => 'Latviešu',
+		'lt_LT' => 'Lietuvių',
+		'hu_HU' => 'Magyar',
+		'mg_MG' => 'Malagasy',
+		'mt_MT' => 'Malti',
+		'nl_NL' => 'Nederlands',
+		'nl_BE' => 'Nederlands (België)',
+		'nb_NO' => 'Norsk (bokmål)',
+		'nn_NO' => 'Norsk (nynorsk)',
+		'uz_UZ' => 'O\'zbek',
+		'pl_PL' => 'Polski',
+		'pt_BR' => 'Português (Brasil)',
+		'pt_PT' => 'Português (Portugal)',
+		'ro_RO' => 'Română',
+		'sc_IT' => 'Sardu',
+		'sn_ZW' => 'Shona',
+		'sq_AL' => 'Shqip',
+		'sk_SK' => 'Slovenčina',
+		'sl_SI' => 'Slovenščina',
+		'fi_FI' => 'Suomi',
+		'sv_SE' => 'Svenska',
+		'vi_VN' => 'Tiếng Việt',
+		'tr_TR' => 'Türkçe',
+		'zz_TR' => 'Zaza',
+		'is_IS' => 'Íslenska',
+		'cs_CZ' => 'Čeština',
+		'sz_PL' => 'ślōnskŏ gŏdka',
+		'el_GR' => 'Ελληνικά',
+		'be_BY' => 'Беларуская',
+		'bg_BG' => 'Български',
+		'mk_MK' => 'Македонски',
+		'mn_MN' => 'Монгол',
+		'ru_RU' => 'Русский',
+		'sr_RS' => 'Српски',
+		'tt_RU' => 'Татарча',
+		'tg_TJ' => 'Тоҷикӣ',
+		'uk_UA' => 'Українська',
+		'ky_KG' => 'кыргызча',
+		'kk_KZ' => 'Қазақша',
+		'hy_AM' => 'Հայերեն',
+		'he_IL' => 'עברית',
+		'ur_PK' => 'اردو',
+		'ar_AR' => 'العربية',
+		'fa_IR' => 'فارسی',
+		'ps_AF' => 'پښتو',
+		'cb_IQ' => 'کوردیی ناوەندی',
+		'sy_SY' => 'ܣܘܪܝܝܐ',
+		'ne_NP' => 'नेपाली',
+		'mr_IN' => 'मराठी',
+		'hi_IN' => 'हिन्दी',
+		'as_IN' => 'অসমীয়া',
+		'bn_IN' => 'বাংলা',
+		'pa_IN' => 'ਪੰਜਾਬੀ',
+		'gu_IN' => 'ગુજરાતી',
+		'or_IN' => 'ଓଡ଼ିଆ',
+		'ta_IN' => 'தமிழ்',
+		'te_IN' => 'తెలుగు',
+		'kn_IN' => 'ಕನ್ನಡ',
+		'ml_IN' => 'മലയാളം',
+		'si_LK' => 'සිංහල',
+		'th_TH' => 'ภาษาไทย',
+		'lo_LA' => 'ພາສາລາວ',
+		'my_MM' => 'မြန်မာဘာသာ',
+		'ka_GE' => 'ქართული',
+		'am_ET' => 'አማርኛ',
+		'km_KH' => 'ភាសាខ្មែរ',
+		'tz_MA' => 'ⵜⴰⵎⴰⵣⵉⵖⵜ',
+		'zh_TW' => '中文(台灣)',
+		'zh_CN' => '中文(简体)',
+		'zh_HK' => '中文(香港)',
+		'ja_JP' => '日本語',
+		'ja_KS' => '日本語(関西)',
+		'ko_KR' => '한국어',
+	);
+
 	public function __construct() {
 
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -38,7 +152,6 @@ class cameronjonesweb_facebook_page_plugin {
 
 		// Add all the hooks and actions.
 		add_shortcode( 'facebook-page-plugin', array( $this, 'facebook_page_plugin' ) );
-		add_filter( 'widget_text', 'do_shortcode' );
 		add_action( 'wp_dashboard_setup', array( $this, 'facebook_page_plugin_dashboard_widget' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'facebook_page_plugin_admin_resources' ) );
 		add_action( 'admin_init', array( $this, 'remove_donate_notice_nojs' ) );
@@ -46,39 +159,39 @@ class cameronjonesweb_facebook_page_plugin {
 		add_action( 'wp_ajax_facebook_page_plugin_latest_blog_posts_callback', array( $this, 'facebook_page_plugin_latest_blog_posts_callback' ) );
 		add_action( 'activated_plugin', array( $this, 'facebook_page_plugin_activation_hook' ) );
 		add_action( 'wp_ajax_facebook_page_plugin_remove_donate_notice', array( $this, 'remove_donate_notice' ) );
+		add_action( 'init', array( $this, 'register_assets' ) );
+		
+		add_filter( 'widget_text', 'do_shortcode' );
 		add_filter( 'plugin_action_links_' . CJW_FBPP_PLUGIN_BASENAME, array( $this, 'plugin_action_links' ) );
 
 	}
 
 
-	// Filter functions.
+	/**
+	 * Filter functions.
+	 */
 	private static function dashboard_widget_capability() {
-
 		$return = apply_filters( 'facebook_page_plugin_dashboard_widget_capability', 'edit_posts' );
 		return $return;
-
 	}
 
 
 	private static function app_id() {
-
 		$return = apply_filters( 'facebook_page_plugin_app_id', '846690882110183' );
 		return $return;
-
 	}
 
 
 	// Admin functions.
-
 	public static function donate_notice() {
 
 		$return = null;
 
-		if( current_user_can( 'administrator' ) ) {
+		if ( current_user_can( 'administrator' ) ) {
 
 			$user_id = get_current_user_id();
 
-			if ( !get_user_meta( $user_id, self::$remove_donate_notice_key ) || get_user_meta( $user_id, self::$remove_donate_notice_key ) === false ) {
+			if ( ! get_user_meta( $user_id, self::$remove_donate_notice_key ) || get_user_meta( $user_id, self::$remove_donate_notice_key ) === false ) {
 
 				$return .= '<div class="facebook-page-plugin-donate"><p>';
 
@@ -106,7 +219,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 		update_user_meta( $user_id, self::$remove_donate_notice_key, 'true', true );
 
-		if( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 
 			wp_die();
 
@@ -135,13 +248,27 @@ class cameronjonesweb_facebook_page_plugin {
 		return $links;
 	}
 
+	/**
+	 * Register CSS and JS assets
+	 */
+	public function register_assets() {
+		wp_register_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/admin-global.css', array(), CJW_FBPP_PLUGIN_VER );
+		wp_register_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', array(), CJW_FBPP_PLUGIN_VER );
+		wp_register_style( 'facebook-page-plugin-google-fonts', 'https://fonts.googleapis.com/css?family=Rammetto+One|Paytone+One|Space+Mono:400|Muli:400,400i,700', array(), CJW_FBPP_PLUGIN_VER );
+
+		wp_register_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/admin-global.js', array( 'jquery' ), CJW_FBPP_PLUGIN_VER, true );
+		wp_register_script( 'facebook-page-plugin-landing-page-js', CJW_FBPP_PLUGIN_URL . 'js/admin-landing-page.js', array( 'jquery' ), CJW_FBPP_PLUGIN_VER, true );
+		wp_register_script( 'facebook-page-plugin-responsive-script', CJW_FBPP_PLUGIN_URL . 'js/responsive.min.js', 'jquery', CJW_FBPP_PLUGIN_VER, true );
+		wp_register_script( 'facebook-page-plugin-sk-hosted', 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v9.0', array(), '9.0', true );
+		wp_register_script( 'facebook-page-plugin-sdk-local', CJW_FBPP_PLUGIN_URL . 'js/sdk.js', array(), '9.0', true );
+	}
 
 	/**
 	 * Enqueue CSS and JS for admin
 	 */
 	public function facebook_page_plugin_admin_resources() {
-		wp_enqueue_script( 'facebook-page-plugin-admin-scripts', CJW_FBPP_PLUGIN_URL . 'js/admin-global.js' );
-		wp_enqueue_style( 'facebook-page-plugin-admin-styles', CJW_FBPP_PLUGIN_URL . 'css/admin-global.css' );
+		wp_enqueue_script( 'facebook-page-plugin-admin-scripts' );
+		wp_enqueue_style( 'facebook-page-plugin-admin-styles' );
 
 	}
 
@@ -149,7 +276,7 @@ class cameronjonesweb_facebook_page_plugin {
 	 * Register the dashboard widget
 	 */
 	public function facebook_page_plugin_dashboard_widget() {
-		if( current_user_can( self::dashboard_widget_capability() ) ) {
+		if ( current_user_can( self::dashboard_widget_capability() ) ) {
 			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Mongoose Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'facebook_page_plugin_dashboard_widget_callback' ) );
 		}
 	}
@@ -166,9 +293,9 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_landing_page() {
-		wp_enqueue_style( 'facebook-page-plugin-landing-page-css', CJW_FBPP_PLUGIN_URL . 'css/admin-landing-page.css', array(), CJW_FBPP_PLUGIN_VER );
-		wp_enqueue_style( 'facebook-page-plugin-google-fonts', 'https://fonts.googleapis.com/css?family=Rammetto+One|Paytone+One|Space+Mono:400|Muli:400,400i,700', array(), CJW_FBPP_PLUGIN_VER );
-		wp_enqueue_script( 'facebook-page-plugin-landing-page-js', CJW_FBPP_PLUGIN_URL . 'js/admin-landing-page.js', array( 'jquery' ), CJW_FBPP_PLUGIN_VER, true );
+		wp_enqueue_style( 'facebook-page-plugin-landing-page-css' );
+		wp_enqueue_style( 'facebook-page-plugin-google-fonts' );
+		wp_enqueue_script( 'facebook-page-plugin-landing-page-js' );
 		include CJW_FBPP_PLUGIN_DIR . '/inc/landing-page.php';
 	}
 
@@ -183,7 +310,7 @@ class cameronjonesweb_facebook_page_plugin {
 	}
 
 	function facebook_page_plugin_activation_hook( $plugin ) {
-		if( $plugin == CJW_FBPP_PLUGIN_BASENAME ) {
+		if ( $plugin == CJW_FBPP_PLUGIN_BASENAME ) {
 			exit( wp_redirect( admin_url( 'options-general.php?page=facebook-page-plugin' ) ) );
 		}
 	}
@@ -191,7 +318,7 @@ class cameronjonesweb_facebook_page_plugin {
 
 	// Client side stuff.
 	function facebook_page_plugin_generate_wrapper_id() {
-		return substr( str_shuffle( str_repeat( implode( '', array_merge( range( 'A', 'Z' ), range( 'a', 'z' ) ) ), 5 ) ), 0, 15 );
+		return wp_generate_password( 15, false );
 	}
 
 	/**
@@ -201,8 +328,7 @@ class cameronjonesweb_facebook_page_plugin {
 	 * @return string
 	 */
 	public function facebook_page_plugin( $filter ) {
-		wp_enqueue_script( 'facebook-page-plugin-sdk', CJW_FBPP_PLUGIN_URL . 'js/sdk.js', array(), CJW_FBPP_PLUGIN_VER, true );
-		wp_enqueue_script( 'facebook-page-plugin-responsive-script', CJW_FBPP_PLUGIN_URL . 'js/responsive.min.js', 'jquery', CJW_FBPP_PLUGIN_VER, true );
+		wp_enqueue_script( 'facebook-page-plugin-responsive-script' );
 		$return = '';
 		$a      = shortcode_atts(
 			array(
@@ -219,15 +345,13 @@ class cameronjonesweb_facebook_page_plugin {
 				'adapt'           => null,
 				'link'            => true,
 				'linktext'        => null,
+				'method'          => 'sdk',
 				'_implementation' => 'shortcode',
 			),
 			$filter
 		);
 		if ( isset( $a['href'] ) && ! empty( $a['href'] ) ) {
 			$a['language'] = str_replace( '-', '_', $a['language'] );
-
-			// Send the language as a parameter to the SDK.
-			wp_localize_script( 'facebook-page-plugin-sdk', 'facebook_page_plugin_language', array( 'language' => esc_attr( $a['language'] ) ) );
 
 			$return .= sprintf(
 				'<div class="cameronjonesweb_facebook_page_plugin" data-version="%1$s" data-implementation="%2$s" id="%3$s">',
@@ -236,7 +360,7 @@ class cameronjonesweb_facebook_page_plugin {
 				esc_attr( $this->facebook_page_plugin_generate_wrapper_id() )
 			);
 			$return .= sprintf(
-				'<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v3.2&appId=%1$s";fjs.parentNode.insertBefore(js, fjs);	}(document, \'script\', \'facebook-jssdk\'));</script>',
+				'<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v9.0"></script>',
 				esc_attr( self::app_id() )
 			);
 			$return .= sprintf(
@@ -324,6 +448,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		$this->settings = new facebook_page_plugin_settings();
 		parent::__construct( 'facebook_page_plugin_widget', __( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ) ) );
 	}
+
 	public function widget( $args, $instance ) {
 		if ( isset( $instance['title'] ) && ! empty( $instance['title'] ) ) {
 			$title = apply_filters( 'widget_title', $instance['title'] );
@@ -393,9 +518,9 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		} else {
 			$language = null;
 		}
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
+			echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 		if ( ! empty( $href ) ) {
 			$shortcode = '[facebook-page-plugin href="' . $href . '"';
@@ -445,7 +570,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			$shortcode .= ']';
 			echo do_shortcode( $shortcode );
 		}
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 	public function form( $instance ) {
@@ -516,7 +641,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			$language = '';
 		}
 
-		$langs = $this->settings->get_locale_xml();
+		$langs = cameronjonesweb_facebook_page_plugin::$locales;
 
 		echo cameronjonesweb_facebook_page_plugin::donate_notice();
 
@@ -646,12 +771,12 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			call_user_func(
 				function() use ( $langs, $language ) {
 					$return = '<option value="">' . esc_html__( 'Site Language (default)', 'facebook-page-feed-graph-api' ) . '</option>';
-					foreach ( $langs as $lang ) {
+					foreach ( $langs as $code => $label ) {
 						$return .= sprintf(
 							'<option value="%1$s" %2$s>%3$s</option>',
-							esc_attr( $lang->standard->representation ),
-							selected( esc_attr( $language ), $lang->standard->representation, false ),
-							esc_html( $lang->englishName )
+							esc_attr( $code ),
+							selected( esc_attr( $language ), $code, false ),
+							esc_html( $label )
 						);
 					}
 					return $return;
@@ -709,7 +834,7 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 	function __construct() {
 
 		$this->settings = new facebook_page_plugin_settings();
-		$this->langs    = $this->settings->get_locale_xml();
+		$this->langs    = cameronjonesweb_facebook_page_plugin::$locales;
 	}
 
 	function generate() {
@@ -744,8 +869,8 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 		$return .= '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
 		$return .= '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang"><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
 		if ( isset( $this->langs ) && ! empty( $this->langs ) ) {
-			foreach ( $this->langs as $lang ) {
-				$return .= '<option value="' . esc_attr( $lang->standard->representation ) . '">' . esc_html( $lang->englishName ) . '</option>';
+			foreach ( $this->langs as $code => $label ) {
+				$return .= '<option value="' . esc_attr( $code ) . '">' . esc_html( $label ) . '</option>';
 			}
 		}
 		$return .= '</select></label></p>';
@@ -768,30 +893,6 @@ class facebook_page_plugin_settings {
 	function tabs() {
 		return $this->tabs;
 	}
-
-	function get_locale_xml() {
-
-		$admin_abspath = str_replace( site_url(), ABSPATH, admin_url() );
-
-		include_once $admin_abspath . '/includes/class-wp-filesystem-base.php';
-		include_once $admin_abspath . '/includes/class-wp-filesystem-direct.php';
-		$wp_filesystem = new WP_Filesystem_Direct( null );
-
-		try {
-			$lang_xml = $wp_filesystem->get_contents( CJW_FBPP_PLUGIN_DIR . '/lang.xml' );
-		} catch ( Exception $ex ) {
-			$lang_xml = null;
-		}
-
-		if ( isset( $lang_xml ) && ! empty( $lang_xml ) ) {
-			$langs = new SimpleXMLElement( $lang_xml );
-		} else {
-			$langs = null;
-		}
-
-		return $langs;
-	}
-
 }
 
 /**
