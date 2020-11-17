@@ -354,85 +354,112 @@ class cameronjonesweb_facebook_page_plugin {
 			$a['language'] = str_replace( '-', '_', $a['language'] );
 
 			$return .= sprintf(
-				'<div class="cameronjonesweb_facebook_page_plugin" data-version="%1$s" data-implementation="%2$s" id="%3$s">',
+				'<div class="cameronjonesweb_facebook_page_plugin" data-version="%1$s" data-implementation="%2$s" id="%3$s" data-method="%4$s">',
 				esc_attr( CJW_FBPP_PLUGIN_VER ),
 				esc_attr( $a['_implementation'] ),
-				esc_attr( $this->facebook_page_plugin_generate_wrapper_id() )
+				esc_attr( $this->facebook_page_plugin_generate_wrapper_id() ),
+				esc_attr( $a['method'] )
 			);
-			$return .= sprintf(
-				'<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v9.0"></script>',
-				esc_attr( self::app_id() )
-			);
-			$return .= sprintf(
-				'<div class="fb-page" data-href="https://facebook.com/%1$s" ',
-				esc_attr( $a['href'] )
-			);
-			if ( isset( $a['width'] ) && ! empty( $a['width'] ) ) {
+
+			if ( 'sdk' === $a['method'] ) {
+
+				$return .= '<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v9.0"></script>';
+
 				$return .= sprintf(
-					' data-width="%1$s" data-max-width="%1$s"',
-					esc_attr( $a['width'] )
+					'<div class="fb-page" data-href="https://facebook.com/%1$s" ',
+					esc_attr( $a['href'] )
 				);
-			}
-			if ( isset( $a['height'] ) && ! empty( $a['height'] ) ) {
+				if ( isset( $a['width'] ) && ! empty( $a['width'] ) ) {
+					$return .= sprintf(
+						' data-width="%1$s" data-max-width="%1$s"',
+						esc_attr( $a['width'] )
+					);
+				}
+				if ( isset( $a['height'] ) && ! empty( $a['height'] ) ) {
+					$return .= sprintf(
+						' data-height="%1$s"',
+						esc_attr( $a['height'] )
+					);
+				}
+				if ( isset( $a['cover'] ) && ! empty( $a['cover'] ) ) {
+					if ( 'false' == $a['cover'] ) {
+						$return .= ' data-hide-cover="true"';
+					} elseif ( 'true' == $a['cover'] ) {
+						$return .= ' data-hide-cover="false"';
+					}
+				}
+				if ( isset( $a['facepile'] ) && ! empty( $a['facepile'] ) ) {
+					$return .= ' data-show-facepile="' . esc_attr( $a['facepile'] ) . '"';
+				}
+				if ( isset( $a['tabs'] ) && ! empty( $a['tabs'] ) ) {
+					$return .= sprintf(
+						' data-tabs="%1$s"',
+						esc_attr( $a['tabs'] )
+					);
+				} elseif ( isset( $a['posts'] ) && ! empty( $a['posts'] ) ) {
+					if ( 'true' == $a['posts'] ) {
+						$return .= ' data-tabs="timeline"';
+					} else {
+						$return .= ' data-tabs="false"';
+					}
+				}
+				if ( isset( $a['cta'] ) && ! empty( $a['cta'] ) ) {
+					$return .= ' data-hide-cta="' . $a['cta'] . '"';
+					$return .= sprintf(
+						' data-hide-cta="%1$s"',
+						esc_attr( $a['cta'] )
+					);
+				}
+				if ( isset( $a['small'] ) && ! empty( $a['small'] ) ) {
+					$return .= sprintf(
+						' data-small-header="%1$s"',
+						esc_attr( $a['small'] )
+					);
+				}
+				if ( isset( $a['adapt'] ) && ! empty( $a['adapt'] ) ) {
+					$return .= ' data-adapt-container-width="true"';
+				} else {
+					$return .= ' data-adapt-container-width="false"';
+				}
+				$return .= '><div class="fb-xfbml-parse-ignore">';
+				if ( 'true' == $a['link'] ) {
+					$return .= sprintf(
+						'<blockquote cite="https://www.facebook.com/%1$s"><a href="https://www.facebook.com/%1$s">',
+						esc_attr( $a['href'] )
+					);
+					if ( empty( $a['linktext'] ) ) {
+						$return .= 'https://www.facebook.com/' . esc_attr( $a['href'] );
+					} else {
+						$return .= esc_html( $a['linktext'] );
+					}
+					$return .= '</a></blockquote>';
+				}
+				$return .= '</div>'; // .fb-xfbml-parse-ignore.
+				$return .= '</div>'; // .fb-page.
+			} elseif ( 'iframe' === $a['method'] ) {
+				$url     = add_query_arg(
+					array(
+						'href'                  => $a['href'],
+						'width'                 => $a['width'],
+						'height'                => $a['height'],
+						'hide_cover'            => ! is_null( $a['cover'] ) ? strval( ! filter_var( $a['cover'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE ) ) : null,
+						'show_facepile'         => $a['facepile'],
+						'tabs'                  => ! empty( $a['posts'] ) ? 'timeline' : $a['tabs'],
+						'hide_cta'              => $a['cta'],
+						'small_header'          => $a['small'],
+						'adapt_container_width' => $a['adapt'],
+						'locale'                => $a['language'],
+					),
+					'https://www.facebook.com/plugins/page.php'
+				);
 				$return .= sprintf(
-					' data-height="%1$s"',
+					'<iframe src="%1$s" width="%2$s" height="%3$s" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+					esc_url( $url ),
+					esc_attr( $a['width'] ),
 					esc_attr( $a['height'] )
 				);
 			}
-			if ( isset( $a['cover'] ) && ! empty( $a['cover'] ) ) {
-				if ( 'false' == $a['cover'] ) {
-					$return .= ' data-hide-cover="true"';
-				} elseif ( 'true' == $a['cover'] ) {
-					$return .= ' data-hide-cover="false"';
-				}
-			}
-			if ( isset( $a['facepile'] ) && ! empty( $a['facepile'] ) ) {
-				$return .= ' data-show-facepile="' . esc_attr( $a['facepile'] ) . '"';
-			}
-			if ( isset( $a['tabs'] ) && ! empty( $a['tabs'] ) ) {
-				$return .= sprintf(
-					' data-tabs="%1$s"',
-					esc_attr( $a['tabs'] )
-				);
-			} elseif ( isset( $a['posts'] ) && ! empty( $a['posts'] ) ) {
-				if ( 'true' == $a['posts'] ) {
-					$return .= ' data-tabs="timeline"';
-				} else {
-					$return .= ' data-tabs="false"';
-				}
-			}
-			if ( isset( $a['cta'] ) && ! empty( $a['cta'] ) ) {
-				$return .= ' data-hide-cta="' . $a['cta'] . '"';
-				$return .= sprintf(
-					' data-hide-cta="%1$s"',
-					esc_attr( $a['cta'] )
-				);
-			}
-			if ( isset( $a['small'] ) && ! empty( $a['small'] ) ) {
-				$return .= sprintf(
-					' data-small-header="%1$s"',
-					esc_attr( $a['small'] )
-				);
-			}
-			if ( isset( $a['adapt'] ) && ! empty( $a['adapt'] ) ) {
-				$return .= ' data-adapt-container-width="true"';
-			} else {
-				$return .= ' data-adapt-container-width="false"';
-			}
-			$return .= '><div class="fb-xfbml-parse-ignore">';
-			if ( 'true' == $a['link'] ) {
-				$return .= sprintf(
-					'<blockquote cite="https://www.facebook.com/%1$s"><a href="https://www.facebook.com/%1$s">',
-					esc_attr( $a['href'] )
-				);
-				if ( empty( $a['linktext'] ) ) {
-					$return .= 'https://www.facebook.com/' . esc_attr( $a['href'] );
-				} else {
-					$return .= esc_html( $a['linktext'] );
-				}
-				$return .= '</a></blockquote>';
-			}
-			$return .= '</div></div></div>';
+			$return .= '</div>'; // .cameronjonesweb_facebook_page_plugin.
 		}
 		return $return;
 	}
@@ -518,6 +545,11 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		} else {
 			$language = null;
 		}
+		if ( isset( $instance['method'] ) && ! empty( $instance['method'] ) ) {
+			$method = $instance['method'];
+		} else {
+			$method = null;
+		}
 		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput
 		if ( ! empty( $title ) ) {
 			echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput
@@ -565,6 +597,9 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			}
 			if ( isset( $linktext ) && ! empty( $linktext ) ) {
 				$shortcode .= ' linktext="' . esc_attr( $linktext ) . '"';
+			}
+			if ( isset( $method ) && ! empty( $method ) ) {
+				$shortcode .= ' method="' . esc_attr( $method ) . '"';
 			}
 			$shortcode .= ' _implementation="widget"';
 			$shortcode .= ']';
@@ -639,6 +674,11 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 			$language = $instance['language'];
 		} else {
 			$language = '';
+		}
+		if ( isset( $instance['method'] ) ) {
+			$method = $instance['method'];
+		} else {
+			$method = '';
 		}
 
 		$langs = cameronjonesweb_facebook_page_plugin::$locales;
@@ -756,11 +796,14 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		);
 
 		printf(
-			'<p><label for="%1$s">%2$s</label><input class="widefat" id="%1$s" name="%3$s" type="text" value="%4$s" /></p>',
-			esc_attr( $this->get_field_id( 'linktext' ) ),
-			esc_html__( 'Link text:', 'facebook-page-feed-graph-api' ),
-			esc_attr( $this->get_field_name( 'linktext' ) ),
-			esc_attr( $linktext )
+			'<p><label for="%1$s">%2$s</label><select class="widefat" id="%1$s" name="%3$s"><option value="sdk" %6$s>%4$s</option><option value="iframe" %7$s>%5$s</option></select></p>',
+			esc_attr( $this->get_field_id( 'method' ) ),
+			esc_html__( 'Embed method:', 'facebook-page-feed-graph-api' ),
+			esc_attr( $this->get_field_name( 'method' ) ),
+			esc_html__( 'SDK', 'facebook-page-feed-graph-api' ),
+			esc_html__( 'iframe', 'facebook-page-feed-graph-api' ),
+			selected( $method, 'sdk', false ),
+			selected( $method, 'iframe', false )
 		);
 
 		printf(
@@ -821,6 +864,7 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		$instance['link']     = ( ! empty( $new_instance['link'] ) ) ? wp_strip_all_tags( $new_instance['link'] ) : '';
 		$instance['linktext'] = ( ! empty( $new_instance['linktext'] ) ) ? wp_strip_all_tags( $new_instance['linktext'] ) : '';
 		$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? wp_strip_all_tags( $new_instance['language'] ) : '';
+		$instance['method']   = ( ! empty( $new_instance['method'] ) ) ? wp_strip_all_tags( $new_instance['method'] ) : '';
 		return $instance;
 	}
 
@@ -846,12 +890,12 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 		$return .= '<noscript>' . __( 'The shortcode generator requires JavaScript enabled', 'facebook-page-feed-graph-api' ) . '</noscript>';
 
 		$return       .= '<form>';
-		$return       .= '<p><label>' . __( 'Facebook Page URL', 'facebook-page-feed-graph-api' ) . ': <input type="url" id="fbpp-href" /></label></p>';
-		$return       .= '<p><label>' . __( 'Width (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
-		$return       .= '<p><label>' . __( 'Height (pixels)', 'facebook-page-feed-graph-api' ) . ': <input type="number" min="70" id="fbpp-height" /></label></p>';
-		$return       .= '<p><label>' . __( 'Show Cover Photo', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
-		$return       .= '<p><label>' . __( 'Show Facepile', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
-		$return       .= '<p><label>' . __( 'Page Tabs (formerly posts)', 'facebook-page-feed-graph-api' ) . ':';
+		$return       .= '<p><label>' . __( 'Facebook Page URL:', 'facebook-page-feed-graph-api' ) . ' <input type="url" id="fbpp-href" /></label></p>';
+		$return       .= '<p><label>' . __( 'Width (pixels):', 'facebook-page-feed-graph-api' ) . ' <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
+		$return       .= '<p><label>' . __( 'Height (pixels):', 'facebook-page-feed-graph-api' ) . ' <input type="number" min="70" id="fbpp-height" /></label></p>';
+		$return       .= '<p><label>' . __( 'Show Cover Photo:', 'facebook-page-feed-graph-api' ) . ' <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
+		$return       .= '<p><label>' . __( 'Show Facepile:', 'facebook-page-feed-graph-api' ) . ' <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
+		$return       .= '<p><label>' . __( 'Page Tabs:', 'facebook-page-feed-graph-api' );
 		$settings      = new facebook_page_plugin_settings();
 		$cjw_fbpp_tabs = $settings->tabs();
 		if ( ! empty( $cjw_fbpp_tabs ) ) {
@@ -862,12 +906,13 @@ class cameronjonesweb_facebook_page_plugin_shortcode_generator {
 				$return .= '</label>';
 			}
 		}
-		$return .= '<p><label>' . __( 'Hide Call To Action', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
-		$return .= '<p><label>' . __( 'Small Header', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
-		$return .= '<p><label>' . __( 'Adaptive Width', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
-		$return .= '<p><label>' . __( 'Display link while loading', 'facebook-page-feed-graph-api' ) . ': <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
-		$return .= '<p id="linktext-label"><label>' . __( 'Link text', 'facebook-page-feed-graph-api' ) . ': <input type="text" id="fbpp-linktext" /></label></p>';
-		$return .= '<p><label>' . __( 'Language', 'facebook-page-feed-graph-api' ) . ': <select id="fbpp-lang"><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
+		$return .= '<p><label>' . __( 'Hide Call To Action:', 'facebook-page-feed-graph-api' ) . ' <input type="checkbox" value="true" id="fbpp-cta" /></label></p>';
+		$return .= '<p><label>' . __( 'Small Header:', 'facebook-page-feed-graph-api' ) . ' <input type="checkbox" value="true" id="fbpp-small" /></label></p>';
+		$return .= '<p><label>' . __( 'Adaptive Width:', 'facebook-page-feed-graph-api' ) . ' <input type="checkbox" value="true" id="fbpp-adapt" checked /></label></p>';
+		$return .= '<p><label>' . __( 'Display link while loading:', 'facebook-page-feed-graph-api' ) . ' <input type="checkbox" value="true" id="fbpp-link" checked /></label></p>';
+		$return .= '<p id="linktext-label"><label>' . __( 'Link text:', 'facebook-page-feed-graph-api' ) . ' <input type="text" id="fbpp-linktext" /></label></p>';
+		$return .= '<p><label>' . __( 'Embed method:', 'facebook-page-feed-graph-api' ) . '<select id="fbpp-method"><option value="sdk">' . __( 'SDK', 'facebook-page-feed-graph-api' ) . '</option><option value="iframe">' . __( 'iframe', 'facebook-page-feed-graph-api' ) . '</option></select><label></p>';
+		$return .= '<p><label>' . __( 'Language:', 'facebook-page-feed-graph-api' ) . ' <select id="fbpp-lang"><option value="">' . __( 'Site Language', 'facebook-page-feed-graph-api' ) . '</option>';
 		if ( isset( $this->langs ) && ! empty( $this->langs ) ) {
 			foreach ( $this->langs as $code => $label ) {
 				$return .= '<option value="' . esc_attr( $code ) . '">' . esc_html( $label ) . '</option>';

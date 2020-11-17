@@ -29,7 +29,7 @@ With more than 30,000 installs and nearly 50 5-star rating, the Mongoose Page Pl
 Mongoose Marketplace is a new website just for my plugins. It's still being maintained by the same developer as always, just with new branding.
 
 ### I can only see a link, the plugin won't load
-The two most common causes of the plugin not displaying are an ad blocker, or audience restrictions. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook.
+The two most common causes of the plugin not displaying are an ad blocker, audience restrictions or browser privacy settings. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook.
 
 ### The plugin loads but doesn't show the facepile or posts
 The default height of the plugin is only tall enough to display the main page header. Increase the height until you can see the additional features you want to display.
