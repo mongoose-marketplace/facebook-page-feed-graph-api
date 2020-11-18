@@ -9,7 +9,7 @@ Stable tag: 1.7.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
+The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 111 different languages
 
 
 == Description ==
@@ -23,32 +23,24 @@ Other features include:
 
 * A shortcode generator on the admin dashboard for easy generating of the shortcode
 
-* Uses your site language by default, but you can display your Facebook page in all 95 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
+* Uses your site language by default, but you can display your Facebook page in all 111 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
 
 With more than 30,000 installs and over 50 5-star ratings, the Mongoose Page Plugin is one of the most popular social media plugins for WordPress.
 
 
 == Frequently Asked Questions ==
 
-= What happened to "Show Posts"? =
-The latest version of the API has removed show posts and replaced it with `tabs` which is more dynamic. To show just the posts, your tabs value should be "timeline". To hide the posts, `tabs` should be empty (shortcode) or select "none" (widget). If you're using the shortcode, remember that by default it shows the timeline so you must set it as either an empty or false value to hide posts ie `tabs=""` or `tabs="false"`. If the posts option is already being used it will be converted to tabs.
+= The plugin doesn't load properly =
+The two most common causes of the plugin not displaying are an ad blocker, audience restrictions or browser privacy settings. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook. Some antivirus software has also been known to block Facebook scripts, preventing it from loading. Browsers are also being more proactive in blocking Facebook scripts, so make sure your browser privacy settings are not stopping it from loading.
 
-= What languages are available? =
-As of version 1.2.0, the plugin is available in all languages provided by Facebook. By default it uses the same language as the site, but alternatively you can specify the language in the shortcode. The dashboard widget is currently only available in English but is multilingual ready.
+= Where did Mongoose Marketplace come from? =
+Mongoose Marketplace is a new website just for my plugins. It's still being maintained by the same developer as always, just with new branding.
 
-= My Facebook page isn't loading =
-If the URL for your page is http://facebook.com/ABC123 then when you use the shortcode don't include the domain, instead use like so: `[facebook-page-plugin href="ABC123"]`
-Also, if your page has only just been created it may take some time for the API to load the page. Just be patient
+= The plugin loads but doesn't show the facepile or posts =
+The default height of the plugin is only tall enough to display the main page header. Increase the height until you can see the additional features you want to display.
 
-= What versions of WordPress will this plugin work on? =
-Shortcodes were introduced in WordPress 2.5, so theorectially it should work on all sites that are at least 2.5, however it has only been tested on versions 4.0 and up, and no guarantee will be made concerning earlier versions
-
-= I can only see a link, the plugin won't load =
-By default the plugin will display a link to your page while the page plugin loads. If the page plugin doesn't load, this could happen for a number of reasons. Your connection could be very slow, you could have JavaScript disabled, you could have an ad blocker or similar browser extension blocking the plugin or there could be an error in the information you have provided in the widget or shortcode.
-Additionally, if your Facebook page has audience restrictions for age and/or location, the plugin will not display. If you want the plugin to display, disable the audience restrictions in your page settings on Facebook.
-
-= I can't get the Facepile to work! =
-Chances are your plugin isn't tall enough to display the facepile properly. The facepile requires the plugin to have a minimum height of 214 pixels, or 154 pixel if using the small header.
+= Where is the shortcode generator? =
+On your dashboard. We'll be improving how this is implemented in future versions.
 
 
 == Screenshots ==
@@ -58,6 +50,12 @@ Chances are your plugin isn't tall enough to display the facepile properly. The 
 
 
 == Changelog ==
+
+= 1.8.0 - 19/11/20 =
+* Updated SDK version
+* Verified compatibility with WordPress 5.5
+* Updated supported locales (RIP Pirate English)
+* Added iframe embed option
 
 = 1.7.3 - 14/04/20 =
 * Fixed Immediately Invoked Function Expression that was breaking on PHP < 7.0
@@ -211,6 +209,8 @@ Available settings:
 `adapt` (true/false, force plugin to be responsive, default true)
 
 `language` (languageCode_countryCode eg: en_US, language of the plugin, default site language)
+
+`method` (SDK or iframe embed method, default SDK)
 
 * Deprecated Settings *
 
