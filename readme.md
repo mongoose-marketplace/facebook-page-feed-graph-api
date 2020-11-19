@@ -46,7 +46,7 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 ## Changelog
 
-### 1.8.0 - 19/11/20
+### 1.8.0 - 20/11/20
 * Updated SDK version
 * Verified compatibility with WordPress 5.5
 * Updated supported locales (RIP Pirate English)

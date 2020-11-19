@@ -5,7 +5,7 @@ Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
 Tested up to: 5.5
 Requires PHP: 5.3
-Stable tag: 1.7.3
+Stable tag: 1.8.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -51,7 +51,7 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 == Changelog ==
 
-= 1.8.0 - 19/11/20 =
+= 1.8.0 - 20/11/20 =
 * Updated SDK version
 * Verified compatibility with WordPress 5.5
 * Updated supported locales (RIP Pirate English)
