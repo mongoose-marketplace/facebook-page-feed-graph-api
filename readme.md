@@ -1,10 +1,10 @@
-[![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api) [![RIPS CodeRisk](https://coderisk.com/wp/plugin/facebook-page-feed-graph-api/badge "RIPS CodeRisk")](https://coderisk.com/wp/plugin/facebook-page-feed-graph-api)
+[![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api)
 
 # Mongoose Page Plugin
 
 [![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/E1E0GU12) [![patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://patreon.com/cameronjonesweb)
 
-The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
+The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 111 different languages
 
 
 ## Description
@@ -18,18 +18,18 @@ Other features include:
 
 * A shortcode generator on the admin dashboard for easy generating of the shortcode
 
-* Uses your site language by default, but you can display your Facebook page in all 95 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
+* Uses your site language by default, but you can display your Facebook page in all 111 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
 
 With more than 30,000 installs and nearly 50 5-star rating, the Mongoose Page Plugin is one of the most popular social media plugins for WordPress.
 
 
 ## Frequently Asked Questions
 
+### The plugin doesn't load properly
+The two most common causes of the plugin not displaying are an ad blocker, audience restrictions or browser privacy settings. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook. Some antivirus software has also been known to block Facebook scripts, preventing it from loading. Browsers are also being more proactive in blocking Facebook scripts, so make sure your browser privacy settings are not stopping it from loading.
+
 ### Where did Mongoose Marketplace come from?
 Mongoose Marketplace is a new website just for my plugins. It's still being maintained by the same developer as always, just with new branding.
-
-### I can only see a link, the plugin won't load
-The two most common causes of the plugin not displaying are an ad blocker, or audience restrictions. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook.
 
 ### The plugin loads but doesn't show the facepile or posts
 The default height of the plugin is only tall enough to display the main page header. Increase the height until you can see the additional features you want to display.
@@ -46,7 +46,13 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 ## Changelog
 
-### 1.7.3 - 14/05/20
+### 1.8.0 - 20/11/20
+* Updated SDK version
+* Verified compatibility with WordPress 5.5
+* Updated supported locales (RIP Pirate English)
+* Added iframe embed option
+
+### 1.7.3 - 14/04/20
 * Fixed Immediately Invoked Function Expression that was breaking on PHP < 7.0
 * Code quality improvements in shortcode render method
 
@@ -198,6 +204,8 @@ Available settings:
 `adapt` (true/false, force plugin to be responsive, default true)
 
 `language` (languageCode_countryCode eg: en_US, language of the plugin, default site language)
+
+`method` (SDK or iframe embed method, default SDK)
 
 * Deprecated Settings *
 
