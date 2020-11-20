@@ -552,7 +552,8 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		}
 		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput
+			// Apparently people like to put HTML in their widget titles, not a good idea but okay ¯\_(ツ)_/¯.
+			echo $args['before_title'] . $title . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 		if ( ! empty( $href ) ) {
 			$shortcode = '[facebook-page-plugin href="' . $href . '"';
