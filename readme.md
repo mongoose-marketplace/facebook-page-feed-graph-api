@@ -46,6 +46,10 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 ## Changelog
 
+###= 1.8.1 - 13/12/20
+* No longer escape widget titles
+* Verified compatibility with WordPress 5.6
+
 ### 1.8.0 - 20/11/20
 * Updated SDK version
 * Verified compatibility with WordPress 5.5
