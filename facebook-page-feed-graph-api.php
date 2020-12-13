@@ -3,7 +3,7 @@
  * Plugin Name: Mongoose Page Plugin
  * Plugin URI: https://mongoosemarketplace.com/downloads/facebook-page-plugin/
  * Description: The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
- * Version: 1.8.0
+ * Version: 1.8.1
  * Author: Mongoose Marketplace
  * Author URI: https://mongoosemarketplace.com/
  * License: GPLv2
@@ -146,7 +146,7 @@ class cameronjonesweb_facebook_page_plugin {
 		define( 'CJW_FBPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define( 'CJW_FBPP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-		define( 'CJW_FBPP_PLUGIN_VER', '1.8.0' );
+		define( 'CJW_FBPP_PLUGIN_VER', '1.8.1' );
 		define( 'CJW_FBPP_PLUGIN_DONATE_LINK', 'https://www.patreon.com/cameronjonesweb' );
 		define( 'CJW_FBPP_PLUGIN_SURVEY_LINK', 'https://cameronjonesweb.typeform.com/to/BllbYm' );
 
@@ -552,7 +552,8 @@ class cameronjonesweb_facebook_page_plugin_widget extends WP_Widget {
 		}
 		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput
+			// Apparently people like to put HTML in their widget titles, not a good idea but okay ¯\_(ツ)_/¯.
+			echo $args['before_title'] . $title . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 		if ( ! empty( $href ) ) {
 			$shortcode = '[facebook-page-plugin href="' . $href . '"';
