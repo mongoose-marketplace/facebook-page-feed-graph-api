@@ -10,11 +10,11 @@ Stable tag: 1.8.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
+The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 111 different languages
+
 [![Build Status](https://api.travis-ci.com/mongoose-marketplace/facebook-page-feed-graph-api.svg)](https://travis-ci.com/mongoose-marketplace/facebook-page-feed-graph-api)
 
 [![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/E1E0GU12) [![patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://patreon.com/cameronjonesweb)
-
-The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 111 different languages
 
 
 ## Description
