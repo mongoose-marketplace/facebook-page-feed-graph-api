@@ -1,6 +1,16 @@
-[![Build Status](https://api.travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api.svg)](https://travis-ci.org/cameronjonesweb/facebook-page-feed-graph-api)
-
 # Mongoose Page Plugin
+
+Contributors: cameronjonesweb, mongoosemarketplace
+Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
+Donate link: https://www.patreon.com/cameronjonesweb
+Requires at least: 4.6
+Tested up to: 5.8
+Requires PHP: 5.3
+Stable tag: 1.8.1
+License: GPLv2
+License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+[![Build Status](https://api.travis-ci.com/mongoose-marketplace/facebook-page-feed-graph-api.svg)](https://travis-ci.com/mongoose-marketplace/facebook-page-feed-graph-api)
 
 [![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/E1E0GU12) [![patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://patreon.com/cameronjonesweb)
 
@@ -20,7 +30,7 @@ Other features include:
 
 * Uses your site language by default, but you can display your Facebook page in all 111 languages that Facebook supports, including English, Spanish, Arabic, German, French, Russian and many more
 
-With more than 30,000 installs and nearly 50 5-star rating, the Mongoose Page Plugin is one of the most popular social media plugins for WordPress.
+With more than 30,000 installs and over 50 5-star rating, the Mongoose Page Plugin is one of the most popular social media plugins for WordPress.
 
 
 ## Frequently Asked Questions
@@ -40,13 +50,13 @@ On your dashboard. We'll be improving how this is implemented in future versions
 
 ## Screenshots
 1. Installation example
-1. Example of the new widget introduced in version 1.2.0
-1. The new shortcode generator dashboard widget
+2. Example of the new widget introduced in version 1.2.0
+3. The new shortcode generator dashboard widget
 
 
 ## Changelog
 
-###= 1.8.1 - 13/12/20
+### 1.8.1 - 13/12/20
 * No longer escape widget titles
 * Verified compatibility with WordPress 5.6
 
