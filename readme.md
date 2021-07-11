@@ -47,6 +47,9 @@ The default height of the plugin is only tall enough to display the main page he
 ### Where is the shortcode generator?
 On your dashboard. We'll be improving how this is implemented in future versions.
 
+### Is there a Gutenberg block?
+Not yet, but it is on our roadmap.
+
 
 ## Screenshots
 1. Installation example
