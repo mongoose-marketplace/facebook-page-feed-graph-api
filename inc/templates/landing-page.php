@@ -1,9 +1,14 @@
 <?php
-defined( 'ABSPATH' ) or die();
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
 $currentuser = wp_get_current_user();
+
 if ( ! function_exists( 'plugins_api' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 }
+
 $plugin_data = plugins_api(
 	'plugin_information',
 	array(
@@ -15,7 +20,7 @@ $plugin_data = plugins_api(
 <div class="wrap mongoose-facebook-page-plugin">
 	<h1 class="notices-placeholder"></h1>
 	<div class="mongoose-facebook-page-plugin__banner">
-		<img src="<?php echo esc_url( trailingslashit( CJW_FBPP_PLUGIN_URL ) ); ?>images/banner-1544x500.png" />
+		<img src="<?php echo esc_url( trailingslashit( Mongoose_Page_Plugin::get_instance()->dirurl ) ); ?>images/banner-1544x500.png" />
 	</div>
 	<div class="mongoose-facebook-page-plugin__box">
 		<?php
@@ -53,7 +58,7 @@ $plugin_data = plugins_api(
 								printf(
 									/* translators: 1. version number */
 									esc_html__( 'New in version %1$s', 'facebook-page-feed-graph-api' ),
-									esc_html( CJW_FBPP_PLUGIN_VER )
+									esc_html( Mongoose_Page_Plugin::get_instance()->version )
 								);
 								?>
 							</h3>
@@ -82,9 +87,11 @@ $plugin_data = plugins_api(
 							<h3><i class="dashicons dashicons-heart"></i> <?php esc_html_e( 'Donate', 'facebook-page-feed-graph-api' ); ?></h3>
 							<p>
 								<?php
+								/* translators: 1. opening anchor tag 2. closing anchor tag */
 								printf(
-									__( 'Development relies on donations from kind-hearted supporters of the Mongoose Page Plugin. If you\'re enjoying the plugin, <a href="%1$s" target="_blank" rel="noopener noreferrer">please donate today</a>.', 'facebook-page-feed-graph-api' ),
-									esc_url( CJW_FBPP_PLUGIN_DONATE_LINK )
+									__( 'Development relies on donations from kind-hearted supporters of the Mongoose Page Plugin. If you\'re enjoying the plugin, %1$splease donate today%2$s.', 'facebook-page-feed-graph-api' ),
+									sprintf( '<a href="%1$s" target="_blank" rel="noopener noreferrer">', esc_url( Mongoose_Page_Plugin::get_instance()->donate_link ) ),
+									'</a>'
 								);
 								?>
 							</p>
@@ -137,7 +144,7 @@ $plugin_data = plugins_api(
 						<div class="main inside">
 							<h3><i class="dashicons dashicons-chart-line"></i> <?php esc_html_e( 'Take The Survey', 'facebook-page-feed-graph-api' ); ?></h3>
 							<p><?php esc_html_e( 'Want to have your say about the Mongoose Page Plugin?', 'facebook-page-feed-graph-api' ); ?></p>
-							<p><a href="<?php echo esc_url( CJW_FBPP_PLUGIN_SURVEY_LINK ); ?>" class="button" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
+							<p><a href="<?php echo esc_url( Mongoose_Page_Plugin::get_instance()->survey_link ); ?>" class="button" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
 						</div>
 					</div>
 					<div class="postbox mongoose-facebook-page-plugin__box">

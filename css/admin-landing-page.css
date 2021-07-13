@@ -1,42 +1,42 @@
-body.settings_page_facebook-page-plugin {
+body.settings_page_mongoose-page-plugin {
 	background: #fff;
 }
 
-.settings_page_facebook-page-plugin .welcome-panel-content {
+.settings_page_mongoose-page-plugin .welcome-panel-content {
 	margin-right: 13px;
 }
 
-.settings_page_facebook-page-plugin .welcome-panel-image {
+.settings_page_mongoose-page-plugin .welcome-panel-image {
 	width: 100%;
 }
 
-.settings_page_facebook-page-plugin .about-description {
+.settings_page_mongoose-page-plugin .about-description {
 	margin: 13px 0 0;
 }
 
-.settings_page_facebook-page-plugin .spinner.is-active {
+.settings_page_mongoose-page-plugin .spinner.is-active {
 	float: none !important;
 	margin-left: 0 !important;
 }
 
-.settings_page_facebook-page-plugin #wpbody-content {
+.settings_page_mongoose-page-plugin #wpbody-content {
 	font-family: 'Muli', 'Helvetica', 'Arial', sans-serif;
 }
 
-.settings_page_facebook-page-plugin .page-title {
+.settings_page_mongoose-page-plugin .page-title {
 	font-family: 'Rammetto One', cursive;
 	padding: 0;
 }
 
-.settings_page_facebook-page-plugin h2,
-.settings_page_facebook-page-plugin h3,
-.settings_page_facebook-page-plugin h4,
-.settings_page_facebook-page-plugin h5,
-.settings_page_facebook-page-plugin h6 {
+.settings_page_mongoose-page-plugin h2,
+.settings_page_mongoose-page-plugin h3,
+.settings_page_mongoose-page-plugin h4,
+.settings_page_mongoose-page-plugin h5,
+.settings_page_mongoose-page-plugin h6 {
 	font-family: 'Paytone One', sans-serif;
 }
 
-.settings_page_facebook-page-plugin .mongoose-facebook-page-plugin__box {
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin__box {
 	background-color: #f8f3ed;
 	padding: 20px 25px;
 	margin-bottom: 20px;
@@ -44,33 +44,33 @@ body.settings_page_facebook-page-plugin {
 	box-shadow: none;
 }
 
-.settings_page_facebook-page-plugin .mongoose-facebook-page-plugin__box p:last-child {
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin__box p:last-child {
 	margin-bottom: 0 !important;
 }
 
-.settings_page_facebook-page-plugin .mongoose-facebook-page-plugin__box .inside {
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin__box .inside {
 	margin-top: 0;
 	padding: 0;
 }
-.settings_page_facebook-page-plugin .mongoose-facebook-page-plugin__box .inside h2 {
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin__box .inside h2 {
 	padding-top: 0;
 }
 
-.settings_page_facebook-page-plugin .notices-placeholder {
+.settings_page_mongoose-page-plugin .notices-placeholder {
 	visibility: hidden;
 	height: 0;
 	overflow: hidden;
 }
 
-.settings_page_facebook-page-plugin .mongoose-facebook-page-plugin {
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin {
 	max-width: 1544px;
 }
 
-.settings_page_facebook-page-plugin .mongoose-facebook-page-plugin__banner {
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin__banner {
 	position: relative;
 }
 
-.settings_page_facebook-page-plugin .mongoose-facebook-page-plugin__banner:after {
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin__banner:after {
 	position: absolute;
 	content: "";
 	background-image: url( ../images/banner-border.png );
@@ -83,7 +83,7 @@ body.settings_page_facebook-page-plugin {
 	background-repeat: no-repeat;
 }
 
-.settings_page_facebook-page-plugin .mongoose-facebook-page-plugin__banner img {
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin__banner img {
 	max-width: 100%;
 	height: auto;
 	display: block;
@@ -109,7 +109,15 @@ body.settings_page_facebook-page-plugin {
 	color: #e46341;
 }
 
-#mce-EMAIL {
+.settings_page_mongoose-page-plugin #mce-EMAIL {
 	padding: 4px 12px;
 	line-height: 28px;
+}
+
+.settings_page_mongoose-page-plugin dt {
+	font-weight: bold;
+}
+
+.settings_page_mongoose-page-plugin dt p {
+	font-weight: normal;
 }
