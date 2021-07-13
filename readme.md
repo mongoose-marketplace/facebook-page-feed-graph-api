@@ -6,7 +6,7 @@ Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
 Tested up to: 5.8
 Requires PHP: 5.3
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -58,6 +58,13 @@ Not yet, but it is on our roadmap.
 
 
 ## Changelog
+
+### 1.8.2 - 14/07/21
+* Verified compatibility with WordPress 5.8, including the block based widgets
+* Updated SDK version to 11.0
+* Code quality improvements
+* Fix RSS news feed
+* Remove readme.txt in favour of readme.md
 
 ### 1.8.1 - 13/12/20
 * No longer escape widget titles
