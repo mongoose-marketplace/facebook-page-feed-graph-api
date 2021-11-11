@@ -532,7 +532,6 @@ class Mongoose_Page_Plugin {
 					}
 				}
 				if ( isset( $a['cta'] ) && ! empty( $a['cta'] ) ) {
-					$return .= ' data-hide-cta="' . $a['cta'] . '"';
 					$return .= sprintf(
 						' data-hide-cta="%1$s"',
 						esc_attr( $a['cta'] )
