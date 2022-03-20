@@ -370,7 +370,7 @@ class Mongoose_Page_Plugin {
 		// Scripts.
 		wp_register_script( 'facebook-page-plugin-admin-scripts', trailingslashit( $this->dirurl ) . 'js/admin-global.js', array( 'jquery' ), $this->version, true );
 		wp_register_script( 'facebook-page-plugin-landing-page-js', trailingslashit( $this->dirurl ) . 'js/admin-landing-page.js', array( 'jquery' ), $this->version, true );
-		wp_register_script( 'facebook-page-plugin-responsive-script', trailingslashit( $this->dirurl ) . 'js/responsive.min.js', 'jquery', $this->version, true );
+		wp_register_script( 'facebook-page-plugin-responsive-script', trailingslashit( $this->dirurl ) . 'js/responsive.min.js', array( 'jquery' ), $this->version, true );
 		wp_register_script( 'facebook-page-plugin-sk-hosted', 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v9.0', array(), '9.0', true );
 		wp_register_script( 'facebook-page-plugin-sdk-local', trailingslashit( $this->dirurl ) . 'js/sdk.js', array(), '9.0', true );
 	}
