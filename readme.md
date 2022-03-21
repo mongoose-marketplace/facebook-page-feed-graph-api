@@ -4,7 +4,7 @@ Contributors: cameronjonesweb, mongoosemarketplace
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
 Donate link: https://www.patreon.com/cameronjonesweb
 Requires at least: 4.6
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.3
 Stable tag: 1.8.2
 License: GPLv2
