@@ -3,7 +3,7 @@
  * Plugin Name: Mongoose Page Plugin
  * Plugin URI: https://mongoosemarketplace.com/downloads/facebook-page-plugin/
  * Description: The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 95 different languages
- * Version: 1.8.2
+ * Version: 1.8.3
  * Author: Mongoose Marketplace
  * Author URI: https://mongoosemarketplace.com/
  * License: GPLv2

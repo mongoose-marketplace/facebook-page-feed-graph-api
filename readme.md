@@ -59,6 +59,11 @@ Not yet, but it is on our roadmap.
 
 ## Changelog
 
+### 1.8.3 - 21/03/22
+* Verified compatibility with WordPress 5.9
+* Fix duplication of a data attribute
+* Fix dependencies for the responsive script
+
 ### 1.8.2 - 14/07/21
 * Verified compatibility with WordPress 5.8, including the block based widgets
 * Updated SDK version to 11.0
