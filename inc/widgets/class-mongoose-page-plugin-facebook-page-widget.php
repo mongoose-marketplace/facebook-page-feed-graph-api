@@ -33,7 +33,7 @@ class Mongoose_Page_Plugin_Facebook_Page_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$this->settings = Mongoose_Page_Plugin::get_instance()->get_settings();
-		parent::__construct( 'facebook_page_plugin_widget', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ) ) );
+		parent::__construct( 'facebook_page_plugin_widget', __( 'Mongoose Page Plugin: Facebook Page Embed', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ) ) );
 	}
 
 	/**
