@@ -425,7 +425,7 @@ class Mongoose_Page_Plugin {
 	public function facebook_page_plugin_landing_page() {
 		wp_enqueue_style( 'facebook-page-plugin-landing-page-css' );
 		wp_enqueue_style( 'facebook-page-plugin-google-fonts' );
-		wp_enqueue_script( 'facebook-page-plugin-landing-page-js' );
+		// wp_enqueue_script( 'facebook-page-plugin-landing-page-js' );
 		require_once trailingslashit( $this->dirpath ) . 'inc/templates/landing-page.php';
 	}
 

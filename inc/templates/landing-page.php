@@ -66,7 +66,7 @@ $plugin_data = plugins_api(
 							if ( ! empty( $plugin_data ) && ! is_wp_error( $plugin_data ) && isset( $plugin_data->sections['changelog'] ) ) {
 								$changelog = explode( '</ul>', $plugin_data->sections['changelog'] );
 								if ( ! empty( $changelog ) ) {
-									$changes = explode( '</h4>', $changelog[0] );
+									$changes = explode( '</h3>', $changelog[0] );
 									echo wp_kses_post( $changes[1] );
 									echo '</ul>';
 								}
@@ -138,21 +138,6 @@ $plugin_data = plugins_api(
 								);
 								?>
 								</p>
-						</div>
-					</div>
-					<div class="postbox mongoose-facebook-page-plugin__box">
-						<div class="main inside">
-							<h3><i class="dashicons dashicons-chart-line"></i> <?php esc_html_e( 'Take The Survey', 'facebook-page-feed-graph-api' ); ?></h3>
-							<p><?php esc_html_e( 'Want to have your say about the Mongoose Page Plugin?', 'facebook-page-feed-graph-api' ); ?></p>
-							<p><a href="<?php echo esc_url( Mongoose_Page_Plugin::get_instance()->survey_link ); ?>" class="button" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Take The Survey!', 'facebook-page-feed-graph-api' ); ?></a></p>
-						</div>
-					</div>
-					<div class="postbox mongoose-facebook-page-plugin__box">
-						<div class="main inside">
-							<h3><i class="dashicons dashicons-testimonial"></i> <?php esc_html_e( 'Latest News From The Developer', 'facebook-page-feed-graph-api' ); ?></h3>
-							<div id="blog-posts-target">
-								<span class="spinner is-active"></span>
-							</div>
 						</div>
 					</div>
 				</div>
