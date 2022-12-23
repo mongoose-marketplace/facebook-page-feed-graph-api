@@ -317,7 +317,7 @@ class Mongoose_Page_Plugin {
 		}
 
 		if ( $echo ) {
-			echo $return;
+			echo $return; // phpcs:ignore
 		} else {
 			return $return;
 		}
@@ -424,7 +424,6 @@ class Mongoose_Page_Plugin {
 	public function facebook_page_plugin_landing_page() {
 		wp_enqueue_style( 'facebook-page-plugin-landing-page-css' );
 		wp_enqueue_style( 'facebook-page-plugin-google-fonts' );
-		// wp_enqueue_script( 'facebook-page-plugin-landing-page-js' );
 		require_once trailingslashit( $this->dirpath ) . 'inc/templates/landing-page.php';
 	}
 
@@ -438,7 +437,7 @@ class Mongoose_Page_Plugin {
 			__( 'Latest plugin news', 'facebook-page-feed-graph-api' )
 		);
 		wp_widget_rss_output( 'http://www.rssmix.com/u/13155011/rss.xml', array( 'show_date' => 1 ) );
-		wp_die( $links );
+		wp_die( $links ); // phpcs:ignore
 	}
 
 	/**
