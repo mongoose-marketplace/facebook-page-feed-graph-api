@@ -243,7 +243,6 @@ class Mongoose_Page_Plugin {
 	 */
 	public function hooks() {
 		// Actions.
-		add_action( 'wp_dashboard_setup', array( $this, 'facebook_page_plugin_dashboard_widget' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_resources' ) );
 		add_action( 'admin_init', array( $this, 'remove_donate_notice_nojs' ) );
 		add_action( 'admin_menu', array( $this, 'landing_page_menu' ) );
@@ -273,14 +272,6 @@ class Mongoose_Page_Plugin {
 			wp_safe_redirect( admin_url( 'options-general.php?page=mongoose-page-plugin' ) );
 			die();
 		}
-	}
-
-	/**
-	 * Filter functions.
-	 */
-	private function dashboard_widget_capability() {
-		$return = apply_filters( 'facebook_page_plugin_dashboard_widget_capability', 'edit_posts' );
-		return $return;
 	}
 
 	/**
@@ -381,24 +372,6 @@ class Mongoose_Page_Plugin {
 	public function admin_resources() {
 		wp_enqueue_script( 'facebook-page-plugin-admin-scripts' );
 		wp_enqueue_style( 'facebook-page-plugin-admin-styles' );
-	}
-
-	/**
-	 * Register the dashboard widget
-	 */
-	public function facebook_page_plugin_dashboard_widget() {
-		if ( current_user_can( $this->dashboard_widget_capability() ) ) {
-			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Mongoose Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'dashboard_widget_callback' ) );
-		}
-	}
-
-	/**
-	 * Load the dashboard widget
-	 */
-	public function dashboard_widget_callback() {
-		echo '<a name="cameronjonesweb_facebook_page_plugin_shortcode_generator"></a>';
-		$generator = new Mongoose_Page_Plugin_Shortcode_Generator();
-		$generator->generate();
 	}
 
 	/**
