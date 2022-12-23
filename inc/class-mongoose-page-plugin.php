@@ -490,7 +490,7 @@ class Mongoose_Page_Plugin {
 
 			if ( 'sdk' === $a['method'] ) {
 
-				$return .= '<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v11.0"></script>';
+				$return .= '<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/' . esc_attr( $a['language'] ) . '/sdk.js#xfbml=1&version=v11.0"></script>';
 
 				$return .= sprintf(
 					'<div class="fb-page" data-href="https://facebook.com/%1$s" ',
