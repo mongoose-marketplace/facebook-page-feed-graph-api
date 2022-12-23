@@ -47,9 +47,9 @@ $plugin_data = plugins_api(
 		<h3><?php esc_html_e( 'Support This Plugin', 'facebook-page-feed-graph-api' ); ?></h3>
 		<p>
 			<?php
-			/* translators: 1. closing anchor tag 2. opening anchor tag (WP.org review) 3. opening anchor tag (Patreon) */
 			printf(
-				__( 'If the Mongoose Page Plugin provides you value, please consider %2$sleaving a review%1$s or %3$ssupporting us on Patreon%1$s.' ),
+				/* translators: 1. closing anchor tag 2. opening anchor tag (WP.org review) 3. opening anchor tag (Patreon) */
+				__( 'If the Mongoose Page Plugin provides you value, please consider %2$sleaving a review%1$s or %3$ssupporting us on Patreon%1$s.' ), // phpcs:ignore WordPress.Security.EscapeOutput
 				'</a>',
 				'<a href="https://wordpress.org/support/view/plugin-reviews/facebook-page-feed-graph-api#new-post" target="_blank" rel="noopener noreferrer">',
 				'<a href="https://www.patreon.com/cameronjonesweb" target="_blank" rel="noopener noreferrer">'
@@ -95,7 +95,7 @@ $plugin_data = plugins_api(
 			<?php
 			printf(
 				/* translators: 1. closing anchor tag 2. opening anchor tag (GitHub) 3. opening anchor tag (WP.org) 4. opening anchor tag (website) */
-				__( 'If you run into any issues with the plugin, please open a support ticket on %2$sGithub%1$s, on %3$sWordPress.org%1$s or on %4$sour website%1$s.', 'facebook-page-feed-graph-api' ),
+				__( 'If you run into any issues with the plugin, please open a support ticket on %2$sGithub%1$s, on %3$sWordPress.org%1$s or on %4$sour website%1$s.', 'facebook-page-feed-graph-api' ), // phpcs:ignore WordPress.Security.EscapeOutput
 				'</a>',
 				'<a href="https://github.com/cameronjonesweb/facebook-page-feed-graph-api/issues" target="_blank" rel="noopener noreferrer">',
 				'<a href="https://wordpress.org/support/plugin/facebook-page-feed-graph-api" target="_blank" rel="noopener noreferrer">',
