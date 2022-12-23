@@ -381,7 +381,6 @@ class Mongoose_Page_Plugin {
 	public function admin_resources() {
 		wp_enqueue_script( 'facebook-page-plugin-admin-scripts' );
 		wp_enqueue_style( 'facebook-page-plugin-admin-styles' );
-
 	}
 
 	/**
@@ -409,7 +408,7 @@ class Mongoose_Page_Plugin {
 	 */
 	public function landing_page_menu() {
 		add_options_page(
-			__( 'Mongoose Page Plugin by Mongoose Marketplace', 'facebook-page-feed-graph-api' ),
+			__( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ),
 			'Mongoose Page Plugin',
 			'install_plugins',
 			'mongoose-page-plugin',

@@ -1,3 +1,27 @@
+.settings_page_mongoose-page-plugin .page-title {
+	margin-bottom: 1rem;
+}
+
+.settings_page_mongoose-page-plugin .page-title__icon {
+	width: 32px;
+	vertical-align: middle;
+	margin-right: .5rem;
+}
+
+.settings_page_mongoose-page-plugin dt {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.settings_page_mongoose-page-plugin dt p {
+	font-weight: normal;
+}
+
+.settings_page_mongoose-page-plugin .mongoose-facebook-page-plugin__box {
+	max-width: 600px;
+}
+
+/*
 body.settings_page_mongoose-page-plugin {
 	background: #fff;
 }
@@ -113,11 +137,4 @@ body.settings_page_mongoose-page-plugin {
 	padding: 4px 12px;
 	line-height: 28px;
 }
-
-.settings_page_mongoose-page-plugin dt {
-	font-weight: bold;
-}
-
-.settings_page_mongoose-page-plugin dt p {
-	font-weight: normal;
-}
+*/

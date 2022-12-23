@@ -1,13 +1,21 @@
 # Mongoose Page Plugin
 
 Contributors: cameronjonesweb, mongoosemarketplace
+
 Tags: like box,facebook like box,facebook page plugin, facebook feed, facebook page
+
 Donate link: https://www.patreon.com/cameronjonesweb
+
 Requires at least: 4.6
-Tested up to: 5.9
+
+Tested up to: 6.0
+
 Requires PHP: 5.3
+
 Stable tag: 1.8.2
+
 License: GPLv2
+
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 The most popular way to display the Facebook Page Plugin on your WordPress website. Easy implementation using a shortcode or widget. Now available in 111 different languages
@@ -36,16 +44,13 @@ With more than 30,000 installs and over 50 5-star rating, the Mongoose Page Plug
 ## Frequently Asked Questions
 
 ### The plugin doesn't load properly
-The two most common causes of the plugin not displaying are an ad blocker, audience restrictions or browser privacy settings. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook. Some antivirus software has also been known to block Facebook scripts, preventing it from loading. Browsers are also being more proactive in blocking Facebook scripts, so make sure your browser privacy settings are not stopping it from loading.
-
-### Where did Mongoose Marketplace come from?
-Mongoose Marketplace is a new website just for my plugins. It's still being maintained by the same developer as always, just with new branding.
+The most common causes of the plugin not displaying are an ad blocker, audience restrictions or browser privacy settings. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook. Some antivirus software has also been known to block Facebook scripts, preventing it from loading. Browsers are also being more proactive in blocking Facebook scripts, so make sure your browser privacy settings are not stopping it from loading.
 
 ### The plugin loads but doesn't show the facepile or posts
 The default height of the plugin is only tall enough to display the main page header. Increase the height until you can see the additional features you want to display.
 
 ### Where is the shortcode generator?
-On your dashboard. We'll be improving how this is implemented in future versions.
+As of version 1.9.0, the shortcode generator has moved to Settings > Mongoose Page Plugin > Shortcode Generator
 
 ### Is there a Gutenberg block?
 Not yet, but it is on our roadmap.

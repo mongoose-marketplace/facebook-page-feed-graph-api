@@ -32,10 +32,11 @@ class Mongoose_Page_Plugin_Shortcode_Generator {
 	 * Create the markup for the shortcode generator
 	 */
 	public function generate() {
+		wp_enqueue_script( 'facebook-page-plugin-admin-scripts' );
+
 		$return        = null;
-		$return       .= Mongoose_Page_Plugin::get_instance()->donate_notice();
 		$return       .= '<noscript>' . __( 'The shortcode generator requires JavaScript enabled', 'facebook-page-feed-graph-api' ) . '</noscript>';
-		$return       .= '<form>';
+		$return       .= '<form class="facebook-page-plugin-shortcode-generator">';
 		$return       .= '<p><label>' . __( 'Facebook Page URL:', 'facebook-page-feed-graph-api' ) . ' <input type="url" id="fbpp-href" /></label></p>';
 		$return       .= '<p><label>' . __( 'Width (pixels):', 'facebook-page-feed-graph-api' ) . ' <input type="number" max="500" min="180" id="fbpp-width" /></label></p>';
 		$return       .= '<p><label>' . __( 'Height (pixels):', 'facebook-page-feed-graph-api' ) . ' <input type="number" min="70" id="fbpp-height" /></label></p>';
@@ -65,7 +66,7 @@ class Mongoose_Page_Plugin_Shortcode_Generator {
 			}
 		}
 		$return .= '</select></label></p>';
-		$return .= '<input type="text" readonly="readonly" id="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
+		$return .= '<input type="text" readonly="readonly" class="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
 		$return .= '</form>';
 
 		echo $return;
