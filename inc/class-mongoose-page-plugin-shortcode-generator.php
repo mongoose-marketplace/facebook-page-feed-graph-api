@@ -69,7 +69,7 @@ class Mongoose_Page_Plugin_Shortcode_Generator {
 		$return .= '<input type="text" readonly="readonly" class="facebook-page-plugin-shortcode-generator-output" onfocus="this.select()" />';
 		$return .= '</form>';
 
-		echo $return;
+		echo $return; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 }

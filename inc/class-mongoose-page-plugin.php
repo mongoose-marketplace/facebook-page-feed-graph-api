@@ -317,7 +317,7 @@ class Mongoose_Page_Plugin {
 		}
 
 		if ( $echo ) {
-			echo $return; // phpcs:ignore
+			echo $return; // phpcs:ignore WordPress.Security.EscapeOutput
 		} else {
 			return $return;
 		}
@@ -437,7 +437,7 @@ class Mongoose_Page_Plugin {
 			__( 'Latest plugin news', 'facebook-page-feed-graph-api' )
 		);
 		wp_widget_rss_output( 'http://www.rssmix.com/u/13155011/rss.xml', array( 'show_date' => 1 ) );
-		wp_die( $links ); // phpcs:ignore
+		wp_die( $links ); // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 	/**
@@ -489,7 +489,10 @@ class Mongoose_Page_Plugin {
 
 			if ( 'sdk' === $a['method'] ) {
 
-				$return .= '<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/' . esc_attr( $a['language'] ) . '/sdk.js#xfbml=1&version=v11.0"></script>';
+				$return .= sprintf(
+					'<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/%1$s/sdk.js#xfbml=1&version=v11.0"></script>',
+					esc_attr( $a['language'] )
+				);
 
 				$return .= sprintf(
 					'<div class="fb-page" data-href="https://facebook.com/%1$s" ',
