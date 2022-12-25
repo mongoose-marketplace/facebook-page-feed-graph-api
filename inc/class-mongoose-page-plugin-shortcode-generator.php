@@ -42,7 +42,7 @@ class Mongoose_Page_Plugin_Shortcode_Generator {
 		$return       .= '<p><label>' . __( 'Height (pixels):', 'facebook-page-feed-graph-api' ) . ' <input type="number" min="70" id="fbpp-height" /></label></p>';
 		$return       .= '<p><label>' . __( 'Show Cover Photo:', 'facebook-page-feed-graph-api' ) . ' <input type="checkbox" value="true" id="fbpp-cover" /></label></p>';
 		$return       .= '<p><label>' . __( 'Show Facepile:', 'facebook-page-feed-graph-api' ) . ' <input type="checkbox" value="true" id="fbpp-facepile" /></label></p>';
-		$return       .= '<p><label>' . __( 'Page Tabs:', 'facebook-page-feed-graph-api' );
+		$return       .= '<p><label>' . __( 'Page Tabs:', 'facebook-page-feed-graph-api' ) . '</label>';
 		$settings      = Mongoose_Page_Plugin::get_instance()->get_settings();
 		$cjw_fbpp_tabs = $settings['tabs'];
 		if ( ! empty( $cjw_fbpp_tabs ) ) {

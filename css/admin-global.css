@@ -1,20 +1,34 @@
+.facebook-page-plugin-shortcode-generator p {
+	margin: .5em 0;
+	padding-bottom: .5em;
+	border-bottom: 1px solid rgba( 0, 0, 0, .1 );
+}
+
 .facebook-page-plugin-shortcode-generator p:after {
 	clear:both;
 	display:table;
-	content:" ";
+	content:"";
 }
+
 .facebook-page-plugin-shortcode-generator input:not([type="checkbox"]),
 .facebook-page-plugin-shortcode-generator select {
 	width:50%;
 }
+
+.wp-admin .facebook-page-plugin-shortcode-generator p label input[type="checkbox"] {
+	margin-top: 4px;
+}
+
 .facebook-page-plugin-shortcode-generator input,
 .facebook-page-plugin-shortcode-generator select {
 	float:right;
 }
+
 .facebook-page-plugin-shortcode-generator input.facebook-page-plugin-shortcode-generator-output { 
 	width:100%;
 	float:none;
 }
+
 .facebook-page-plugin-donate {
 	margin:20px 0 10px;
 	font-size:14px;
@@ -27,18 +41,12 @@
 	padding:1px 29px 1px 12px;
 	position:relative;
 }
+
 .facebook-page-plugin-donate p {
-	margin:.5em 0;padding:2px;
+	margin:.5em 0;
+	padding:2px;
 }
+
 .facebook-page-plugin-donate .notice-dismiss {
 	text-decoration:none;
-}
-.settings_page_mongoose-page-plugin .tab-content {
-	display: none;
-}
-.settings_page_mongoose-page-plugin .tab-content.active {
-	display: block;
-}
-.settings_page_mongoose-page-plugin .facebook-page-plugin-shortcode-generator {
-	max-width: 500px;
 }
