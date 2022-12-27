@@ -2,8 +2,13 @@ language: php
 
 matrix:
   include:
-    # Arbitrary PHP version to run the sniffs against.
+    - php: '5.6'
+    - php: '7.0'
     - php: '7.1'
+    - php: '7.2'
+    - php: '7.3'
+    - php: '7.4'
+    - php: '8.0'
 
 before_install:
   - export PHPCS_DIR=/tmp/phpcs
@@ -23,4 +28,4 @@ script:
   # for example: `--standard=wpcs.xml`.
   # You can use any of the normal PHPCS command line arguments in the command:
   # https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage
-  - $PHPCS_DIR/bin/phpcs -p . --standard=WordPress --extensions=php --runtime-set ignore_warnings_on_exit 1
+  - $PHPCS_DIR/bin/phpcs -ps . --standard=WordPress --extensions=php --runtime-set ignore_warnings_on_exit 1

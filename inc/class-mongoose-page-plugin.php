@@ -243,7 +243,6 @@ class Mongoose_Page_Plugin {
 	 */
 	public function hooks() {
 		// Actions.
-		add_action( 'wp_dashboard_setup', array( $this, 'facebook_page_plugin_dashboard_widget' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_resources' ) );
 		add_action( 'admin_init', array( $this, 'remove_donate_notice_nojs' ) );
 		add_action( 'admin_menu', array( $this, 'landing_page_menu' ) );
@@ -273,14 +272,6 @@ class Mongoose_Page_Plugin {
 			wp_safe_redirect( admin_url( 'options-general.php?page=mongoose-page-plugin' ) );
 			die();
 		}
-	}
-
-	/**
-	 * Filter functions.
-	 */
-	private function dashboard_widget_capability() {
-		$return = apply_filters( 'facebook_page_plugin_dashboard_widget_capability', 'edit_posts' );
-		return $return;
 	}
 
 	/**
@@ -317,7 +308,7 @@ class Mongoose_Page_Plugin {
 		}
 
 		if ( $echo ) {
-			echo $return;
+			echo $return; // phpcs:ignore WordPress.Security.EscapeOutput
 		} else {
 			return $return;
 		}
@@ -381,25 +372,6 @@ class Mongoose_Page_Plugin {
 	public function admin_resources() {
 		wp_enqueue_script( 'facebook-page-plugin-admin-scripts' );
 		wp_enqueue_style( 'facebook-page-plugin-admin-styles' );
-
-	}
-
-	/**
-	 * Register the dashboard widget
-	 */
-	public function facebook_page_plugin_dashboard_widget() {
-		if ( current_user_can( $this->dashboard_widget_capability() ) ) {
-			wp_add_dashboard_widget( 'facebook-page-plugin-shortcode-generator', __( 'Mongoose Page Plugin Shortcode Generator', 'facebook-page-feed-graph-api' ), array( $this, 'dashboard_widget_callback' ) );
-		}
-	}
-
-	/**
-	 * Load the dashboard widget
-	 */
-	public function dashboard_widget_callback() {
-		echo '<a name="cameronjonesweb_facebook_page_plugin_shortcode_generator"></a>';
-		$generator = new Mongoose_Page_Plugin_Shortcode_Generator();
-		$generator->generate();
 	}
 
 	/**
@@ -409,7 +381,7 @@ class Mongoose_Page_Plugin {
 	 */
 	public function landing_page_menu() {
 		add_options_page(
-			__( 'Mongoose Page Plugin by Mongoose Marketplace', 'facebook-page-feed-graph-api' ),
+			__( 'Mongoose Page Plugin', 'facebook-page-feed-graph-api' ),
 			'Mongoose Page Plugin',
 			'install_plugins',
 			'mongoose-page-plugin',
@@ -425,7 +397,6 @@ class Mongoose_Page_Plugin {
 	public function facebook_page_plugin_landing_page() {
 		wp_enqueue_style( 'facebook-page-plugin-landing-page-css' );
 		wp_enqueue_style( 'facebook-page-plugin-google-fonts' );
-		wp_enqueue_script( 'facebook-page-plugin-landing-page-js' );
 		require_once trailingslashit( $this->dirpath ) . 'inc/templates/landing-page.php';
 	}
 
@@ -439,7 +410,7 @@ class Mongoose_Page_Plugin {
 			__( 'Latest plugin news', 'facebook-page-feed-graph-api' )
 		);
 		wp_widget_rss_output( 'http://www.rssmix.com/u/13155011/rss.xml', array( 'show_date' => 1 ) );
-		wp_die( $links );
+		wp_die( $links ); // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 	/**
@@ -491,7 +462,10 @@ class Mongoose_Page_Plugin {
 
 			if ( 'sdk' === $a['method'] ) {
 
-				$return .= '<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/' . $a['language'] . '/sdk.js#xfbml=1&version=v11.0"></script>';
+				$return .= sprintf(
+					'<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/%1$s/sdk.js#xfbml=1&version=v11.0"></script>', // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+					esc_attr( $a['language'] )
+				);
 
 				$return .= sprintf(
 					'<div class="fb-page" data-href="https://facebook.com/%1$s" ',

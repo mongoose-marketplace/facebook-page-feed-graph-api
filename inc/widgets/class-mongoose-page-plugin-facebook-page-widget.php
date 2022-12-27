@@ -33,7 +33,7 @@ class Mongoose_Page_Plugin_Facebook_Page_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$this->settings = Mongoose_Page_Plugin::get_instance()->get_settings();
-		parent::__construct( 'facebook_page_plugin_widget', __( 'Facebook Page Plugin', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ) ) );
+		parent::__construct( 'facebook_page_plugin_widget', __( 'Mongoose Page Plugin: Facebook Page Embed', 'facebook-page-feed-graph-api' ), array( 'description' => __( 'Generates a Facebook Page feed in your widget area', 'facebook-page-feed-graph-api' ) ) );
 	}
 
 	/**
@@ -382,7 +382,7 @@ class Mongoose_Page_Plugin_Facebook_Page_Widget extends WP_Widget {
 			esc_attr( $this->get_field_id( 'language' ) ),
 			esc_html__( 'Language:', 'facebook-page-feed-graph-api' ),
 			esc_attr( $this->get_field_name( 'language' ) ),
-			call_user_func(
+			call_user_func( // phpcs:ignore WordPress.Security.EscapeOutput
 				function() use ( $langs, $language ) {
 					$return = '<option value="">' . esc_html__( 'Site Language (default)', 'facebook-page-feed-graph-api' ) . '</option>';
 					foreach ( $langs as $code => $label ) {
