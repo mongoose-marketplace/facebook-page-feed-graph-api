@@ -8,11 +8,11 @@ Donate link: https://www.patreon.com/cameronjonesweb
 
 Requires at least: 4.6
 
-Tested up to: 6.0
+Tested up to: 6.1
 
 Requires PHP: 5.3
 
-Stable tag: 1.8.2
+Stable tag: 1.9.0
 
 License: GPLv2
 
@@ -63,6 +63,13 @@ Not yet, but it is on our roadmap.
 
 
 ## Changelog
+
+### 1.9.0 - 27/12/22
+* Verified compatibility with WordPress 6.1
+* Updated plugin landing page to match native WordPress admin styles more closely
+* Moved shortcode generator from the dashboard to the plugin page
+* Coding standards improvements
+* Additional security hardening
 
 ### 1.8.3 - 21/03/22
 * Verified compatibility with WordPress 5.9
