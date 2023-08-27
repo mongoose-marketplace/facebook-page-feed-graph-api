@@ -316,7 +316,7 @@ class Mongoose_Page_Plugin_Facebook_Page_Widget extends WP_Widget {
 			}
 			foreach ( $cjw_fbpp_tabs as $tab ) {
 				printf(
-					'<br/><label><input type="checkbox" name="%1$s[%2$s]" %3$s /> %4$s</label>',
+					'<br/><label><input type="checkbox" name="%1$s[]" value="%2$s" %3$s /> %4$s</label>',
 					esc_attr( $this->get_field_name( 'tabs' ) ),
 					esc_attr( $tab ),
 					in_array( $tab, $tabs, true ) ? 'checked' : '',
@@ -421,9 +421,10 @@ class Mongoose_Page_Plugin_Facebook_Page_Widget extends WP_Widget {
 		$instance['cover']    = ( ! empty( $new_instance['cover'] ) ) ? wp_strip_all_tags( $new_instance['cover'] ) : '';
 		$instance['facepile'] = ( ! empty( $new_instance['facepile'] ) ) ? wp_strip_all_tags( $new_instance['facepile'] ) : '';
 		if ( ! empty( $new_instance['tabs'] ) ) {
+			$instance['tabs'] = $new_instance['tabs'];
 			if ( is_array( $new_instance['tabs'] ) ) {
-				foreach ( $new_instance['tabs'] as $key => $var ) {
-					$instance['tabs'][] = sanitize_text_field( $key );
+				for ( $i = 0, $c = count( $new_instance['tabs'] ); $i < $c; $i++ ) {
+					$instance['tabs'][] = wp_strip_all_tags( $new_instance['tabs'][ $i ] );
 				}
 			}
 		} else {
