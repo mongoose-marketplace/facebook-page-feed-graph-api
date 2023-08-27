@@ -47,7 +47,7 @@ class Mongoose_Page_Plugin {
 	 *
 	 * @var string
 	 */
-	public $version = '1.9.0';
+	public $version = '1.9.1';
 
 	/**
 	 * The plugin slug
