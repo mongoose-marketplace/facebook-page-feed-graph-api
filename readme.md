@@ -12,7 +12,7 @@ Tested up to: 6.1
 
 Requires PHP: 5.3
 
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 
 License: GPLv2
 
@@ -44,7 +44,11 @@ With more than 30,000 installs and over 50 5-star rating, the Mongoose Page Plug
 ## Frequently Asked Questions
 
 ### The plugin doesn't load properly
-The most common causes of the plugin not displaying are an ad blocker, audience restrictions or browser privacy settings. Disable or whitelist any ad blocking browser extension and disable any audience restrictions in your page settings on Facebook. Some antivirus software has also been known to block Facebook scripts, preventing it from loading. Browsers are also being more proactive in blocking Facebook scripts, so make sure your browser privacy settings are not stopping it from loading.
+The most common causes of the plugin not displaying are an ad blocker, audience restrictions or browser privacy settings.
+* Disable or whitelist any ad blocking browser extension
+* Disable any audience restrictions in your page settings on Facebook.
+* Disable any antivirus software on your device.
+* If using Safari, [disable Hide IP From Tracker](https://stackoverflow.com/a/74542146/1672694).
 
 ### The plugin loads but doesn't show the facepile or posts
 The default height of the plugin is only tall enough to display the main page header. Increase the height until you can see the additional features you want to display.
@@ -63,6 +67,12 @@ Not yet, but it is on our roadmap.
 
 
 ## Changelog
+
+### 1.9.1 - 27/08/23
+* Verified compatibility with WordPress 6.3
+* Fixed an issue with changes to tabs not saving in the block widget editor
+* Fixed missing image
+* Updated SDK version to 17.0
 
 ### 1.9.0 - 27/12/22
 * Verified compatibility with WordPress 6.1

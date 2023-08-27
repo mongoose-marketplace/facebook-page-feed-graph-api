@@ -47,7 +47,7 @@ class Mongoose_Page_Plugin {
 	 *
 	 * @var string
 	 */
-	public $version = '1.9.0';
+	public $version = '1.9.1';
 
 	/**
 	 * The plugin slug
@@ -463,7 +463,7 @@ class Mongoose_Page_Plugin {
 			if ( 'sdk' === $a['method'] ) {
 
 				$return .= sprintf(
-					'<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/%1$s/sdk.js#xfbml=1&version=v11.0"></script>', // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+					'<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/%1$s/sdk.js#xfbml=1&version=v17.0"></script>', // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 					esc_attr( $a['language'] )
 				);
 
