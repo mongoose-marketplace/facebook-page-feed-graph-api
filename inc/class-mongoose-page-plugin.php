@@ -43,11 +43,18 @@ class Mongoose_Page_Plugin {
 	private $basename;
 
 	/**
+	 * The plugin settings page URL
+	 *
+	 * @var string
+	 */
+	private $settings_page_url;
+
+	/**
 	 * The plugin version
 	 *
 	 * @var string
 	 */
-	public $version = '1.9.1';
+	public $version = '1.9.2';
 
 	/**
 	 * The plugin slug
@@ -221,8 +228,8 @@ class Mongoose_Page_Plugin {
 	 * Setup dynamic properties.
 	 */
 	public function constants() {
-		$this->dirurl            = plugin_dir_url( dirname( __FILE__ ) );
-		$this->dirpath           = plugin_dir_path( dirname( __FILE__ ) );
+		$this->dirurl            = plugin_dir_url( __DIR__ );
+		$this->dirpath           = plugin_dir_path( __DIR__ );
 		$this->basefile          = plugin_basename( $this->dirpath . '/' . $this->slug . '.php' );
 		$this->basename          = basename( $this->dirpath );
 		$this->settings_page_url = admin_url( 'options-general.php?page=' . $this->slug );
@@ -294,7 +301,7 @@ class Mongoose_Page_Plugin {
 	public function donate_notice( $echo = false ) {
 		$return = null;
 
-		if ( current_user_can( 'administrator' ) ) {
+		if ( current_user_can( 'manage_options' ) ) {
 			$user_id = get_current_user_id();
 
 			if ( ! get_user_meta( $user_id, $this->remove_donate_notice_key ) || get_user_meta( $user_id, $this->remove_donate_notice_key ) === false ) {
@@ -463,7 +470,7 @@ class Mongoose_Page_Plugin {
 			if ( 'sdk' === $a['method'] ) {
 
 				$return .= sprintf(
-					'<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/%1$s/sdk.js#xfbml=1&version=v17.0"></script>', // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+					'<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/%1$s/sdk.js#xfbml=1&version=v23.0"></script>', // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 					esc_attr( $a['language'] )
 				);
 
@@ -582,6 +589,4 @@ class Mongoose_Page_Plugin {
 		$return['tabs'] = array( 'timeline', 'events', 'messages' );
 		return $return;
 	}
-
 }
-
