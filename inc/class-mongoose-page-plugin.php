@@ -228,8 +228,8 @@ class Mongoose_Page_Plugin {
 	 * Setup dynamic properties.
 	 */
 	public function constants() {
-		$this->dirurl            = plugin_dir_url( dirname( __FILE__ ) );
-		$this->dirpath           = plugin_dir_path( dirname( __FILE__ ) );
+		$this->dirurl            = plugin_dir_url( __DIR__ );
+		$this->dirpath           = plugin_dir_path( __DIR__ );
 		$this->basefile          = plugin_basename( $this->dirpath . '/' . $this->slug . '.php' );
 		$this->basename          = basename( $this->dirpath );
 		$this->settings_page_url = admin_url( 'options-general.php?page=' . $this->slug );
@@ -301,7 +301,7 @@ class Mongoose_Page_Plugin {
 	public function donate_notice( $echo = false ) {
 		$return = null;
 
-		if ( current_user_can( 'administrator' ) ) {
+		if ( current_user_can( 'manage_options' ) ) {
 			$user_id = get_current_user_id();
 
 			if ( ! get_user_meta( $user_id, $this->remove_donate_notice_key ) || get_user_meta( $user_id, $this->remove_donate_notice_key ) === false ) {
@@ -589,6 +589,4 @@ class Mongoose_Page_Plugin {
 		$return['tabs'] = array( 'timeline', 'events', 'messages' );
 		return $return;
 	}
-
 }
-
