@@ -43,6 +43,13 @@ class Mongoose_Page_Plugin {
 	private $basename;
 
 	/**
+	 * The plugin settings page URL
+	 *
+	 * @var string
+	 */
+	private $settings_page_url;
+
+	/**
 	 * The plugin version
 	 *
 	 * @var string
