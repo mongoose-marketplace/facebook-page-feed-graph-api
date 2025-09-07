@@ -8,11 +8,11 @@ Donate link: https://www.patreon.com/cameronjonesweb
 
 Requires at least: 4.6
 
-Tested up to: 6.3
+Tested up to: 6.8
 
 Requires PHP: 5.3
 
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 
 License: GPLv2
 
@@ -67,6 +67,11 @@ Not yet, but it is on our roadmap.
 
 
 ## Changelog
+
+### 1.9.2 - 08/09/25
+* Fixed deprecation issue on PHP 8.3+
+* Updated SDK version to 23.0
+* Verified compatibility with WordPress 6.8
 
 ### 1.9.1 - 27/08/23
 * Verified compatibility with WordPress 6.3
