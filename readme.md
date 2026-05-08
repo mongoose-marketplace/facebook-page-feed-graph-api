@@ -43,6 +43,9 @@ With more than 30,000 installs and over 50 5-star rating, the Mongoose Page Plug
 
 ## Frequently Asked Questions
 
+### Where do I report security bugs found in this plugin?
+Please report security bugs found in the source code of the Mongoose Page Plugin plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/add1f89b-b96c-4743-94ec-8e7515f79ea5). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 ### The plugin doesn't load properly
 The most common causes of the plugin not displaying are an ad blocker, audience restrictions or browser privacy settings.
 * Disable or whitelist any ad blocking browser extension
